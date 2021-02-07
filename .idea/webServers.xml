@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4b4ee10b-5133-4765-915f-38f2433213be" name="Rotaract Hosting" url="https://hosting.rotaract.de">
+        <fileTransfer accessType="SFTP" host="hosting.rotaract.de" port="22" sshConfigId="61a82cf2-f526-4640-83b0-45078ef50d26" sshConfig="root@hosting.rotaract.de:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

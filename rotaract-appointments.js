@@ -2,10 +2,6 @@ function toggleAppointmentDescription(id){
     document.getElementById('appointment-'+id).classList.toggle('open');
 }
 
-function setBreakpointClass() {
-
-}
-
 function toggleOwnerSelection(owner){
     console.log('hello ' + owner);
     var ownerField = document.getElementById('owners');

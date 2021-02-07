@@ -10,7 +10,7 @@
  *
  */
 include 'elastic-caller.php';
-include 'Parsedown.php';
+require __DIR__ . '/vendor/autoload.php';
 
 
 function appointmentsEnqueueScripts() {

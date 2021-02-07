@@ -1,3 +1,91 @@
 .selection {
     background-color: green;
 }
+
+.appointment {
+    display: flex;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.appointment * {
+    max-width: 100%;
+}
+
+.appointment-date, .appointment-info-details, .appointment-title, .appointment-owner, .appointment-description {
+    padding: 0.5rem 1rem;
+}
+
+.appointment-info {
+    background-color: #d91b5c;
+    color: #fff;
+    flex: 1 0 160px;
+}
+.appointment-info .appointment-date {
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+}
+.appointment-info .appointment-info-details {
+    font-size: 0.8em;
+}
+
+.appointment-content {
+    flex: 4 0 400px;
+}
+
+.appointment-header {
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap-reverse;
+    transition: background-color 0.25s;
+}
+
+.appointment:not(.open):hover .appointment-header,
+.appointment.open .appointment-header:hover {
+    background-color: #f8f8f8;
+}
+
+.appointment-title {
+    flex: 10 0 auto;
+}
+
+.appointment-owner {
+    align-self: center;
+    color: #999;
+    flex: 0 0 auto;
+    font-size: 0.75em;
+}
+
+.appointment-description {
+    color: #2a2a2a;
+}
+
+.appointment-details {
+    display: none;
+}
+
+.appointment.open .appointment-details {
+    display: block;
+}
+
+.btn.btn-light {
+    background-color: #fff;
+    border: solid 1px #ddd;
+    border-radius: 3px;
+    color: #999;
+    font-size: 0.75em;
+    padding: 2px 4px;
+}
+
+.appointment-description p.closer {
+    margin-bottom: 0;
+    text-align: right;
+}
+
+.btn.btn-light:hover, .btn.btn-light:focus {
+    background-color: #eee;
+}

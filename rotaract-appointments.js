@@ -1,12 +1,11 @@
 function toggleAppointmentDescription(id){
-    var appointmentDescription = document.getElementById('appointment-description-'+id);
-    if (appointmentDescription.style.display === "none") {
-        appointmentDescription.style.display = "flex";
-    } else {
-        appointmentDescription.style.display = "none";
-    }
+    document.getElementById('appointment-'+id).classList.toggle('open');
+}
+
+function setBreakpointClass() {
 
 }
+
 function toggleOwnerSelection(owner){
     console.log('hello ' + owner);
     var ownerField = document.getElementById('owners');

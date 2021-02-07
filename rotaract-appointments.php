@@ -38,45 +38,42 @@ function appointmentsShortcode($atts) {
     $parser = new Parsedown();
     foreach ($appointments as $appointment) {
 
-        $output .= '<div style="cursor: pointer;
-			border-radius: 10px;
-			border: solid 1px lightgray;
-			background-color: lightgray;
-			padding: 8px;"
-			onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')" id="appointment-' . $appointment->_source->id . '">';
+        $output .= '<div class="appointment"
+			id="appointment-' . $appointment->_source->id . '">';
 
-
-        $output .= '<div style="float: left; width: 20%">';
+        $output .= '<div class="appointment-info" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">';
+        $output .= '<div class="appointment-date">';
         $output .= date('d.m.Y', strtotime($appointment->_source->begins_at));
         $output .= '</div>';
-
-        $output .= '<div style="float: right; width: 40%">';
-        $output .= implode(' | ', $appointment->_source->owner_select_names);
-        $output .= '</div>';
-
-        $output .= '<div style="width: 50%;margin: 0 auto;">';
-        $output .= $appointment->_source->title;
-        $output .= '</div>';
-
-
-	
-
-        $output .= '<div style="display: none; font-size: 12px;" id="appointment-description-' . $appointment->_source->id . '">';
-
-	$output .= '<div style="float:left; width:25%;">';
+	    $output .= '<div class="appointment-details appointment-info-details">';
         $output .= 'Start: <b>' . date('d.m.Y H:i', strtotime($appointment->_source->begins_at)) . '</b><br>';
         $output .= 'Ende: <b>' . date('d.m.Y H:i', strtotime($appointment->_source->ends_at)). '</b><br>';
-        $output .= 'Ort: ' . $appointment->_source->address. '<br>';
-        $output .= '</div>';
-
-        $output .= '<div style="float: right; width: 75%;">';
-	$output .= 'Beschreibung: ' . $parser->text($appointment->_source->description) . '<br>';
-        $output .= '</div>';
-
+        $output .= 'Ort: ' . $appointment->_source->address;
         $output .= '</div>';
         $output .= '</div>';
 
-        $output .= '<br>';
+
+        $output .= '<div class="appointment-content">';
+
+        $output .= '<div class="appointment-header" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">';
+        $output .= '<div class="appointment-title">';
+        $output .= $appointment->_source->title;
+        $output .= '</div>';
+        $output .= '<div class="appointment-owner">';
+        $output .= implode(' | ', $appointment->_source->owner_select_names);
+        $output .= '</div>';
+        $output .= '</div>';
+
+        $output .= '<div class="appointment-details">';
+        $output .= '<div class="appointment-description">';
+	    $output .= $parser->text($appointment->_source->description);
+        $output .= '<p class="closer"><button class="btn btn-light" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">Schließen</button></p>';
+        $output .= '</div>';
+        $output .= '</div>';
+
+        $output .= '</div>';
+
+        $output .= '</div>';
     }
 
     appointmentsEnqueueScripts();

@@ -16,9 +16,15 @@ include 'Parsedown.php';
 function appointmentsEnqueueScripts() {
 
     wp_register_style('rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__));
+    wp_register_style('full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__));
     wp_enqueue_style('rotaract-appointments');
+    wp_enqueue_style('full-calendar');
 
+    wp_enqueue_script('full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__));
+    wp_enqueue_script('full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__));
     wp_enqueue_script('rotaract-appointments', plugins_url( 'rotaract-appointments.js', __FILE__));
+
+        wp_enqueue_script( 'typedJS', 'https://pro.crunchify.com/typed.min.js', array('jquery') );
 
     $scriptData = array(
         'appointment-option1' => get_option('appointment-option1'),
@@ -30,60 +36,62 @@ function appointmentsEnqueueScripts() {
 
 function appointmentsShortcode($atts) {
 
+    $output = '<div id="rotaract-appointments"></div>';
+
+    appointmentsEnqueueScripts();
+    add_action( 'wp_footer', 'initCalendar', 999 );
+    return $output;
+}
+function initCalendar() {
     $owner = explode(';', get_option('appointment-option2'));
     $appointments = readAppointments($owner)->hits->hits;
 
-    $output = '';
-
+    $events = array();
     $parser = new Parsedown();
     foreach ($appointments as $appointment) {
-
-        $output .= '<div class="appointment"
-			id="appointment-' . $appointment->_source->id . '">';
-
-        $output .= '<div class="appointment-info" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">';
-        $output .= '<div class="appointment-date">';
-        $output .= date('d.m.Y', strtotime($appointment->_source->begins_at));
-        $output .= '</div>';
-	    $output .= '<div class="appointment-details appointment-info-details">';
-        $output .= 'Start: <b>' . date('d.m.Y H:i', strtotime($appointment->_source->begins_at)) . '</b><br>';
-        $output .= 'Ende: <b>' . date('d.m.Y H:i', strtotime($appointment->_source->ends_at)). '</b><br>';
-        $output .= 'Ort: ' . $appointment->_source->address;
-        $output .= '</div>';
-        $output .= '</div>';
-
-
-        $output .= '<div class="appointment-content">';
-
-        $output .= '<div class="appointment-header" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">';
-        $output .= '<div class="appointment-title">';
-        $output .= $appointment->_source->title;
-        $output .= '</div>';
-        $output .= '<div class="appointment-owner">';
-        $output .= implode(' | ', $appointment->_source->owner_select_names);
-        $output .= '</div>';
-        $output .= '</div>';
-
-        $output .= '<div class="appointment-details">';
-        $output .= '<div class="appointment-description">';
-	    $output .= $parser->text($appointment->_source->description);
-        $output .= '<p class="closer"><button class="btn btn-light" onclick="toggleAppointmentDescription(' . $appointment->_source->id . ')">Schließen</button></p>';
-        $output .= '</div>';
-        $output .= '</div>';
-
-        $output .= '</div>';
-
-        $output .= '</div>';
+        array_push($events, array(
+            'title'         => $appointment->_source->title,
+            'start'         => date('Y-m-d\TH:i', strtotime($appointment->_source->begins_at)),
+            'end'           => date('Y-m-d\TH:i', strtotime($appointment->_source->ends_at)),
+            'allDay'        => $appointment->_source->all_day,
+            'description'   => $parser->text($appointment->_source->description),
+            'owner'         => $appointment->_source->owner
+        ));
     }
 
-    appointmentsEnqueueScripts();
-    return $output;
+    echo sprintf(
+        '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var calendarEl = document.getElementById("rotaract-appointments");
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: "de",
+		initialView: "listYear",
+		eventDidMount: function(info) {
+			var elem = document.createElement("td");
+			elem.innerHTML = info.event.extendedProps.description;
+			elem.classList.add("event-description");
+			elem.style.display= "none";
+			info.el.closest("tr").append(elem);
+
+		  },
+                headerToolbar: {
+                    start: "prev,next today",
+                    center: "title",
+                    end: "listYear,dayGridMonth"
+                },
+		events: %1$s, 
+
+            });
+            calendar.render();
+        });
+        </script>',
+        json_encode($events)
+    );
 }
 add_shortcode('rotaract-appointments', 'appointmentsShortcode');
 
-
-
 add_action("admin_menu", "rotaractAppointmentsSettings");
+
 function rotaractAppointmentsSettings(){
     add_menu_page(
         'Settings for  Appointments',
@@ -118,7 +126,6 @@ function appointmentsSettings() {
         </script>
         <script type="application/javascript">
             function toggleOwnerSelection(owner){
-                console.log('hello ' + owner);
                 var ownerField = document.getElementById('owners');
                 var ownerText = ownerField.value;
                 var selectedOwner = document.getElementById(owner);

@@ -21,6 +21,7 @@ jobs:
           # Turn on extended globbing
           shopt -s extglob
           mv lib/*.min.* ../fullcalendar
+          mv LICENSE ../fullcalendar
       - name: Upload Plugin
         uses: actions/upload-artifact@v2
         with:

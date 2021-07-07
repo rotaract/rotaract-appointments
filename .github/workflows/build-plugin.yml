@@ -1,0 +1,35 @@
+name: Build Plugin ZIP
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pull fullcalendar
+        run: |
+          mkdir fullcalendar tmp && cd tmp
+          # Hopefully the intended ZIP file remains the first asset.
+          curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/fullcalendar/fullcalendar/releases/$VERSION | jq .assets[0].browser_download_url | xargs wget
+          # Hopefully the naming pattern does not change.
+          unzip fullcalendar-*.zip
+          # Turn on extended globbing
+          shopt -s extglob
+          mv lib/*.min.* LICENSE* ../fullcalendar
+        env:
+          VERSION: 5.8.0
+      - name: Upload Plugin
+        uses: actions/upload-artifact@v2
+        with:
+          name: rotaract-appointments
+          path: |
+            ./*
+            !tmp
+            !.*

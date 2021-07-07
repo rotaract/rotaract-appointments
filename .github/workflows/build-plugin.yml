@@ -20,7 +20,7 @@ jobs:
           unzip fullcalendar-*.zip
           # Turn on extended globbing
           shopt -s extglob
-          mv *.min.* ../fullcalendar
+          mv lib/*.min.* ../fullcalendar
       - name: Upload Plugin
         uses: actions/upload-artifact@v2
         with:

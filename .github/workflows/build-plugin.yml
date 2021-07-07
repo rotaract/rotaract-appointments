@@ -18,6 +18,8 @@ jobs:
           mkdir fullcalendar tmp && cd tmp
           curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/fullcalendar/fullcalendar/releases/latest | jq .assets[0].browser_download_url | xargs wget
           unzip fullcalendar-*.zip
+          # Turn on extended globbing
+          shopt -s extglob
           mv *.min.* ../fullcalendar
       - name: Upload Plugin
         uses: actions/upload-artifact@v2

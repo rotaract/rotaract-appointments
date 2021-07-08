@@ -80,7 +80,7 @@ function initCalendar() {
                             if (descEl) {
                                 descEl.style.left = "50%%";
                                 let newLeft = descEl.getBoundingClientRect().left - screen.width / 10;
-                                if (newLeft < 0 || newLeft + descEl.offsetWidth > screen.width) {
+                                if (newLeft < 0 || newLeft + descEl.offsetWidth > screen.width * 0.8) {
                                     descEl.style.left = "calc(50%% - " + newLeft + "px)";
                                 }
                             }

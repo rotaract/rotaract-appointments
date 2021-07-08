@@ -24,7 +24,7 @@ function appointmentsEnqueueScripts() {
     wp_enqueue_script('full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__));
     wp_enqueue_script('rotaract-appointments', plugins_url( 'rotaract-appointments.js', __FILE__));
 
-        wp_enqueue_script( 'typedJS', 'https://pro.crunchify.com/typed.min.js', array('jquery') );
+//    wp_enqueue_script( 'typedJS', 'https://pro.crunchify.com/typed.min.js', array('jquery') );
 
     $scriptData = array(
         'appointment-option1' => get_option('appointment-option1'),
@@ -54,7 +54,7 @@ function initCalendar() {
             'start'         => date('Y-m-d\TH:i', strtotime($appointment->_source->begins_at)),
             'end'           => date('Y-m-d\TH:i', strtotime($appointment->_source->ends_at)),
             'allDay'        => $appointment->_source->all_day,
-            'description'   => $parser->text($appointment->_source->description),
+            'description'   => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $parser->text($appointment->_source->description) . '</div>',
             'owner'         => $appointment->_source->owner
         ));
     }
@@ -65,22 +65,35 @@ function initCalendar() {
             var calendarEl = document.getElementById("rotaract-appointments");
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 locale: "de",
-		initialView: "listYear",
-		eventDidMount: function(info) {
-			var elem = document.createElement("td");
-			elem.innerHTML = info.event.extendedProps.description;
-			elem.classList.add("event-description");
-			elem.style.display= "none";
-			info.el.closest("tr").append(elem);
-
-		  },
+                initialView: "listYear",
+                eventDidMount: function(info) {
+                    var elem = document.createElement("div");
+                    elem.innerHTML = info.event.extendedProps.description;
+                    elem.classList.add("event-description");
+                    info.el.append(elem);
+                },
+                eventClick: function(info) {
+                    if (!info.jsEvent.target.href) {
+                        info.el.classList.toggle("show");
+                        if (info.view.type !== "listYear") {
+                            let descEl = info.el.querySelector(".event-description");
+                            if (descEl) {
+                                descEl.style.left = "50%%";
+                                let newLeft = descEl.getBoundingClientRect().left - screen.width / 10;
+                                if (newLeft < 0 || newLeft + descEl.offsetWidth > screen.width) {
+                                    descEl.style.left = "calc(50%% - " + newLeft + "px)";
+                                }
+                            }
+                        }
+                    }
+                },
                 headerToolbar: {
                     start: "prev,next today",
                     center: "title",
                     end: "listYear,dayGridMonth"
                 },
-		events: %1$s, 
-
+                height: "auto",
+                events: %1$s
             });
             calendar.render();
         });

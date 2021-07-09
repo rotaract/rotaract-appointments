@@ -105,6 +105,10 @@ add_shortcode('rotaract-appointments', 'appointmentsShortcode');
 
 add_action("admin_menu", "rotaractAppointmentsSettings");
 
+function adminScripts($hook) {
+	wp_enqueue_script('admin-script', plugin_dir_url(__FILE__) .'admin-script.js');
+	wp_enqueue_style('admin-style', plugin_dir_url(__FILE__) .'admin-style.css');
+}
 function rotaractAppointmentsSettings(){
     add_menu_page(
         'Settings for  Appointments',
@@ -114,6 +118,8 @@ function rotaractAppointmentsSettings(){
         'appointmentsSettings',
         'dashicons-location-alt'
     );
+    add_action( 'admin_enqueue_scripts', 'adminScripts');
+
     add_action('admin_init', 'registerAppointmentsSettings');
 }
 
@@ -132,26 +138,6 @@ function appointmentsSettings() {
     $districts = getAllDistricts();
     ?>
     <div class="wrap">
-        <script type="text/css">
-            .selection {
-                background-color: green;
-            }
-        </script>
-        <script type="application/javascript">
-            function toggleOwnerSelection(owner){
-                var ownerField = document.getElementById('owners');
-                var ownerText = ownerField.value;
-                var selectedOwner = document.getElementById(owner);
-                selectedOwner.classList.toggle('selection');
-                if (ownerText == '') {
-                    ownerText += owner;
-                } else {
-                    ownerText += ';' + owner;
-                }
-                ownerField.value = ownerText;
-
-            }
-        </script>
         <h1>Rotaract Appointments</h1>
 
         <form method="post" action="options.php">

@@ -106,8 +106,8 @@ add_shortcode('rotaract-appointments', 'appointmentsShortcode');
 add_action("admin_menu", "rotaractAppointmentsSettings");
 
 function adminScripts($hook) {
-	wp_enqueue_script('admin-script', plugin_dir_url(__FILE__) .'admin-script.js');
-	wp_enqueue_style('admin-style', plugin_dir_url(__FILE__) .'admin-style.css');
+	wp_enqueue_script('appointments-admin-script', plugin_dir_url(__FILE__) .'appointments-admin-script.js');
+	wp_enqueue_style('appointments-admin-style', plugin_dir_url(__FILE__) .'appointments-admin-style.css');
 }
 function rotaractAppointmentsSettings(){
 	add_menu_page(

@@ -161,7 +161,6 @@ function appointmentsSettings() {
 					<div><h3>Clubs</h3></div>
 					<div>
 						<?php
-						$i=0;
 						foreach ($clubs as $districtName => $club) { ?>
 							<h4><?= $districtName?></h4>
 							<div>
@@ -172,7 +171,6 @@ function appointmentsSettings() {
 									  class="owner"
 									  style="color: black; border: 1px solid black;white-space: nowrap;display: inline-block; padding:5px; margin: 5px;"><?= $clubname ?></span>
 								<?php
-								$i++;
 							} ?>
 							</div>
 
@@ -184,11 +182,9 @@ function appointmentsSettings() {
 					<div><h3>Ressorts</h3></div>
 					<div>
 						<?php
-						$i=0;
 						foreach ($ressorts as $ressort) { ?>
 							<span onclick="toggleOwnerSelection('<?= $ressort?>')" id="<?= $ressort?>" class="owner" style="color: black; border: 1px solid black; padding:5px; margin: 5px;"><?= $ressort?></span>
 							<?php
-							$i++;
 						} ?>
 					</div><br>
 				</div>
@@ -196,11 +192,9 @@ function appointmentsSettings() {
 					<div><h3>Distrikte</h3></div>
 					<div>
 						<?php
-						$i=0;
 						foreach ($districts as $district) { ?>
 							<span onclick="toggleOwnerSelection('<?= $district?>')" id="<?= $district?>" class="owner" style="color: black; border: 1px solid black;padding:5px; margin: 5px;"><?= $district?></span>
 							<?php
-							$i++;
 						} ?>
 					</div><br>
 				</div>

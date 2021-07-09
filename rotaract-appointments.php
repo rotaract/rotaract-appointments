@@ -2,13 +2,13 @@
 
 /**
  * Plugin Name: Rotaract Appointments
- * Plugin URI: https:...rotaract.de/rotaract-appointments
- * Description: Plugin for managing appointments.
+ * Plugin URI:  https://github.com/rotaract/appointments
+ * Description: Plugin for managing "mein Rotaract" appointments.
  * Version: 1.0
- * Author: Ressort IT-Entwicklung
- * Author: URI: https://rotaract.de
- *
+ * Author: Ressort IT-Entwicklung - Rotaract Deutschland
+ * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  */
+
 include 'elastic-caller.php';
 include 'Parsedown.php';
 

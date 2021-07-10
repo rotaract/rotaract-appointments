@@ -69,7 +69,7 @@ function getAllClubs(){
 	$res = json_decode(curl_exec($curl));
 	curl_close($curl);
 	foreach ($res->hits->hits as $club) {
-		$clubs[$club->_source->district_name][] = $club->_source->select_name;
+		$clubs[] = $club->_source->select_name;
 	}
 	return $clubs;
 }
@@ -148,7 +148,7 @@ function getAllOwner() {
 	$districts = getAllDistricts();
 	return [
 		'Clubs' => $clubs,
-		'Ressorts' => $ressorts,
-		'Distrikte' => $districts
+		'Distrikte' => $districts,
+		'Ressorts' => $ressorts
 	];
 }

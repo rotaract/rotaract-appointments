@@ -37,7 +37,7 @@ function read_appointments( $appointment_owner ) {
 }
 
 function get_all_clubs() {
-	$clubs       = array();
+	$clubs        = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name"],
 		"size": "1000",
@@ -53,12 +53,12 @@ function get_all_clubs() {
 		}
 	}';
 
-	$header      = array(
+	$header = array(
 		'content-type: application/json',
 	);
 
-	$url         = 'hosting.rotaract.de:9200/clubs/_search';
-	$curl        = curl_init();
+	$url  = 'hosting.rotaract.de:9200/clubs/_search';
+	$curl = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
@@ -73,7 +73,7 @@ function get_all_clubs() {
 }
 
 function get_all_ressorts() {
-	$ressorts    = array();
+	$ressorts     = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name", "homepage_url"],
 		"size": "1000",
@@ -88,12 +88,12 @@ function get_all_ressorts() {
 		}
 	}';
 
-	$header      = array(
+	$header = array(
 		'content-type: application/json',
 	);
 
-	$url         = 'hosting.rotaract.de:9200/ressorts/_search';
-	$curl        = curl_init();
+	$url  = 'hosting.rotaract.de:9200/ressorts/_search';
+	$curl = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
@@ -108,7 +108,7 @@ function get_all_ressorts() {
 }
 
 function get_all_districts() {
-	$districts   = array();
+	$districts    = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name", "homepage_url"],
 		"size": "1000",
@@ -123,12 +123,12 @@ function get_all_districts() {
 		}
 	}';
 
-	$header      = array(
+	$header = array(
 		'content-type: application/json',
 	);
 
-	$url         = 'hosting.rotaract.de:9200/districts/_search';
-	$curl        = curl_init();
+	$url  = 'hosting.rotaract.de:9200/districts/_search';
+	$curl = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );

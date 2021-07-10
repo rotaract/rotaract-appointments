@@ -1,8 +1,8 @@
 <?php
 
-function readAppointments( $appointmentOwner ) {
-	$appointmentOwner = '"' . implode( '","', $appointmentOwner ) . '"';
-	$searchParam      = '{
+function read_appointments( $appointment_owner ) {
+	$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
+	$search_param      = '{
 		"size": "1000",
 		"query" : {
 			"bool" : {
@@ -30,13 +30,13 @@ function readAppointments( $appointmentOwner ) {
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $searchParam );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
 	$res = curl_exec( $curl );
 	curl_close( $curl );
 	return json_decode( $res );
 }
 
-function getAllClubs() {
+function get_all_clubs() {
 	$clubs       = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name"],
@@ -62,7 +62,7 @@ function getAllClubs() {
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $searchParam );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
 	$res = json_decode( curl_exec( $curl ) );
 	curl_close( $curl );
 	foreach ( $res->hits->hits as $club ) {
@@ -72,7 +72,7 @@ function getAllClubs() {
 	return $clubs;
 }
 
-function getAllRessorts() {
+function get_all_ressorts() {
 	$ressorts    = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name", "homepage_url"],
@@ -97,7 +97,7 @@ function getAllRessorts() {
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $searchParam );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
 	$res = json_decode( curl_exec( $curl ) );
 	curl_close( $curl );
 	foreach ( $res->hits->hits as $ressort ) {
@@ -107,7 +107,7 @@ function getAllRessorts() {
 	return $ressorts;
 }
 
-function getAllDistricts() {
+function get_all_districts() {
 	$districts   = array();
 	$search_param = '{
 		"_source": ["select_name", "district_name", "homepage_url"],
@@ -132,7 +132,7 @@ function getAllDistricts() {
 	curl_setopt( $curl, CURLOPT_URL, $url );
 	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
 	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $searchParam );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
 	$res = json_decode( curl_exec( $curl ) );
 	curl_close( $curl );
 	foreach ( $res->hits->hits as $district ) {
@@ -142,10 +142,10 @@ function getAllDistricts() {
 	return $districts;
 }
 
-function getAllOwner() {
-	$clubs     = getAllClubs();
-	$ressorts  = getAllRessorts();
-	$districts = getAllDistricts();
+function get_all_owner() {
+	$clubs     = get_all_clubs();
+	$ressorts  = get_all_ressorts();
+	$districts = get_all_districts();
 	return array(
 		'Clubs'     => $clubs,
 		'Distrikte' => $districts,

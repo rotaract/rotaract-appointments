@@ -53,7 +53,7 @@ function appointments_shortcode() {
  */
 function init_calendar() {
 	$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
-	$appointments = readAppointments( $owner )->hits->hits;
+	$appointments = read_appointments( $owner )->hits->hits;
 
 	$events = array();
 	$parser = new Parsedown();
@@ -195,7 +195,7 @@ function rotaract_appointment_section_cb( $args ) {
 function appointment_owners_field_cb( $args ) {
 	// Get the value of the setting we've registered with register_setting().
 	$options = get_option( 'rotaract_appointment_options' );
-	$owners  = getAllOwner();
+	$owners  = get_all_owner();
 	?>
 	<select id="<?php esc_attr_e( $args['label_for'] ); ?>"
 		name="rotaract_appointment_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"

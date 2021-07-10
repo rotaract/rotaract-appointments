@@ -13,7 +13,7 @@ require 'elastic-caller.php';
 require 'Parsedown.php';
 
 
-function appointmentsEnqueueScripts() {
+function appointments_enqueue_scripts() {
 
 	wp_register_style('rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__));
 	wp_register_style('full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__));
@@ -24,15 +24,15 @@ function appointmentsEnqueueScripts() {
 	wp_enqueue_script('full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__));
 }
 
-function appointmentsShortcode($atts) {
+function appointments_shortcode($atts) {
 
 	$output = '<div id="rotaract-appointments"></div>';
 
-	appointmentsEnqueueScripts();
-	add_action( 'wp_footer', 'initCalendar', 999 );
+	appointments_enqueue_scripts();
+	add_action( 'wp_footer', 'init_calendar', 999 );
 	return $output;
 }
-function initCalendar() {
+function init_calendar() {
 	$owner = get_option('rotaract_appointment_options')['rotaract_appointment_owners'];
 	$appointments = readAppointments($owner)->hits->hits;
 
@@ -90,16 +90,16 @@ function initCalendar() {
 		json_encode($events)
 	);
 }
-add_shortcode('rotaract-appointments', 'appointmentsShortcode');
+add_shortcode('rotaract-appointments', 'appointments_shortcode');
 
 
-function adminScripts($hook) {
+function admin_scripts($hook) {
 	wp_enqueue_style('appointments-admin-style-select', plugin_dir_url(__FILE__) .'select/light.css');
 	wp_enqueue_script('appointments-admin-script-select', plugin_dir_url(__FILE__) .'select/lc_select.min.js');
 }
-add_action( 'admin_enqueue_scripts', 'adminScripts');
+add_action( 'admin_enqueue_scripts', 'admin_scripts');
 
-function rotaractAppointmentsSettingsMenu() {
+function rotaract_appointments_settings_menu() {
 	add_menu_page(
 		'Rotaract',
 		'Rotaract',
@@ -116,12 +116,12 @@ function rotaractAppointmentsSettingsMenu() {
 		__( 'Appointments', 'rotaract' ),
 		'administrator',
 		'rotaract_appointments',
-		'appointmentsSettingsHtml'
+		'appointments_settings_html'
 	);
 }
-add_action('admin_menu', 'rotaractAppointmentsSettingsMenu');
+add_action('admin_menu', 'rotaract_appointments_settings_menu');
 
-function appointmentsSettingsInit() {
+function appointments_settings_init() {
 	// Register our settings
 	register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
 
@@ -144,7 +144,7 @@ function appointmentsSettingsInit() {
 		)
 	);
 }
-add_action('admin_init', 'appointmentsSettingsInit');
+add_action('admin_init', 'appointments_settings_init');
 
 /**
  * Developers section callback function.
@@ -180,7 +180,7 @@ function appointment_owners_field_cb( $args ) {
 	<?php
 }
 
-function appointmentsSettingsHtml() {
+function appointments_settings_html() {
 	// Check user capabilities
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;

@@ -122,7 +122,7 @@ function rotaractAppointmentsSettingsMenu() {
 add_action('admin_menu', 'rotaractAppointmentsSettingsMenu');
 
 function appointmentsSettingsInit() {
-	//register our settings
+	// Register our settings
 	register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
 
 	add_settings_section(
@@ -181,33 +181,33 @@ function appointment_owners_field_cb( $args ) {
 }
 
 function appointmentsSettingsHtml() {
-	// check user capabilities
+	// Check user capabilities
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	// add error/update messages
+	// Add error/update messages
 
-	// check if the user have submitted the settings
+	// Check if the user has submitted the settings
 	// WordPress will add the "settings-updated" $_GET parameter to the url
 	if ( isset( $_GET['settings-updated'] ) ) {
 		// add settings saved message with the class of "updated"
 		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract' ), 'updated' );
 	}
 
-	// show error/update messages
+	// Show error/update messages
 	settings_errors( 'rotaract_messages' );
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<form method="post" action="options.php">
 			<?php
-			// output security fields for the registered setting "rotaract_appointments"
+			// Output security fields for the registered setting "rotaract_appointments"
 			settings_fields( 'rotaract_appointments' );
-			// output setting sections and their fields
+			// Output setting sections and their fields
 			// (sections are registered for "rotaract_appointments", each field is registered to a specific section)
 			do_settings_sections( 'rotaract_appointments' );
-			// output save settings button
+			// Output save settings button
 			submit_button();
 			?>
 		</form>

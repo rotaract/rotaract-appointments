@@ -118,8 +118,8 @@ add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );
  * Enqueues style and script files for admin settings page.
  */
 function admin_scripts() {
-	wp_enqueue_style( 'appointments-admin-style-select', plugin_dir_url( __FILE__ ) . 'select/light.css' );
-	wp_enqueue_script( 'appointments-admin-script-select', plugin_dir_url( __FILE__ ) . 'select/lc_select.min.js' );
+	wp_enqueue_style( 'appointments-admin-style-select', plugin_dir_url( __FILE__ ) . 'select/light.css', array(), '1.1.4' );
+	wp_enqueue_script( 'appointments-admin-script-select', plugin_dir_url( __FILE__ ) . 'select/lc_select.min.js', array(), '1.1.4', false );
 }
 add_action( 'admin_enqueue_scripts', 'admin_scripts' );
 

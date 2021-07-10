@@ -14,7 +14,6 @@ require 'Parsedown.php';
 
 
 function appointments_enqueue_scripts() {
-
 	wp_register_style('rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__));
 	wp_register_style('full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__));
 	wp_enqueue_style('rotaract-appointments');
@@ -25,7 +24,6 @@ function appointments_enqueue_scripts() {
 }
 
 function appointments_shortcode($atts) {
-
 	$output = '<div id="rotaract-appointments"></div>';
 
 	appointments_enqueue_scripts();

@@ -14,13 +14,13 @@ require 'Parsedown.php';
 
 
 function appointments_enqueue_scripts() {
-	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ) );
-	wp_register_style( 'full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__ ) );
+	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ), array(), '1.0' );
+	wp_register_style( 'full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__ ), array(), '5.8.0' );
 	wp_enqueue_style( 'rotaract-appointments' );
 	wp_enqueue_style( 'full-calendar' );
 
-	wp_enqueue_script( 'full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__ ) );
-	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ) );
+	wp_enqueue_script( 'full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__ ), array(), '1.0', true );
+	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ), array(), '1.0', true );
 }
 
 function appointments_shortcode( $atts ) {

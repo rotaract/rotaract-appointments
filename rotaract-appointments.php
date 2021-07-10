@@ -62,8 +62,8 @@ function init_calendar() {
 			$events,
 			array(
 				'title'       => $appointment->_source->title,
-				'start'       => date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
-				'end'         => date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
+				'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
+				'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
 				'allDay'      => $appointment->_source->all_day,
 				'description' => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $parser->text( $appointment->_source->description ) . '</div>',
 				'owner'       => $appointment->_source->owner,

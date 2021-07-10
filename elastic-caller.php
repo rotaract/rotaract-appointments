@@ -8,21 +8,18 @@ function readAppointments( $appointmentOwner ) {
 			"bool" : {
 				"filter" : [
 					{ "match": { "publish_on_homepage": true }},
-					{ "terms": { "owner_select_names.keyword": [' . $appointmentOwner . '] }},
-			{ "range": {
-				"begins_at":{
-					"gte": "now",
-					"lte": "now+1y/y"
+					{ "terms": { "owner_select_names.keyword": [' . $appointment_owner . '] }},
+					{ "range": {
+						"begins_at": {
+							"gte": "now",
+							"lte": "now+1y/y"
+							}
+						}
 					}
-				}
-			}
 				]
-
+			}
 		}
-	}
-
-	}
-	  ';
+	}';
 
 	$header = array(
 		'Content-type: application/json',
@@ -41,25 +38,25 @@ function readAppointments( $appointmentOwner ) {
 
 function getAllClubs() {
 	$clubs       = array();
-	$searchParam = '{
-				"_source": ["select_name", "district_name"],
-				"size": "1000",
-				"query" : {
-					"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-							{"terms": { "status": ["active", "founding", "preparing"]}}
+	$search_param = '{
+		"_source": ["select_name", "district_name"],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+					{"terms": { "status": ["active", "founding", "preparing"]}}
+				]
+			}
+		}
+	}';
 
-						]
-					}
-				}
-
-		}';
 	$header      = array(
 		'content-type: application/json',
 	);
+
 	$url         = 'hosting.rotaract.de:9200/clubs/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -71,29 +68,30 @@ function getAllClubs() {
 	foreach ( $res->hits->hits as $club ) {
 		$clubs[] = $club->_source->select_name;
 	}
+
 	return $clubs;
 }
 
 function getAllRessorts() {
 	$ressorts    = array();
-	$searchParam = '{
-				"_source": ["select_name", "district_name", "homepage_url"],
-				"size": "1000",
-				"query" : {
-				"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-
-						]
-				}
+	$search_param = '{
+		"_source": ["select_name", "district_name", "homepage_url"],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+				]
+			}
 		}
+	}';
 
-		}';
 	$header      = array(
 		'content-type: application/json',
 	);
+
 	$url         = 'hosting.rotaract.de:9200/ressorts/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -105,29 +103,30 @@ function getAllRessorts() {
 	foreach ( $res->hits->hits as $ressort ) {
 		$ressorts[] = $ressort->_source->select_name;
 	}
+
 	return $ressorts;
 }
 
 function getAllDistricts() {
 	$districts   = array();
-	$searchParam = '{
-				"_source": ["select_name", "district_name", "homepage_url"],
-				"size": "1000",
-				"query" : {
-				"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-
-						]
-				}
+	$search_param = '{
+		"_source": ["select_name", "district_name", "homepage_url"],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+				]
+			}
 		}
+	}';
 
-		}';
 	$header      = array(
 		'content-type: application/json',
 	);
+
 	$url         = 'hosting.rotaract.de:9200/districts/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -139,6 +138,7 @@ function getAllDistricts() {
 	foreach ( $res->hits->hits as $district ) {
 		$districts[] = $district->_source->select_name;
 	}
+
 	return $districts;
 }
 

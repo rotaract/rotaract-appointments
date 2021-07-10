@@ -9,10 +9,19 @@
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  */
 
+/**
+ * Logic for receiving the event data from elastic API.
+ */
 require 'elastic-caller.php';
+/**
+ * Markdown parser to convert description to HTML.
+ */
 require 'Parsedown.php';
 
 
+/**
+ * Enqueues all style and script files for non-admin page.
+ */
 function appointments_enqueue_scripts() {
 	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ), array(), '1.0' );
 	wp_register_style( 'full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__ ), array(), '5.8.0' );
@@ -23,13 +32,25 @@ function appointments_enqueue_scripts() {
 	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ), array(), '1.0', true );
 }
 
-function appointments_shortcode( $atts ) {
+/**
+ * Enqueues all style and script files and init calendar.
+ *
+ * @see appointments_enqueue_scripts
+ * @see init_calendar
+ *
+ * @return String containing empty div tag with id "rotaract-appointments"
+ */
+function appointments_shortcode() {
 	$output = '<div id="rotaract-appointments"></div>';
 
 	appointments_enqueue_scripts();
 	add_action( 'wp_footer', 'init_calendar', 999 );
 	return $output;
 }
+
+/**
+ * Initializes the calendar by receiving event data, parse it, and display it.
+ */
 function init_calendar() {
 	$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
 	$appointments = readAppointments( $owner )->hits->hits;
@@ -93,12 +114,18 @@ function init_calendar() {
 }
 add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );
 
-function admin_scripts( $hook ) {
+/**
+ * Enqueues style and script files for admin settings page.
+ */
+function admin_scripts() {
 	wp_enqueue_style( 'appointments-admin-style-select', plugin_dir_url( __FILE__ ) . 'select/light.css' );
 	wp_enqueue_script( 'appointments-admin-script-select', plugin_dir_url( __FILE__ ) . 'select/lc_select.min.js' );
 }
 add_action( 'admin_enqueue_scripts', 'admin_scripts' );
 
+/**
+ * Adds setting menu and submenu page for this plugin.
+ */
 function rotaract_appointments_settings_menu() {
 	add_menu_page(
 		'Rotaract',
@@ -121,6 +148,9 @@ function rotaract_appointments_settings_menu() {
 }
 add_action( 'admin_menu', 'rotaract_appointments_settings_menu' );
 
+/**
+ * Adds setting fields for this plugin.
+ */
 function appointments_settings_init() {
 	// Register our settings.
 	register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
@@ -157,6 +187,11 @@ function rotaract_appointment_section_cb( $args ) {
 	<?php
 }
 
+/**
+ * Builds select tag containing grouped appointment options.
+ *
+ * @param array $args  The settings array, defining ...
+ */
 function appointment_owners_field_cb( $args ) {
 	// Get the value of the setting we've registered with register_setting().
 	$options = get_option( 'rotaract_appointment_options' );
@@ -180,6 +215,9 @@ function appointment_owners_field_cb( $args ) {
 	<?php
 }
 
+/**
+ * Builds the HTML for the appointments submenu page.
+ */
 function appointments_settings_html() {
 	// Check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
@@ -226,6 +264,9 @@ function appointments_settings_html() {
 	<?php
 }
 
+/**
+ * Builds the HTML for the rotaract menu page.
+ */
 function rotaract_html() {
 	?>
 	<div class="wrap">

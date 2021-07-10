@@ -88,7 +88,7 @@ function init_calendar() {
 			calendar.render();
 		});
 		</script>',
-		json_encode( $events )
+		wp_json_encode( $events )
 	);
 }
 add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );

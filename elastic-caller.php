@@ -24,9 +24,9 @@ function readAppointments( $appointmentOwner ) {
 	}
 	  ';
 
-	$header = [
-		'Content-type: application/json'
-	];
+	$header = array(
+		'Content-type: application/json',
+	);
 
 	$url  = 'hosting.rotaract.de:9200/events/_search';
 	$curl = curl_init();
@@ -40,7 +40,7 @@ function readAppointments( $appointmentOwner ) {
 }
 
 function getAllClubs() {
-	$clubs       = [];
+	$clubs       = array();
 	$searchParam = '{
 				"_source": ["select_name", "district_name"],
 				"size": "1000",
@@ -57,9 +57,9 @@ function getAllClubs() {
 				}
 
 		}';
-	$header      = [
+	$header      = array(
 		'content-type: application/json',
-	];
+	);
 	$url         = 'hosting.rotaract.de:9200/clubs/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -75,7 +75,7 @@ function getAllClubs() {
 }
 
 function getAllRessorts() {
-	$ressorts    = [];
+	$ressorts    = array();
 	$searchParam = '{
 				"_source": ["select_name", "district_name", "homepage_url"],
 				"size": "1000",
@@ -91,9 +91,9 @@ function getAllRessorts() {
 		}
 
 		}';
-	$header      = [
+	$header      = array(
 		'content-type: application/json',
-	];
+	);
 	$url         = 'hosting.rotaract.de:9200/ressorts/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -109,7 +109,7 @@ function getAllRessorts() {
 }
 
 function getAllDistricts() {
-	$districts   = [];
+	$districts   = array();
 	$searchParam = '{
 				"_source": ["select_name", "district_name", "homepage_url"],
 				"size": "1000",
@@ -125,9 +125,9 @@ function getAllDistricts() {
 		}
 
 		}';
-	$header      = [
+	$header      = array(
 		'content-type: application/json',
-	];
+	);
 	$url         = 'hosting.rotaract.de:9200/districts/_search';
 	$curl        = curl_init();
 	curl_setopt( $curl, CURLOPT_URL, $url );
@@ -146,9 +146,9 @@ function getAllOwner() {
 	$clubs     = getAllClubs();
 	$ressorts  = getAllRessorts();
 	$districts = getAllDistricts();
-	return [
+	return array(
 		'Clubs'     => $clubs,
 		'Distrikte' => $districts,
 		'Ressorts'  => $ressorts,
-	];
+	);
 }

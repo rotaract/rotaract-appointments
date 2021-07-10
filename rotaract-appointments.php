@@ -14,16 +14,16 @@ require 'Parsedown.php';
 
 
 function appointments_enqueue_scripts() {
-	wp_register_style('rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__));
-	wp_register_style('full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__));
-	wp_enqueue_style('rotaract-appointments');
-	wp_enqueue_style('full-calendar');
+	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ) );
+	wp_register_style( 'full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__ ) );
+	wp_enqueue_style( 'rotaract-appointments' );
+	wp_enqueue_style( 'full-calendar' );
 
-	wp_enqueue_script('full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__));
-	wp_enqueue_script('full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__));
+	wp_enqueue_script( 'full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__ ) );
+	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ) );
 }
 
-function appointments_shortcode($atts) {
+function appointments_shortcode( $atts ) {
 	$output = '<div id="rotaract-appointments"></div>';
 
 	appointments_enqueue_scripts();
@@ -31,20 +31,23 @@ function appointments_shortcode($atts) {
 	return $output;
 }
 function init_calendar() {
-	$owner = get_option('rotaract_appointment_options')['rotaract_appointment_owners'];
-	$appointments = readAppointments($owner)->hits->hits;
+	$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
+	$appointments = readAppointments( $owner )->hits->hits;
 
 	$events = array();
 	$parser = new Parsedown();
-	foreach ($appointments as $appointment) {
-		array_push($events, array(
-			'title'         => $appointment->_source->title,
-			'start'         => date('Y-m-d\TH:i', strtotime($appointment->_source->begins_at)),
-			'end'           => date('Y-m-d\TH:i', strtotime($appointment->_source->ends_at)),
-			'allDay'        => $appointment->_source->all_day,
-			'description'   => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $parser->text($appointment->_source->description) . '</div>',
-			'owner'         => $appointment->_source->owner
-		));
+	foreach ( $appointments as $appointment ) {
+		array_push(
+			$events,
+			array(
+				'title'       => $appointment->_source->title,
+				'start'       => date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
+				'end'         => date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
+				'allDay'      => $appointment->_source->all_day,
+				'description' => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $parser->text( $appointment->_source->description ) . '</div>',
+				'owner'       => $appointment->_source->owner,
+			)
+		);
 	}
 	echo sprintf(
 		'<script>
@@ -85,17 +88,16 @@ function init_calendar() {
 			calendar.render();
 		});
 		</script>',
-		json_encode($events)
+		json_encode( $events )
 	);
 }
-add_shortcode('rotaract-appointments', 'appointments_shortcode');
+add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );
 
-
-function admin_scripts($hook) {
-	wp_enqueue_style('appointments-admin-style-select', plugin_dir_url(__FILE__) .'select/light.css');
-	wp_enqueue_script('appointments-admin-script-select', plugin_dir_url(__FILE__) .'select/lc_select.min.js');
+function admin_scripts( $hook ) {
+	wp_enqueue_style( 'appointments-admin-style-select', plugin_dir_url( __FILE__ ) . 'select/light.css' );
+	wp_enqueue_script( 'appointments-admin-script-select', plugin_dir_url( __FILE__ ) . 'select/lc_select.min.js' );
 }
-add_action( 'admin_enqueue_scripts', 'admin_scripts');
+add_action( 'admin_enqueue_scripts', 'admin_scripts' );
 
 function rotaract_appointments_settings_menu() {
 	add_menu_page(
@@ -117,15 +119,15 @@ function rotaract_appointments_settings_menu() {
 		'appointments_settings_html'
 	);
 }
-add_action('admin_menu', 'rotaract_appointments_settings_menu');
+add_action( 'admin_menu', 'rotaract_appointments_settings_menu' );
 
 function appointments_settings_init() {
-	// Register our settings
+	// Register our settings.
 	register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
 
 	add_settings_section(
 		'rotaract_appointment_settings',
-		__('Rotaract Events', 'rotaract'),
+		__( 'Rotaract Events', 'rotaract' ),
 		'rotaract_appointment_section_cb',
 		'rotaract_appointments'
 	);
@@ -137,12 +139,12 @@ function appointments_settings_init() {
 		'rotaract_appointments',
 		'rotaract_appointment_settings',
 		array(
-			'label_for'		=> 'rotaract_appointment_owners',
-			'class'			=> 'appointment_owners'
+			'label_for' => 'rotaract_appointment_owners',
+			'class'     => 'appointment_owners',
 		)
 	);
 }
-add_action('admin_init', 'appointments_settings_init');
+add_action( 'admin_init', 'appointments_settings_init' );
 
 /**
  * Developers section callback function.
@@ -150,27 +152,27 @@ add_action('admin_init', 'appointments_settings_init');
  * @param array $args  The settings array, defining title, id, callback.
  */
 function rotaract_appointment_section_cb( $args ) {
-    ?>
-    <p id="<?= esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract' ); ?></p>
-    <?php
+	?>
+	<p id="<?= esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract' ); ?></p>
+	<?php
 }
 
 function appointment_owners_field_cb( $args ) {
 	// Get the value of the setting we've registered with register_setting()
 	$options = get_option( 'rotaract_appointment_options' );
-	$owners = getAllOwner();
+	$owners  = getAllOwner();
 	?>
 	<select id="<?= esc_attr( $args['label_for'] ) ?>"
 		name="rotaract_appointment_options[<?= esc_attr( $args['label_for'] ) ?>][]"
 		class="lc_select"
 		multiple>
 		<optgroup label="<?= __( 'Rotaract Deutschland', 'rotaract' ) ?>">
-			<option value="Rotaract Deutschland Komitee"<?= in_array('Rotaract Deutschland Komitee', $options[$args['label_for']]) ? ' selected' : '' ?>>Rotaract Deutschland Komitee</option>
+			<option value="Rotaract Deutschland Komitee"<?= in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : '' ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
-		<?php foreach ($owners as $type => $items): ?>
+		<?php foreach ( $owners as $type => $items ) : ?>
 		<optgroup label="<?= __( $type, 'rotaract' ) ?>">
-			<?php foreach ($items as $item): ?>
-			<option value="<?= $item ?>"<?= in_array($item, $options[$args['label_for']]) ? ' selected' : '' ?>><?= $item ?></option>
+			<?php foreach ( $items as $item ) : ?>
+			<option value="<?= $item ?>"<?= in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : '' ?>><?= $item ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>

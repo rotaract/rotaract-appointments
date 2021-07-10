@@ -1,5 +1,22 @@
 <?php
 
+function elastic_request( $api_path, $search_param ) {
+	$url    = 'hosting.rotaract.de:9200' . $api_path;
+	$header = array(
+		'content-type: application/json',
+	);
+
+	$curl = curl_init();
+	curl_setopt( $curl, CURLOPT_URL, $url );
+	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
+	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
+	$res = curl_exec( $curl );
+	curl_close( $curl );
+
+	return json_decode( $res );
+}
+
 function read_appointments( $appointment_owner ) {
 	$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
 	$search_param      = '{
@@ -7,8 +24,8 @@ function read_appointments( $appointment_owner ) {
 		"query" : {
 			"bool" : {
 				"filter" : [
-					{ "match": { "publish_on_homepage": true }},
-					{ "terms": { "owner_select_names.keyword": [' . $appointment_owner . '] }},
+					{ "match": { "publish_on_homepage": true } },
+					{ "terms": { "owner_select_names.keyword": [' . $appointment_owner . '] } },
 					{ "range": {
 						"begins_at": {
 							"gte": "now",
@@ -21,25 +38,13 @@ function read_appointments( $appointment_owner ) {
 		}
 	}';
 
-	$header = array(
-		'Content-type: application/json',
-	);
-
-	$url  = 'hosting.rotaract.de:9200/events/_search';
-	$curl = curl_init();
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
-	$res = curl_exec( $curl );
-	curl_close( $curl );
-	return json_decode( $res );
+	return elastic_request( '/events/_search', $search_param );
 }
 
 function get_all_clubs() {
 	$clubs        = array();
 	$search_param = '{
-		"_source": ["select_name", "district_name"],
+		"_source": [ "select_name", "district_name" ],
 		"size": "1000",
 		"query" : {
 			"bool" : {
@@ -47,24 +52,14 @@ function get_all_clubs() {
 					"match_all" : {}
 				},
 				"filter" : [
-					{"terms": { "status": ["active", "founding", "preparing"]}}
+					{ "terms": { "status": ["active", "founding", "preparing"] } }
 				]
 			}
 		}
 	}';
 
-	$header = array(
-		'content-type: application/json',
-	);
+	$res = elastic_request( '/clubs/_search', $search_param );
 
-	$url  = 'hosting.rotaract.de:9200/clubs/_search';
-	$curl = curl_init();
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
-	$res = json_decode( curl_exec( $curl ) );
-	curl_close( $curl );
 	foreach ( $res->hits->hits as $club ) {
 		$clubs[] = $club->_source->select_name;
 	}
@@ -75,7 +70,7 @@ function get_all_clubs() {
 function get_all_ressorts() {
 	$ressorts     = array();
 	$search_param = '{
-		"_source": ["select_name", "district_name", "homepage_url"],
+		"_source": [ "select_name", "district_name", "homepage_url" ],
 		"size": "1000",
 		"query" : {
 			"bool" : {
@@ -88,18 +83,8 @@ function get_all_ressorts() {
 		}
 	}';
 
-	$header = array(
-		'content-type: application/json',
-	);
+	$res = elastic_request( '/ressorts/_search', $search_param );
 
-	$url  = 'hosting.rotaract.de:9200/ressorts/_search';
-	$curl = curl_init();
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
-	$res = json_decode( curl_exec( $curl ) );
-	curl_close( $curl );
 	foreach ( $res->hits->hits as $ressort ) {
 		$ressorts[] = $ressort->_source->select_name;
 	}
@@ -110,7 +95,7 @@ function get_all_ressorts() {
 function get_all_districts() {
 	$districts    = array();
 	$search_param = '{
-		"_source": ["select_name", "district_name", "homepage_url"],
+		"_source": [ "select_name", "district_name", "homepage_url" ],
 		"size": "1000",
 		"query" : {
 			"bool" : {
@@ -123,18 +108,8 @@ function get_all_districts() {
 		}
 	}';
 
-	$header = array(
-		'content-type: application/json',
-	);
+	$res = elastic_request( '/districts/_search', $search_param );
 
-	$url  = 'hosting.rotaract.de:9200/districts/_search';
-	$curl = curl_init();
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
-	$res = json_decode( curl_exec( $curl ) );
-	curl_close( $curl );
 	foreach ( $res->hits->hits as $district ) {
 		$districts[] = $district->_source->select_name;
 	}

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Receive appointments from elestic that match the search_param.
+ *
+ * @param String $api_path absolute API path.
+ * @param String $search_param API attributes in JSON format.
+ *
+ * @return array of appointments
+ */
 function elastic_request( $api_path, $search_param ) {
 	$url    = 'hosting.rotaract.de:9200' . $api_path;
 	$header = array(
@@ -17,6 +25,13 @@ function elastic_request( $api_path, $search_param ) {
 	return json_decode( $res );
 }
 
+/**
+ * Receive appointments from specified owners of Rotaract Germany.
+ *
+ * @param array $appointment_owner owner names filtering the receiving appointments.
+ *
+ * @return array of appointments
+ */
 function read_appointments( $appointment_owner ) {
 	$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
 	$search_param      = '{
@@ -41,6 +56,11 @@ function read_appointments( $appointment_owner ) {
 	return elastic_request( '/events/_search', $search_param );
 }
 
+/**
+ * Receive appointments for all clubs of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
 function get_all_clubs() {
 	$clubs        = array();
 	$search_param = '{
@@ -67,6 +87,11 @@ function get_all_clubs() {
 	return $clubs;
 }
 
+/**
+ * Receive appointments for all departments of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
 function get_all_ressorts() {
 	$ressorts     = array();
 	$search_param = '{
@@ -92,6 +117,11 @@ function get_all_ressorts() {
 	return $ressorts;
 }
 
+/**
+ * Receive appointments for all districts of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
 function get_all_districts() {
 	$districts    = array();
 	$search_param = '{
@@ -117,6 +147,11 @@ function get_all_districts() {
 	return $districts;
 }
 
+/**
+ * Receive all appointments of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
 function get_all_owner() {
 	$clubs     = get_all_clubs();
 	$ressorts  = get_all_ressorts();

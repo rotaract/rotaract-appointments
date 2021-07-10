@@ -53,7 +53,7 @@ function appointments_shortcode() {
  */
 function init_calendar() {
 	$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
-	$appointments = read_appointments( $owner )->hits->hits;
+	$appointments = read_appointments( $owner );
 
 	$events = array();
 	$parser = new Parsedown();

@@ -22,7 +22,7 @@ function elastic_request( $api_path, $search_param ) {
 	$res = curl_exec( $curl );
 	curl_close( $curl );
 
-	return json_decode( $res );
+	return json_decode( $res )->hits->hits;
 }
 
 /**
@@ -80,7 +80,7 @@ function get_all_clubs() {
 
 	$res = elastic_request( '/clubs/_search', $search_param );
 
-	foreach ( $res->hits->hits as $club ) {
+	foreach ( $res as $club ) {
 		$clubs[] = $club->_source->select_name;
 	}
 
@@ -110,7 +110,7 @@ function get_all_ressorts() {
 
 	$res = elastic_request( '/ressorts/_search', $search_param );
 
-	foreach ( $res->hits->hits as $ressort ) {
+	foreach ( $res as $ressort ) {
 		$ressorts[] = $ressort->_source->select_name;
 	}
 
@@ -140,7 +140,7 @@ function get_all_districts() {
 
 	$res = elastic_request( '/districts/_search', $search_param );
 
-	foreach ( $res->hits->hits as $district ) {
+	foreach ( $res as $district ) {
 		$districts[] = $district->_source->select_name;
 	}
 

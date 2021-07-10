@@ -162,17 +162,17 @@ function appointment_owners_field_cb( $args ) {
 	$options = get_option( 'rotaract_appointment_options' );
 	$owners  = getAllOwner();
 	?>
-	<select id="<?php esc_attr_e( $args['label_for'] ) ?>"
-		name="rotaract_appointment_options[<?php esc_attr_e( $args['label_for'] ) ?>][]"
+	<select id="<?php esc_attr_e( $args['label_for'] ); ?>"
+		name="rotaract_appointment_options[<?php esc_attr_e( $args['label_for'] ); ?>][]"
 		class="lc_select"
 		multiple>
-		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract' ) ?>">
-			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : '' ?>>Rotaract Deutschland Komitee</option>
+		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract' ); ?>">
+			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type => $items ) : ?>
-		<optgroup label="<?php esc_attr_e( $type, 'rotaract' ) ?>">
+		<optgroup label="<?php esc_attr_e( $type, 'rotaract' ); ?>">
 			<?php foreach ( $items as $item ) : ?>
-			<option value="<?php esc_attr_e( $item ) ?>"<?php echo in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : '' ?>><?php esc_html_e( $item ) ?></option>
+			<option value="<?php esc_attr_e( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>><?php esc_html_e( $item ); ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>

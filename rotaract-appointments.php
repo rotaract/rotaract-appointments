@@ -153,7 +153,7 @@ add_action( 'admin_init', 'appointments_settings_init' );
  */
 function rotaract_appointment_section_cb( $args ) {
 	?>
-	<p id="<?= esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract' ); ?></p>
+	<p id="<?php esc_attr_e( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract' ); ?></p>
 	<?php
 }
 
@@ -162,17 +162,17 @@ function appointment_owners_field_cb( $args ) {
 	$options = get_option( 'rotaract_appointment_options' );
 	$owners  = getAllOwner();
 	?>
-	<select id="<?= esc_attr( $args['label_for'] ) ?>"
-		name="rotaract_appointment_options[<?= esc_attr( $args['label_for'] ) ?>][]"
+	<select id="<?php esc_attr_e( $args['label_for'] ) ?>"
+		name="rotaract_appointment_options[<?php esc_attr_e( $args['label_for'] ) ?>][]"
 		class="lc_select"
 		multiple>
-		<optgroup label="<?= __( 'Rotaract Deutschland', 'rotaract' ) ?>">
-			<option value="Rotaract Deutschland Komitee"<?= in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : '' ?>>Rotaract Deutschland Komitee</option>
+		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract' ) ?>">
+			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : '' ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type => $items ) : ?>
-		<optgroup label="<?= __( $type, 'rotaract' ) ?>">
+		<optgroup label="<?php esc_attr_e( $type, 'rotaract' ) ?>">
 			<?php foreach ( $items as $item ) : ?>
-			<option value="<?= $item ?>"<?= in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : '' ?>><?= $item ?></option>
+			<option value="<?php esc_attr_e( $item ) ?>"<?php echo in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : '' ?>><?php esc_html_e( $item ) ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>
@@ -199,7 +199,7 @@ function appointments_settings_html() {
 	settings_errors( 'rotaract_messages' );
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 		<form method="post" action="options.php">
 			<?php
 			// Output security fields for the registered setting "rotaract_appointments".
@@ -229,7 +229,7 @@ function appointments_settings_html() {
 function rotaract_html() {
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 		<p>Wir freuen uns, dass du hier bist!</p>
 		<p><i>Dein Ressort IT Entwicklung</i></p>
 	</div>

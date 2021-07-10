@@ -216,10 +216,10 @@ function appointments_settings_html() {
 		new lc_select('select.lc_select', {
 			enable_search: true,
 			labels: [
-				'<?= __( 'Search', 'rotaract' ) ?>',
-				'<?= __( 'Add', 'rotaract' ) ?>',
-				'<?= __( 'Select', 'rotaract' ) ?>',
-				'<?= __( 'Nothing found.', 'rotaract' ) ?>'
+				'<?php esc_html_e( 'Search', 'rotaract' ); ?>',
+				'<?php esc_html_e( 'Add', 'rotaract' ); ?>',
+				'<?php esc_html_e( 'Select', 'rotaract' ); ?>',
+				'<?php esc_html_e( 'Nothing found.', 'rotaract' ); ?>'
 			]
 		});
 	</script>

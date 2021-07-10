@@ -158,7 +158,7 @@ function rotaract_appointment_section_cb( $args ) {
 }
 
 function appointment_owners_field_cb( $args ) {
-	// Get the value of the setting we've registered with register_setting()
+	// Get the value of the setting we've registered with register_setting().
 	$options = get_option( 'rotaract_appointment_options' );
 	$owners  = getAllOwner();
 	?>
@@ -181,33 +181,33 @@ function appointment_owners_field_cb( $args ) {
 }
 
 function appointments_settings_html() {
-	// Check user capabilities
+	// Check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	// Add error/update messages
+	// Add error/update messages.
 
-	// Check if the user has submitted the settings
-	// WordPress will add the "settings-updated" $_GET parameter to the url
+	// Check if the user has submitted the settings.
+	// WordPress will add the "settings-updated" $_GET parameter to the URL.
 	if ( isset( $_GET['settings-updated'] ) ) {
-		// add settings saved message with the class of "updated"
+		// Add settings saved message with the class of "updated".
 		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract' ), 'updated' );
 	}
 
-	// Show error/update messages
+	// Show error/update messages.
 	settings_errors( 'rotaract_messages' );
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<form method="post" action="options.php">
 			<?php
-			// Output security fields for the registered setting "rotaract_appointments"
+			// Output security fields for the registered setting "rotaract_appointments".
 			settings_fields( 'rotaract_appointments' );
-			// Output setting sections and their fields
-			// (sections are registered for "rotaract_appointments", each field is registered to a specific section)
+			// Output setting sections and their fields.
+			// Sections are registered for "rotaract_appointments", each field is registered to a specific section.
 			do_settings_sections( 'rotaract_appointments' );
-			// Output save settings button
+			// Output save settings button.
 			submit_button();
 			?>
 		</form>

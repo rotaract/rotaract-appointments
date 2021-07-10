@@ -1,0 +1,68 @@
+# Copyright (C) 2021 Rotaract Germany
+# This file is distributed under the same license as the Rotaract Appointments plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Rotaract Appointments\n"
+"Report-Msgid-Bugs-To: https://github.com/rotaract/rotaract-appointments/"
+"issues\n"
+"POT-Creation-Date: 2021-07-11 17:56+0200\n"
+"PO-Revision-Date: 2021-07-11 17:59+0200\n"
+"Last-Translator: Benno Bielmeier <benno.bielmeier@rotaract.de>\n"
+"Language-Team: https://github.com/rotaract\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Domain: rotaract-appointments\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx;_n_noop;_nx_noop;"
+"translate_nooped_plural;esc_html__;esc_html_e;esc_html_x;esc_attr__;"
+"esc_attr_e;esc_attr_x\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: rotaract-appointments.php:133
+msgid "Search"
+msgstr "Suche"
+
+#: rotaract-appointments.php:134
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: rotaract-appointments.php:135
+msgid "Select"
+msgstr "Auswählen"
+
+#: rotaract-appointments.php:136
+msgid "Nothing found."
+msgstr "Kein Treffer."
+
+#: rotaract-appointments.php:157
+msgid "Settings for Appointments"
+msgstr "Einstellungen für Event-Plugin"
+
+#: rotaract-appointments.php:158
+msgid "Appointments"
+msgstr "Events"
+
+#: rotaract-appointments.php:177
+msgid "Rotaract Events"
+msgstr "Rotaract Events"
+
+#: rotaract-appointments.php:184
+msgid "Owners"
+msgstr "Veranstalter"
+
+#: rotaract-appointments.php:203
+msgid "Customize your calendar events here."
+msgstr "Bearbeite die Kalender Einstellungen."
+
+#: rotaract-appointments.php:221
+msgid "Rotaract Deutschland"
+msgstr "Rotaract Deutschland"
+
+#: rotaract-appointments.php:250
+msgid "Settings Saved"
+msgstr "Einstellungen gespeichert"

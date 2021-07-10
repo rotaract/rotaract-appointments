@@ -24,3 +24,6 @@ node_modules/
 
 # ignore JetBrain files
 .idea/
+
+# ignore binary translation files
+*.mo

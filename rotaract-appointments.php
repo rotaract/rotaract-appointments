@@ -9,8 +9,8 @@
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  */
 
-include 'elastic-caller.php';
-include 'Parsedown.php';
+require 'elastic-caller.php';
+require 'Parsedown.php';
 
 
 function appointmentsEnqueueScripts() {

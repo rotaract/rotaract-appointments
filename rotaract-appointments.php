@@ -136,7 +136,6 @@ function admin_scripts() {
 		)
 	);
 }
-add_action( 'admin_enqueue_scripts', 'admin_scripts' );
 
 /**
  * Adds setting menu and submenu page for this plugin.
@@ -151,7 +150,7 @@ function rotaract_appointments_settings_menu() {
 		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( plugins_url( 'images/wheel.svg', __FILE__ ) ) ),
 	);
 
-	add_submenu_page(
+	$submenu = add_submenu_page(
 		'rotaract',
 		__( 'Settings for Appointments' ),
 		__( 'Appointments', 'rotaract' ),
@@ -159,6 +158,8 @@ function rotaract_appointments_settings_menu() {
 		'rotaract_appointments',
 		'appointments_settings_html'
 	);
+
+	add_action( 'admin_print_scripts-' . $submenu, 'admin_scripts' );
 }
 add_action( 'admin_menu', 'rotaract_appointments_settings_menu' );
 

@@ -34,6 +34,11 @@ jobs:
           mv LICENSE* lc_select.min.js themes/light.css ../select
         env:
           VERSION: 1.1.4
+      - name: Pull Parsedown
+        run: |
+          wget https://raw.githubusercontent.com/erusev/parsedown/$VERSION/Parsedown.php
+        env:
+          VERSION: 1.7.4
       - name: Generate MO files for localization
         run: |
           curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

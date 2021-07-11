@@ -34,12 +34,12 @@ add_action( 'plugins_loaded', 'rotaract_appointments_load_textdomain' );
  */
 function appointments_enqueue_scripts() {
 	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ), array(), '1.0' );
-	wp_register_style( 'full-calendar', plugins_url( 'full-calendar/main.min.css', __FILE__ ), array(), '5.8.0' );
+	wp_register_style( 'fullcalendar', plugins_url( 'fullcalendar/main.min.css', __FILE__ ), array(), '5.8.0' );
 	wp_enqueue_style( 'rotaract-appointments' );
-	wp_enqueue_style( 'full-calendar' );
+	wp_enqueue_style( 'fullcalendar' );
 
-	wp_enqueue_script( 'full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__ ), array(), '1.0', true );
-	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ), array( 'full-calendar' ), '1.0', true );
+	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), '1.0', true );
+	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), '1.0', true );
 }
 
 /**
@@ -116,6 +116,7 @@ function init_calendar() {
 				height: "auto",
 				events: %1$s
 			});
+			calendar.setOption("locale", "de");
 			calendar.render();
 		});
 		</script>',

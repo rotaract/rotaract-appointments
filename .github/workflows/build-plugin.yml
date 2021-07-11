@@ -25,6 +25,15 @@ jobs:
           mv lib/*.min.* LICENSE* ../fullcalendar
         env:
           VERSION: 5.8.0
+      - name: Pull LC-select
+        run: |
+          mkdir select tmp && cd tmp
+          wget https://github.com/LCweb-ita/LC-select/archive/refs/tags/v$VERSION.zip
+          unzip v$VERSION.zip
+          mv LC-select-$VERSION/* .
+          mv LICENSE* lc_select.min.js themes/light.css ../select
+        env:
+          VERSION: 1.1.4
       - name: Generate MO files for localization
         run: |
           curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

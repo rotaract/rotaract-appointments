@@ -25,6 +25,11 @@ jobs:
           mv lib/*.min.* LICENSE* ../fullcalendar
         env:
           VERSION: 5.8.0
+      - name: Generate MO files for localization
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          php wp-cli.phar i18n make-mo languages
+          rm wp-cli.phar
       - name: Upload Plugin
         uses: actions/upload-artifact@v2
         with:

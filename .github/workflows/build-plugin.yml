@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir fullcalendar tmp && cd tmp
           # Hopefully the intended ZIP file remains the first asset.
-          curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/fullcalendar/fullcalendar/releases/$VERSION | jq .assets[0].browser_download_url | xargs wget
+          curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/fullcalendar/fullcalendar/releases/${VERSION} | jq .assets[0].browser_download_url | xargs wget
           # Hopefully the naming pattern does not change.
           unzip fullcalendar-*.zip
           # Turn on extended globbing
@@ -28,15 +28,15 @@ jobs:
       - name: Pull LC-select
         run: |
           mkdir select tmp && cd tmp
-          wget https://github.com/LCweb-ita/LC-select/archive/refs/tags/v$VERSION.zip
-          unzip v$VERSION.zip
-          mv LC-select-$VERSION/* .
+          wget https://github.com/LCweb-ita/LC-select/archive/refs/tags/v${VERSION}.zip
+          unzip v${VERSION}.zip
+          mv LC-select-${VERSION}/* .
           mv LICENSE* lc_select.min.js themes/light.css ../select
         env:
           VERSION: 1.1.4
       - name: Pull Parsedown
         run: |
-          wget https://raw.githubusercontent.com/erusev/parsedown/$VERSION/Parsedown.php
+          wget https://raw.githubusercontent.com/erusev/parsedown/${VERSION}/Parsedown.php
         env:
           VERSION: 1.7.4
       - name: Generate MO files for localization

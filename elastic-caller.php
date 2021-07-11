@@ -1,154 +1,164 @@
 <?php
 
-function readAppointments($appointmentOwner) {
-	$appointmentOwner =  '"' . implode( '","', $appointmentOwner) . '"';
-	$searchParam = '{
+/**
+ * Receive appointments from elestic that match the search_param.
+ *
+ * @param String $api_path absolute API path.
+ * @param String $search_param API attributes in JSON format.
+ *
+ * @return array of appointments
+ */
+function elastic_request( $api_path, $search_param ) {
+	$url    = 'hosting.rotaract.de:9200' . $api_path;
+	$header = array(
+		'content-type: application/json',
+	);
+
+	$curl = curl_init();
+	curl_setopt( $curl, CURLOPT_URL, $url );
+	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
+	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
+	$res = curl_exec( $curl );
+	curl_close( $curl );
+
+	return json_decode( $res )->hits->hits;
+}
+
+/**
+ * Receive appointments from specified owners of Rotaract Germany.
+ *
+ * @param array $appointment_owner owner names filtering the receiving appointments.
+ *
+ * @return array of appointments
+ */
+function read_appointments( $appointment_owner ) {
+	$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
+	$search_param      = '{
 		"size": "1000",
 		"query" : {
 			"bool" : {
 				"filter" : [
-					{ "match": { "publish_on_homepage": true }},
-					{ "terms": { "owner_select_names.keyword": [' . $appointmentOwner . '] }},
-			{ "range": {
-				"begins_at":{
-					"gte": "now",
-					"lte": "now+1y/y"
+					{ "match": { "publish_on_homepage": true } },
+					{ "terms": { "owner_select_names.keyword": [' . $appointment_owner . '] } },
+					{ "range": {
+						"begins_at": {
+							"gte": "now",
+							"lte": "now+1y/y"
+							}
+						}
 					}
-				}
-			}
 				]
-
+			}
 		}
-	}
+	}';
 
-	}
-	  ';
-
-	$header = [
-		'Content-type: application/json'
-	];
-
-	$url = 'hosting.rotaract.de:9200/events/_search';
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, $url);
-	curl_setopt($curl,CURLOPT_HTTPHEADER, $header);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $searchParam);
-	$res = curl_exec($curl);
-	curl_close($curl);
-	return json_decode($res);
+	return elastic_request( '/events/_search', $search_param );
 }
 
-function getAllClubs(){
-	$clubs = [];
-	$searchParam = '{
-				"_source": ["select_name", "district_name"],
-				"size": "1000",
-				"query" : {
-					"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-							{"terms": { "status": ["active", "founding", "preparing"]}}
+/**
+ * Receive appointments for all clubs of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
+function get_all_clubs() {
+	$clubs        = array();
+	$search_param = '{
+		"_source": [ "select_name", "district_name" ],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+					{ "terms": { "status": ["active", "founding", "preparing"] } }
+				]
+			}
+		}
+	}';
 
-						]
-					}
-				}
+	$res = elastic_request( '/clubs/_search', $search_param );
 
-		}';
-	$header = [
-		'content-type: application/json'
-	];
-	$url = 'hosting.rotaract.de:9200/clubs/_search';
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, $url);
-	curl_setopt($curl,CURLOPT_HTTPHEADER, $header);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $searchParam);
-	$res = json_decode(curl_exec($curl));
-	curl_close($curl);
-	foreach ($res->hits->hits as $club) {
+	foreach ( $res as $club ) {
 		$clubs[] = $club->_source->select_name;
 	}
+
 	return $clubs;
 }
 
-function getAllRessorts() {
-	$ressorts = [];
-	$searchParam = '{
-				"_source": ["select_name", "district_name", "homepage_url"],
-				"size": "1000",
-				"query" : {
-				"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-
-						]
-				}
+/**
+ * Receive appointments for all departments of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
+function get_all_ressorts() {
+	$ressorts     = array();
+	$search_param = '{
+		"_source": [ "select_name", "district_name", "homepage_url" ],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+				]
+			}
 		}
+	}';
 
-		}';
-	$header = [
-		'content-type: application/json'
-	];
-	$url = 'hosting.rotaract.de:9200/ressorts/_search';
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, $url);
-	curl_setopt($curl,CURLOPT_HTTPHEADER, $header);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $searchParam);
-	$res = json_decode(curl_exec($curl));
-	curl_close($curl);
-	foreach ($res->hits->hits as $ressort) {
+	$res = elastic_request( '/ressorts/_search', $search_param );
+
+	foreach ( $res as $ressort ) {
 		$ressorts[] = $ressort->_source->select_name;
 	}
+
 	return $ressorts;
 }
 
-function getAllDistricts() {
-	$districts = [];
-	$searchParam = '{
-				"_source": ["select_name", "district_name", "homepage_url"],
-				"size": "1000",
-				"query" : {
-				"bool" : {
-						"must" : {
-								"match_all" : {}
-						},
-					   "filter" : [
-
-						]
-				}
+/**
+ * Receive appointments for all districts of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
+function get_all_districts() {
+	$districts    = array();
+	$search_param = '{
+		"_source": [ "select_name", "district_name", "homepage_url" ],
+		"size": "1000",
+		"query" : {
+			"bool" : {
+				"must" : {
+					"match_all" : {}
+				},
+				"filter" : [
+				]
+			}
 		}
+	}';
 
-		}';
-	$header = [
-		'content-type: application/json'
-	];
-	$url = 'hosting.rotaract.de:9200/districts/_search';
-	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, $url);
-	curl_setopt($curl,CURLOPT_HTTPHEADER, $header);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	curl_setopt($curl, CURLOPT_POSTFIELDS, $searchParam);
-	$res = json_decode(curl_exec($curl));
-	curl_close($curl);
-	foreach ($res->hits->hits as $district) {
+	$res = elastic_request( '/districts/_search', $search_param );
+
+	foreach ( $res as $district ) {
 		$districts[] = $district->_source->select_name;
 	}
+
 	return $districts;
 }
 
-function getAllOwner() {
-	$clubs = getAllClubs();
-	$ressorts = getAllRessorts();
-	$districts = getAllDistricts();
-	return [
-		'Clubs' => $clubs,
+/**
+ * Receive all appointments of Rotaract Germany.
+ *
+ * @return array of appointments
+ */
+function get_all_owner() {
+	$clubs     = get_all_clubs();
+	$ressorts  = get_all_ressorts();
+	$districts = get_all_districts();
+	return array(
+		'Clubs'     => $clubs,
 		'Distrikte' => $districts,
-		'Ressorts' => $ressorts
-	];
+		'Ressorts'  => $ressorts,
+	);
 }

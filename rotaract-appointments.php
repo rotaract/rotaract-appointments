@@ -7,6 +7,8 @@
  * Version: 1.0
  * Author: Ressort IT-Entwicklung - Rotaract Deutschland
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
+ * Text Domain: rotaract-appointments
+ * Domain Path: /languages
  */
 
 /**
@@ -18,6 +20,14 @@ require 'elastic-caller.php';
  */
 require 'Parsedown.php';
 
+
+/**
+ * Load the text domain.
+ */
+function rotaract_appointments_load_textdomain() {
+	load_plugin_textdomain( 'rotaract-appointments', false, 'rotaract-appointments/languages' );
+}
+add_action( 'plugins_loaded', 'rotaract_appointments_load_textdomain' );
 
 /**
  * Enqueues all style and script files for non-admin page.
@@ -152,8 +162,8 @@ function rotaract_appointments_settings_menu() {
 
 	$submenu = add_submenu_page(
 		'rotaract',
-		__( 'Settings for Appointments' ),
-		__( 'Appointments', 'rotaract' ),
+		__( 'Settings for Appointments', 'rotaract-appointments' ),
+		__( 'Appointments', 'rotaract-appointments' ),
 		'administrator',
 		'rotaract_appointments',
 		'appointments_settings_html'
@@ -172,14 +182,14 @@ function appointments_settings_init() {
 
 	add_settings_section(
 		'rotaract_appointment_settings',
-		__( 'Rotaract Events', 'rotaract' ),
+		__( 'Rotaract Events', 'rotaract-appointments' ),
 		'rotaract_appointment_section_cb',
 		'rotaract_appointments'
 	);
 
 	add_settings_field(
 		'rotaract_appointment_owners',
-		__( 'Owners', 'rotaract' ),
+		__( 'Owners', 'rotaract-appointments' ),
 		'appointment_owners_field_cb',
 		'rotaract_appointments',
 		'rotaract_appointment_settings',
@@ -198,7 +208,7 @@ add_action( 'admin_init', 'appointments_settings_init' );
  */
 function rotaract_appointment_section_cb( $args ) {
 	?>
-	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract' ); ?></p>
+	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract-appointments' ); ?></p>
 	<?php
 }
 
@@ -216,11 +226,11 @@ function appointment_owners_field_cb( $args ) {
 		name="rotaract_appointment_options[<?php echo esc_attr( $args['label_for'] ); ?>][]"
 		class="lc_select"
 		multiple>
-		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract' ); ?>">
+		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
 			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type => $items ) : ?>
-		<optgroup label="<?php esc_attr_e( $type, 'rotaract' ); ?>">
+		<optgroup label="<?php esc_attr_e( $type, 'rotaract-appointments' ); ?>">
 			<?php foreach ( $items as $item ) : ?>
 			<option value="<?php echo esc_attr( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>><?php echo esc_html( $item ); ?></option>
 			<?php endforeach; ?>
@@ -245,7 +255,7 @@ function appointments_settings_html() {
 	// WordPress will add the "settings-updated" $_GET parameter to the URL.
 	if ( isset( $_GET['settings-updated'] ) ) {
 		// Add settings saved message with the class of "updated".
-		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract' ), 'updated' );
+		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract-appointments' ), 'updated' );
 	}
 
 	// Show error/update messages.

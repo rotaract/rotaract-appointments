@@ -15,23 +15,27 @@ jobs:
       - uses: actions/checkout@v2
       - name: Pull fullcalendar
         run: |
-          mkdir fullcalendar tmp && cd tmp
+          TEMP_DIR="$(mktemp -d)"
+          mkdir fullcalendar
+          cd "$TEMP_DIR"
           # Hopefully the intended ZIP file remains the first asset.
           curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/fullcalendar/fullcalendar/releases/tags/v${VERSION} | jq .assets[0].browser_download_url | xargs wget
           # Hopefully the naming pattern does not change.
           unzip fullcalendar-*.zip
           # Turn on extended globbing
           shopt -s extglob
-          mv lib/*.min.* LICENSE* ../fullcalendar
+          mv lib/*.min.* LICENSE* "$GITHUB_WORKSPACE/fullcalendar"
         env:
           VERSION: 5.8.0
       - name: Pull LC-select
         run: |
-          mkdir select tmp && cd tmp
+          TEMP_DIR="$(mktemp -d)"
+          mkdir select
+          cd "$TEMP_DIR"
           wget https://github.com/LCweb-ita/LC-select/archive/refs/tags/v${VERSION}.zip
           unzip v${VERSION}.zip
           mv LC-select-${VERSION}/* .
-          mv LICENSE* lc_select.min.js themes/light.css ../select
+          mv LICENSE* lc_select.min.js themes/light.css "$GITHUB_WORKSPACE/select"
         env:
           VERSION: 1.1.4
       - name: Pull Parsedown

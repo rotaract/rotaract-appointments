@@ -24,7 +24,7 @@ jobs:
           unzip "fullcalendar-$VERSION.zip"
           # Turn on extended globbing
           shopt -s extglob
-          mv lib/*.min.* LICENSE* "$GITHUB_WORKSPACE/fullcalendar"
+          mv lib/locales-all.min.js lib/main.min.css lib/main.min.js LICENSE.txt "$GITHUB_WORKSPACE/fullcalendar"
         env:
           VERSION: 5.8.0
       - name: Pull LC-select
@@ -35,7 +35,7 @@ jobs:
           wget "https://github.com/LCweb-ita/LC-select/archive/refs/tags/v$VERSION.zip"
           unzip "v$VERSION.zip"
           cd "LC-select-$VERSION"
-          mv LICENSE* lc_select.min.js themes/light.css "$GITHUB_WORKSPACE/select"
+          mv LICENSE lc_select.min.js themes/light.css "$GITHUB_WORKSPACE/select"
         env:
           VERSION: 1.1.4
       - name: Pull Parsedown

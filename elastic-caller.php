@@ -9,20 +9,17 @@
  * @return array of appointments
  */
 function elastic_request( $api_path, $search_param ) {
-	$url    = 'hosting.rotaract.de:9200' . $api_path;
+	$url    = 'http://hosting.rotaract.de:9200' . $api_path;
 	$header = array(
-		'content-type: application/json',
+		'Content-Type' => 'application/json',
 	);
 
-	$curl = curl_init();
-	curl_setopt( $curl, CURLOPT_URL, $url );
-	curl_setopt( $curl, CURLOPT_HTTPHEADER, $header );
-	curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt( $curl, CURLOPT_POSTFIELDS, $search_param );
-	$res = curl_exec( $curl );
-	curl_close( $curl );
-
-	return json_decode( $res )->hits->hits;
+	$res = wp_remote_post( $url, array(
+		'headers' => $header,
+		'body'    => $search_param
+	) );
+	$res_body = wp_remote_retrieve_body( $res );
+	return json_decode( $res_body )->hits->hits;
 }
 
 /**

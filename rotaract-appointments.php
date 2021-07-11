@@ -29,7 +29,7 @@ function appointments_enqueue_scripts() {
 	wp_enqueue_style( 'full-calendar' );
 
 	wp_enqueue_script( 'full-calendar', plugins_url( 'full-calendar/main.min.js', __FILE__ ), array(), '1.0', true );
-	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ), array(), '1.0', true );
+	wp_enqueue_script( 'full-calendar-de', plugins_url( 'full-calendar/de.js', __FILE__ ), array( 'full-calendar' ), '1.0', true );
 }
 
 /**

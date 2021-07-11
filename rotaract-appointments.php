@@ -22,6 +22,14 @@ require 'Parsedown.php';
 
 
 /**
+ * Load the text domain.
+ */
+function rotaract_appointments_load_textdomain() {
+	load_plugin_textdomain( 'rotaract-appointments', false, 'rotaract-appointments/languages' );
+}
+add_action( 'plugins_loaded', 'rotaract_appointments_load_textdomain' );
+
+/**
  * Enqueues all style and script files for non-admin page.
  */
 function appointments_enqueue_scripts() {

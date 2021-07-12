@@ -33,13 +33,15 @@ add_action( 'plugins_loaded', 'rotaract_appointments_load_textdomain' );
  * Enqueues all style and script files for non-admin page.
  */
 function appointments_enqueue_scripts() {
+	$fullcalendar_version = '5.8.0';
+
 	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ), array(), '1.0' );
-	wp_register_style( 'fullcalendar', plugins_url( 'fullcalendar/main.min.css', __FILE__ ), array(), '5.8.0' );
+	wp_register_style( 'fullcalendar', plugins_url( 'fullcalendar/main.min.css', __FILE__ ), array(), $fullcalendar_version );
 	wp_enqueue_style( 'rotaract-appointments' );
 	wp_enqueue_style( 'fullcalendar' );
 
-	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), '5.8.0', true );
-	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), '5.8.0', true );
+	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), $fullcalendar_version, true );
+	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), $fullcalendar_version, true );
 }
 
 /**

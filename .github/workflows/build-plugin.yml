@@ -1,0 +1,58 @@
+name: Build Plugin ZIP
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Pull fullcalendar
+        run: |
+          TEMP_DIR="$(mktemp -d)"
+          mkdir fullcalendar
+          cd "$TEMP_DIR"
+          # Hopefully the intended ZIP file remains the first asset.
+          curl -H "Accept: application/vnd.github.v3+json" "https://api.github.com/repos/fullcalendar/fullcalendar/releases/tags/v$VERSION" | jq .assets[0].browser_download_url | xargs wget
+          # Hopefully the naming pattern does not change.
+          unzip "fullcalendar-$VERSION.zip"
+          # Turn on extended globbing
+          shopt -s extglob
+          mv lib/locales-all.min.js lib/main.min.css lib/main.min.js LICENSE.txt "$GITHUB_WORKSPACE/fullcalendar"
+        env:
+          VERSION: 5.8.0
+      - name: Pull LC-select
+        run: |
+          TEMP_DIR="$(mktemp -d)"
+          mkdir select
+          cd "$TEMP_DIR"
+          wget "https://github.com/LCweb-ita/LC-select/archive/refs/tags/v$VERSION.zip"
+          unzip "v$VERSION.zip"
+          cd "LC-select-$VERSION"
+          mv LICENSE lc_select.min.js themes/light.css "$GITHUB_WORKSPACE/select"
+        env:
+          VERSION: 1.1.4
+      - name: Pull Parsedown
+        run: |
+          wget "https://raw.githubusercontent.com/erusev/parsedown/$VERSION/Parsedown.php"
+        env:
+          VERSION: 1.7.4
+      - name: Generate MO files for localization
+        run: |
+          curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+          php wp-cli.phar i18n make-mo languages
+          rm wp-cli.phar
+      - name: Upload Plugin
+        uses: actions/upload-artifact@v2
+        with:
+          name: rotaract-appointments
+          path: |
+            ./*
+            !tmp
+            !.*

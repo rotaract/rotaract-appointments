@@ -27,3 +27,7 @@ node_modules/
 
 # ignore binary translation files
 *.mo
+
+# ignore package manager lock files as they are only symbolic
+composer.lock
+package-lock.json

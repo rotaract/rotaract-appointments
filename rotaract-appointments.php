@@ -38,8 +38,8 @@ function appointments_enqueue_scripts() {
 	wp_enqueue_style( 'rotaract-appointments' );
 	wp_enqueue_style( 'fullcalendar' );
 
-	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), '1.0', true );
-	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), '1.0', true );
+	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), '5.8.0', true );
+	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), '5.8.0', true );
 }
 
 /**

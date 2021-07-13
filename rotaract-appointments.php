@@ -225,7 +225,7 @@ function elastic_missing_notice() {
  */
 function rotaract_appointment_section_cb( $args ) {
 	?>
-	<p id="<?php esc_attr_e( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract-appointments' ); ?></p>
+	<p id="<?php echo esc_attr( $args['id'] ); ?>"><?php esc_html_e( 'Customize your calendar events here.', 'rotaract-appointments' ); ?></p>
 	<?php
 }
 
@@ -239,7 +239,7 @@ function appointment_owners_field_cb( $args ) {
 	$options = get_option( 'rotaract_appointment_options' );
 	$owners  = get_all_owner();
 	?>
-	<select id="<?php esc_attr_e( $args['label_for'] ); ?>"
+	<select id="<?php echo esc_attr( $args['label_for'] ); ?>"
 		name="rotaract_appointment_options[<?php echo esc_attr( $args['label_for'] ); ?>][]"
 		class="lc_select"
 		multiple>
@@ -279,7 +279,7 @@ function appointments_settings_html() {
 	settings_errors( 'rotaract_messages' );
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
+		<h1><?php esc_html_e( get_admin_page_title(), 'rotaract-appointments' ); ?></h1>
 		<form method="post" action="options.php">
 			<?php
 			// Output security fields for the registered setting "rotaract_appointments".
@@ -301,7 +301,7 @@ function appointments_settings_html() {
 function rotaract_html() {
 	?>
 	<div class="wrap">
-		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
+		<h1><?php esc_html_e( get_admin_page_title(), 'rotaract-appointments' ); ?></h1>
 		<p>Wir freuen uns, dass du hier bist!</p>
 		<p><i>Dein Ressort IT Entwicklung</i></p>
 	</div>

@@ -279,7 +279,7 @@ function appointments_settings_html() {
 	settings_errors( 'rotaract_messages' );
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title(), 'rotaract-appointments' ); ?></h1>
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<form method="post" action="options.php">
 			<?php
 			// Output security fields for the registered setting "rotaract_appointments".
@@ -301,7 +301,7 @@ function appointments_settings_html() {
 function rotaract_html() {
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title(), 'rotaract-appointments' ); ?></h1>
+		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		<p>Wir freuen uns, dass du hier bist!</p>
 		<p><i>Dein Ressort IT Entwicklung</i></p>
 	</div>

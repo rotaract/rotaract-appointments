@@ -23,3 +23,9 @@ npm install
 ----
 composer translate
 ----
+
+== Installationfootnote:[Latest version of plugin is installed at Rotaract Hosting]
+
+. Download ZIP file containing latest version
+. Install Plugin in your WordPress instance
+. Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`

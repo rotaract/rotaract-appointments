@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Rotaract Appointments
  * Plugin URI:  https://github.com/rotaract/appointments
@@ -9,6 +8,13 @@
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  * Text Domain: rotaract-appointments
  * Domain Path: /languages
+ *
+ * @package Rotaract-Appointments
+ * @category Core
+ *
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 
 /**

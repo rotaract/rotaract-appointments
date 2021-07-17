@@ -1,4 +1,9 @@
 <?php
+/**
+ * Interface functions to receive data from Elasticsearch API.
+ *
+ * @package Rotaract-Appointments
+ */
 
 /**
  * Receive appointments from elestic that match the search_param.

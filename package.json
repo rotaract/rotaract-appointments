@@ -1,6 +1,29 @@
 {
-  "dependencies": {
-    "fullcalendar": "5.8.0",
-    "lc-select": "1.1.4"
-  }
+	"name": "rotaract-appointments",
+	"description": "WordPress plugin for displaying appointments from mein Rotaract.",
+	"keywords": [
+		"wordpress",
+		"plugin",
+		"rotaract"
+	],
+	"homepage": "https://github.com/rotaract/rotaract-appointments",
+	"bugs": {
+		"url": "https://github.com/rotaract/rotaract-appointments/issues",
+		"email": "support@rotaract.de"
+	},
+	"license": "MIT",
+	"author": "Rotaract Germany",
+	"files": [
+	],
+	"repository": "github:rotaract/rotaract-appointments",
+	"slug": "rotaract-appointments",
+	"author": "Rotaract Germany",
+	"scripts": {
+	},
+	"devDependencies": {
+	},
+	"dependencies": {
+		"fullcalendar": "5.8.0",
+		"lc-select": "1.1.4"
+	}
 }

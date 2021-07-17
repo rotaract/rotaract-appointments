@@ -165,7 +165,7 @@ function rotaract_appointments_settings_menu() {
 		'administrator',
 		'rotaract',
 		'rotaract_html',
-		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( plugins_url( 'images/wheel.svg', __FILE__ ) ) ),
+		plugins_url( 'images/wheel.svg', __FILE__ ),
 	);
 
 	$submenu = add_submenu_page(

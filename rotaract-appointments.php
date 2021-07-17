@@ -279,7 +279,7 @@ function appointments_settings_html() {
 
 	// Check if the user has submitted the settings.
 	// WordPress will add the "settings-updated" $_GET parameter to the URL.
-	if ( isset( $_GET['settings-updated'] ) ) {
+	if ( isset( $_GET['settings-updated'] ) ) { // phpcs:ignore
 		// Add settings saved message with the class of "updated".
 		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract-appointments' ), 'updated' );
 	}

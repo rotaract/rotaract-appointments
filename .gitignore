@@ -29,7 +29,6 @@ node_modules/
 *.mo
 
 # ignore package manager lock files as they are only symbolic
-composer.lock
 package-lock.json
 
 # ignore PHP packages

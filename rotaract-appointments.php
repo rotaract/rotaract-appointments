@@ -213,12 +213,15 @@ function appointments_settings_init() {
 }
 add_action( 'admin_init', 'appointments_settings_init' );
 
+/**
+ * HTML notice that elasticsearch configuration is missing.
+ */
 function elastic_missing_notice() {
 	?>
 	<div class="error notice">
 		<p>
-			<strong><?php _e( 'Rotaract Events', 'rotaract-appointments' ); ?>:</strong>
-			<?php _e( 'Please set Elasticsearch Host in your WordPress configuration!', 'rotaract-appointments' ); ?>
+			<strong><?php esc_html_e( 'Rotaract Events', 'rotaract-appointments' ); ?>:</strong>
+			<?php esc_html_e( 'Please set Elasticsearch Host in your WordPress configuration!', 'rotaract-appointments' ); ?>
 		</p>
 	</div>
 	<?php

@@ -1,3 +1,25 @@
 = Rotaract Appointments
 
 WordPress plugin for displaying appointments from mein Rotaract.
+
+== Setup
+
+. Install Composer Dependencies
++
+[source]
+----
+composer install
+----
+. Install Node Dependencies
++
+[source]
+----
+npm install
+----
+. https://make.wordpress.org/cli/handbook/guides/installing/[Install WP-CLI]
+. Build Translation Files
++
+[source]
+----
+composer translate
+----

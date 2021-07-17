@@ -17,10 +17,13 @@ function elastic_request( $api_path, $search_param ) {
 		'Content-Type' => 'application/json',
 	);
 
-	$res = wp_remote_post( $url, array(
-		'headers' => $header,
-		'body'    => $search_param
-	) );
+	$res      = wp_remote_post(
+		$url,
+		array(
+			'headers' => $header,
+			'body'    => $search_param,
+		)
+	);
 	$res_body = wp_remote_retrieve_body( $res );
 	return json_decode( $res_body )->hits->hits;
 }

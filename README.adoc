@@ -1,6 +1,6 @@
 = Rotaract Appointments
 
-WordPress plugin for displaying appointments from mein Rotaract.
+https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
 == Setup
 

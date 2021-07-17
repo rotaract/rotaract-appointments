@@ -18,13 +18,14 @@
  */
 
 /**
+ * Markdown parser to convert description to HTML.
+ */
+require 'vendor/autoload.php';
+use Parsedown;
+/**
  * Logic for receiving the event data from elastic API.
  */
 require 'elastic-caller.php';
-/**
- * Markdown parser to convert description to HTML.
- */
-require 'Parsedown.php';
 
 
 /**

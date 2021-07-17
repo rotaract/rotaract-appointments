@@ -9,7 +9,10 @@
  * @return array of appointments
  */
 function elastic_request( $api_path, $search_param ) {
-	$url    = 'http://hosting.rotaract.de:9200' . $api_path;
+	if ( ! defined( 'ROTARACT_ELASTIC_HOST' ) ) {
+		return array();
+	}
+	$url    = ROTARACT_ELASTIC_HOST . $api_path;
 	$header = array(
 		'Content-Type' => 'application/json',
 	);

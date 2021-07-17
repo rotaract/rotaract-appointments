@@ -85,8 +85,8 @@ function init_calendar() {
 	echo sprintf(
 		'<script>
 		document.addEventListener("DOMContentLoaded", function() {
-			var calendarEl = document.getElementById("rotaract-appointments");
-			var calendar = new FullCalendar.Calendar(calendarEl, {
+			const calendarEl = document.getElementById("rotaract-appointments");
+			const calendar = new FullCalendar.Calendar(calendarEl, {
 				locale: "de",
 				initialView: "listYear",
 				eventDidMount: function(info) {
@@ -118,7 +118,6 @@ function init_calendar() {
 				height: "auto",
 				events: %1$s
 			});
-			calendar.setOption("locale", "de");
 			calendar.render();
 		});
 		</script>',
@@ -180,6 +179,10 @@ add_action( 'admin_menu', 'rotaract_appointments_settings_menu' );
  * Adds setting fields for this plugin.
  */
 function appointments_settings_init() {
+	if ( ! defined( 'ROTARACT_ELASTIC_HOST' ) ) {
+		add_action( 'admin_notices', 'elastic_missing_notice' );
+	}
+
 	// Register our settings.
 	register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
 
@@ -203,6 +206,17 @@ function appointments_settings_init() {
 	);
 }
 add_action( 'admin_init', 'appointments_settings_init' );
+
+function elastic_missing_notice() {
+	?>
+	<div class="error notice">
+		<p>
+			<strong><?php _e( 'Rotaract Events', 'rotaract-appointments' ); ?>:</strong>
+			<?php _e( 'Please set Elasticsearch Host in your WordPress configuration!', 'rotaract-appointments' ); ?>
+		</p>
+	</div>
+	<?php
+}
 
 /**
  * Developers section callback function.

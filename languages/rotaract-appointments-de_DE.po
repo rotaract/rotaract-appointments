@@ -59,6 +59,10 @@ msgstr "Veranstalter"
 msgid "Customize your calendar events here."
 msgstr "Bearbeite die Kalender Einstellungen."
 
+#: rotaract-appointments.php:215
+msgid "Please set Elasticsearch Host in your WordPress configuration!"
+msgstr "Bitte gib in deiner WordPress-Konfiguration die Host-Adresse von Elasticsearch an!"
+
 #: rotaract-appointments.php:221
 msgid "Rotaract Deutschland"
 msgstr "Rotaract Deutschland"

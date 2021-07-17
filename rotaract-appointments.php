@@ -256,7 +256,7 @@ function appointment_owners_field_cb( $args ) {
 			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type => $items ) : ?>
-		<optgroup label="<?php esc_attr_e( $type, 'rotaract-appointments' ); ?>">
+		<optgroup label="<?php echo esc_attr( $type ); ?>">
 			<?php foreach ( $items as $item ) : ?>
 			<option value="<?php echo esc_attr( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>><?php echo esc_html( $item ); ?></option>
 			<?php endforeach; ?>

@@ -146,10 +146,10 @@ function admin_scripts() {
 		'lcData',
 		array(
 			'labels' => array(
-				esc_attr__( 'Search', 'rotaract' ),
-				esc_attr__( 'Add', 'rotaract' ),
-				esc_attr__( 'Select', 'rotaract' ),
-				esc_attr__( 'Nothing found.', 'rotaract' ),
+				esc_attr__( 'Search', 'rotaract-appointments' ),
+				esc_attr__( 'Add', 'rotaract-appointments' ),
+				esc_attr__( 'Select', 'rotaract-appointments' ),
+				esc_attr__( 'Nothing found.', 'rotaract-appointments' ),
 			),
 		)
 	);

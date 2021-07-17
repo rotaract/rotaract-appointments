@@ -137,9 +137,10 @@ add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );
  * Enqueues style and script files for admin settings page.
  */
 function admin_scripts() {
-	wp_enqueue_style( 'appointments-admin-style-select', plugins_url( 'node_modules/lc-select/themes/light.css', __FILE__ ), array(), '1.1.4' );
+	$lc_select_version = '1.1.4';
+	wp_enqueue_style( 'appointments-admin-style-select', plugins_url( 'node_modules/lc-select/themes/light.css', __FILE__ ), array(), $lc_select_version );
 	// Including the lc_select script in footer results in broken owner selection in appointments submenu page.
-	wp_enqueue_script( 'appointments-admin-script-select', plugins_url( 'node_modules/lc-select/lc_select.min.js', __FILE__ ), array(), '1.1.4', true );
+	wp_enqueue_script( 'appointments-admin-script-select', plugins_url( 'node_modules/lc-select/lc_select.min.js', __FILE__ ), array(), $lc_select_version, true );
 
 	wp_enqueue_script( 'rotaract-appointments-settings', plugins_url( 'settings.js', __FILE__ ), array( 'appointments-admin-script-select' ), '1.0', true );
 	wp_localize_script(

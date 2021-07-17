@@ -1,5 +1,28 @@
 {
-    "require": {
-        "erusev/parsedown": "1.8.0-beta-7"
-    }
+	"name": "rotaract/rotaract-appointments",
+	"description": "WordPress plugin for displaying appointments from mein Rotaract.",
+	"type": "project",
+	"homepage": "https://github.com/rotaract/rotaract-appointments",
+	"readme": "README.md",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rotaract Germany"
+		}
+	],
+	"support": {
+		"email": "support@rotaract.de",
+		"issues": "https://github.com/rotaract/rotaract-appointments/issues"
+	},
+	"require": {
+		"erusev/parsedown": "1.8.0-beta-7"
+	},
+	"require-dev": {
+		"wp-coding-standards/wpcs": "^2.3",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
+	},
+	"minimum-stability": "stable",
+	"scripts": {
+		"lint": "phpcs --standard=phpcs.xml"
+	}
 }

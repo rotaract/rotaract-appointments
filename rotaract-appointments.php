@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: Rotaract Appointments
  * Plugin URI:  https://github.com/rotaract/appointments
@@ -9,6 +8,13 @@
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  * Text Domain: rotaract-appointments
  * Domain Path: /languages
+ *
+ * @package Rotaract-Appointments
+ * @category Core
+ *
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 
 /**
@@ -140,10 +146,10 @@ function admin_scripts() {
 		'lcData',
 		array(
 			'labels' => array(
-				esc_attr__( 'Search', 'rotaract' ),
-				esc_attr__( 'Add', 'rotaract' ),
-				esc_attr__( 'Select', 'rotaract' ),
-				esc_attr__( 'Nothing found.', 'rotaract' ),
+				esc_attr__( 'Search', 'rotaract-appointments' ),
+				esc_attr__( 'Add', 'rotaract-appointments' ),
+				esc_attr__( 'Select', 'rotaract-appointments' ),
+				esc_attr__( 'Nothing found.', 'rotaract-appointments' ),
 			),
 		)
 	);
@@ -159,7 +165,7 @@ function rotaract_appointments_settings_menu() {
 		'administrator',
 		'rotaract',
 		'rotaract_html',
-		'data:image/svg+xml;base64,' . base64_encode( file_get_contents( plugins_url( 'images/wheel.svg', __FILE__ ) ) ),
+		plugins_url( 'images/wheel.svg', __FILE__ ),
 	);
 
 	$submenu = add_submenu_page(
@@ -207,12 +213,15 @@ function appointments_settings_init() {
 }
 add_action( 'admin_init', 'appointments_settings_init' );
 
+/**
+ * HTML notice that elasticsearch configuration is missing.
+ */
 function elastic_missing_notice() {
 	?>
 	<div class="error notice">
 		<p>
-			<strong><?php _e( 'Rotaract Events', 'rotaract-appointments' ); ?>:</strong>
-			<?php _e( 'Please set Elasticsearch Host in your WordPress configuration!', 'rotaract-appointments' ); ?>
+			<strong><?php esc_html_e( 'Rotaract Events', 'rotaract-appointments' ); ?>:</strong>
+			<?php esc_html_e( 'Please set Elasticsearch Host in your WordPress configuration!', 'rotaract-appointments' ); ?>
 		</p>
 	</div>
 	<?php
@@ -244,12 +253,12 @@ function appointment_owners_field_cb( $args ) {
 		class="lc_select"
 		multiple>
 		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
-			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
+			<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type => $items ) : ?>
-		<optgroup label="<?php esc_attr_e( $type, 'rotaract-appointments' ); ?>">
+		<optgroup label="<?php echo esc_attr( $type ); ?>">
 			<?php foreach ( $items as $item ) : ?>
-			<option value="<?php echo esc_attr( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ] ) ? ' selected' : ''; ?>><?php echo esc_html( $item ); ?></option>
+			<option value="<?php echo esc_attr( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>><?php echo esc_html( $item ); ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>
@@ -270,7 +279,7 @@ function appointments_settings_html() {
 
 	// Check if the user has submitted the settings.
 	// WordPress will add the "settings-updated" $_GET parameter to the URL.
-	if ( isset( $_GET['settings-updated'] ) ) {
+	if ( isset( $_GET['settings-updated'] ) ) { // phpcs:ignore
 		// Add settings saved message with the class of "updated".
 		add_settings_error( 'rotaract_messages', 'rotaract_message', __( 'Settings Saved', 'rotaract-appointments' ), 'updated' );
 	}

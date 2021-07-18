@@ -26,4 +26,4 @@ jobs:
         run: composer install --no-progress -n
 
       - name: Run PHPCS
-        run: composer lint
+        run: composer lint .

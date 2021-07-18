@@ -4,7 +4,9 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from https:
 
 == Setup
 
-. Install Composer Dependencies
+In order to either setup the environment for development or install plugin manually follow these steps.
+
+. Install Composer Dependencies (add command option `--no-dev` if you do not need development tools)
 +
 [source]
 ----
@@ -24,8 +26,10 @@ npm install
 composer translate
 ----
 
-== Installationfootnote:[Latest version of plugin is installed at Rotaract Hosting]
+== Installation
 
-. Download ZIP file containing latest version
+IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].
+
+. Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
 . Install Plugin in your WordPress instance
 . Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`

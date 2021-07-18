@@ -18,13 +18,14 @@
  */
 
 /**
+ * Markdown parser to convert description to HTML.
+ */
+require 'vendor/autoload.php';
+use Parsedown;
+/**
  * Logic for receiving the event data from elastic API.
  */
 require 'elastic-caller.php';
-/**
- * Markdown parser to convert description to HTML.
- */
-require 'Parsedown.php';
 
 
 /**
@@ -42,12 +43,12 @@ function appointments_enqueue_scripts() {
 	$fullcalendar_version = '5.8.0';
 
 	wp_register_style( 'rotaract-appointments', plugins_url( 'rotaract-appointments.css', __FILE__ ), array(), '1.0' );
-	wp_register_style( 'fullcalendar', plugins_url( 'fullcalendar/main.min.css', __FILE__ ), array(), $fullcalendar_version );
+	wp_register_style( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.css', __FILE__ ), array(), $fullcalendar_version );
 	wp_enqueue_style( 'rotaract-appointments' );
 	wp_enqueue_style( 'fullcalendar' );
 
-	wp_enqueue_script( 'fullcalendar', plugins_url( 'fullcalendar/main.min.js', __FILE__ ), array(), $fullcalendar_version, true );
-	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), $fullcalendar_version, true );
+	wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __FILE__ ), array(), $fullcalendar_version, true );
+	wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __FILE__ ), array( 'fullcalendar' ), $fullcalendar_version, true );
 }
 
 /**
@@ -136,9 +137,10 @@ add_shortcode( 'rotaract-appointments', 'appointments_shortcode' );
  * Enqueues style and script files for admin settings page.
  */
 function admin_scripts() {
-	wp_enqueue_style( 'appointments-admin-style-select', plugins_url( 'select/light.css', __FILE__ ), array(), '1.1.4' );
+	$lc_select_version = '1.1.4';
+	wp_enqueue_style( 'appointments-admin-style-select', plugins_url( 'node_modules/lc-select/themes/light.css', __FILE__ ), array(), $lc_select_version );
 	// Including the lc_select script in footer results in broken owner selection in appointments submenu page.
-	wp_enqueue_script( 'appointments-admin-script-select', plugins_url( 'select/lc_select.min.js', __FILE__ ), array(), '1.1.4', true );
+	wp_enqueue_script( 'appointments-admin-script-select', plugins_url( 'node_modules/lc-select/lc_select.min.js', __FILE__ ), array(), $lc_select_version, true );
 
 	wp_enqueue_script( 'rotaract-appointments-settings', plugins_url( 'settings.js', __FILE__ ), array( 'appointments-admin-script-select' ), '1.0', true );
 	wp_localize_script(

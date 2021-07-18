@@ -1,0 +1,57 @@
+name: Build Plugin ZIP
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: Install PHP dependencies
+        run: composer install --no-dev --no-progress -o -n
+
+      - name: Generate MO files for localization
+        run: |
+          curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+          php wp-cli.phar i18n make-mo languages
+          rm wp-cli.phar
+
+      - name: Upload Plugin
+        uses: actions/upload-artifact@v2
+        with:
+          name: rotaract-appointments
+          path: |
+            ./*
+            !tmp
+            !.*

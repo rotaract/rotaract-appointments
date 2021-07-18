@@ -1,33 +1,14 @@
-# ignore everything in the root except the "wp-content" directory.
-!wp-content/
+### Dependencies
+## Node
+/node_modules/
 
-# ignore everything in the "wp-content" directory, except:
-# "mu-plugins", "plugins", "themes" directory
-wp-content/*
-!wp-content/mu-plugins/
-!wp-content/plugins/
-!wp-content/themes/
+## Composer
+/vendor/
 
-# ignore these plugins
-wp-content/plugins/hello.php
+### IDE
+## JetBrain
+/.idea/
 
-# ignore specific themes
-wp-content/themes/twenty*/
-
-# ignore node dependency directories
-node_modules/
-
-# ignore log files and databases
-*.log
-*.sql
-*.sqlite
-
-# ignore JetBrain files
-.idea/
-
-# ignore binary translation files
+### Binary Artefacts
+## Translation Files
 *.mo
-
-# ignore package manager lock files as they are only symbolic
-composer.lock
-package-lock.json

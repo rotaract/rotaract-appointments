@@ -8,7 +8,7 @@
 		"rotaract"
 	],
 	"homepage": "https://github.com/rotaract/rotaract-appointments",
-	"readme": "README.md",
+	"readme": "README.adoc",
 	"license": "MIT",
 	"authors": [
 		{
@@ -28,6 +28,7 @@
 	},
 	"minimum-stability": "stable",
 	"scripts": {
-		"lint": "phpcs --standard=phpcs.xml"
+		"lint": "phpcs --standard=phpcs.xml",
+		"translate": "wp-cli i18n make-mo languages"
 	}
 }

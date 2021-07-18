@@ -1,0 +1,35 @@
+= Rotaract Appointments
+
+https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
+
+== Setup
+
+In order to either setup the environment for development or install plugin manually follow these steps.
+
+. Install Composer Dependencies (add command option `--no-dev` if you do not need development tools)
++
+[source]
+----
+composer install
+----
+. Install Node Dependencies
++
+[source]
+----
+npm install
+----
+. https://make.wordpress.org/cli/handbook/guides/installing/[Install WP-CLI]
+. Build Translation Files
++
+[source]
+----
+composer translate
+----
+
+== Installation
+
+IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].
+
+. Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
+. Install Plugin in your WordPress instance
+. Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`

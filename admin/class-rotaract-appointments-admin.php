@@ -200,7 +200,7 @@ class Rotaract_Appointments_Admin {
 		// Show error/update messages.
 		settings_errors( 'rotaract_messages' );
 
-		include $this->get_partial( 'page_rotaract_settings.php' );
+		include $this->get_partial( 'page-rotaract-settings.php' );
 
 	}
 

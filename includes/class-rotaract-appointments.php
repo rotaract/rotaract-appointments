@@ -1,12 +1,11 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       https://github.com/rotaract/appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
  * @since      1.0.0
  *
  * @package    Rotaract_Appointments
@@ -95,7 +94,7 @@ class Rotaract_Appointments {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Rotaract_Appointments_Loader. Orchestrates the hooks of the plugin.
-	 * - Rotaract_Appointments_i18n. Defines internationalization functionality.
+	 * - Rotaract_Appointments_I18n. Defines internationalization functionality.
 	 * - Rotaract_Appointments_Admin. Defines all hooks for the admin area.
 	 * - Rotaract_Appointments_Public. Defines all hooks for the public side of the site.
 	 *
@@ -117,7 +116,7 @@ class Rotaract_Appointments {
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-rotaract-appointments-i18n.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-rotaract-appointments-I18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.

@@ -2,7 +2,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://github.com/rotaract/appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
  * @since      1.0.0
  *
  * @package    Rotaract_Appointments
@@ -41,7 +41,7 @@ class Rotaract_Appointments_Admin {
 	private string $version;
 
 	/**
-	 * The version of this plugin.
+	 * The version of the JavaScript dependency LC-select.
 	 *
 	 * @since    1.0.0
 	 * @access   private
@@ -120,7 +120,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	private function get_partial( string $filename ): string {
 
-		return plugin_dir_path( __DIR__ ) . 'partials/' . $filename;
+		return plugin_dir_path( __FILE__ ) . 'partials/' . $filename;
 
 	}
 
@@ -129,7 +129,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function elastic_missing_notice() {
 
-		include $this->get_partial( 'notice_elastic_missing.php' );
+		include $this->get_partial( 'notice-elastic-missing.php' );
 
 	}
 
@@ -173,7 +173,7 @@ class Rotaract_Appointments_Admin {
 				'administrator',
 				'rotaract',
 				'rotaract_settings_html',
-				plugins_url( 'images/wheel.svg', __FILE__ ),
+				plugins_url( 'images/wheel.svg', __DIR__ ),
 			);
 
 		}
@@ -200,7 +200,7 @@ class Rotaract_Appointments_Admin {
 		// Show error/update messages.
 		settings_errors( 'rotaract_messages' );
 
-		include $this->get_partial( 'page_rotaract_settings.php' );
+		include $this->get_partial( 'page-rotaract-settings.php' );
 
 	}
 
@@ -211,7 +211,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function rotaract_appointment_section( array $args ) {
 
-		include $this->get_partial( 'section_rotaract_appointments.php' );
+		include $this->get_partial( 'section-rotaract-appointments.php' );
 
 	}
 
@@ -225,7 +225,7 @@ class Rotaract_Appointments_Admin {
 		$options = get_option( 'rotaract_appointment_options' );
 		$owners  = get_all_owner();
 
-		include $this->get_partial( 'field_appointment_owners.php' );
+		include $this->get_partial( 'field-appointment-owners.php' );
 
 	}
 

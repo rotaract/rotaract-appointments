@@ -8,7 +8,7 @@
  * that starts the plugin.
  *
  * Plugin Name: Rotaract Appointments
- * Plugin URI:  https://github.com/rotaract/appointments
+ * Plugin URI:  https://github.com/rotaract/rotaract-appointments
  * Description: Plugin for managing "mein Rotaract" appointments.
  * Version: 1.0.0
  * Author: Ressort IT-Entwicklung - Rotaract Deutschland
@@ -16,7 +16,7 @@
  * Text Domain: rotaract-appointments
  * Domain Path: /languages
  *
- * @link https://github.com/rotaract/appointments
+ * @link https://github.com/rotaract/rotaract-appointments
  * @since 1.0.0
  * @package Rotaract_Appointments
  * @category Core

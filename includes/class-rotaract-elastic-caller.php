@@ -2,13 +2,21 @@
 /**
  * Interface functions to receive data from Elasticsearch API.
  *
- * @package Rotaract_Appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
+ * @since      1.0.0
+ *
+ * @package    Rotaract_Appointments
+ * @subpackage Rotaract_Appointments/includes
  */
 
 /**
  * Interface functions to receive data from Elasticsearch API.
  *
- * @package Rotaract_Appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
+ * @since      1.0.0
+ *
+ * @package    Rotaract_Appointments
+ * @subpackage Rotaract_Appointments/includes
  */
 class Rotaract_Elastic_Caller {
 
@@ -44,7 +52,7 @@ class Rotaract_Elastic_Caller {
 		if ( $this->isset_elastic_host() ) {
 			return array();
 		}
-		$url    = $this->elastic_host . $api_path;
+		$url    = trailingslashit( $this->elastic_host ) . $api_path;
 		$header = array(
 			'Content-Type' => 'application/json',
 		);
@@ -80,6 +88,7 @@ class Rotaract_Elastic_Caller {
 	 */
 	public function get_appointments( array $appointment_owner ) {
 		$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
+		$path              = 'events/_search';
 		$search_param      = '{
 			"size": "1000",
 			"query" : {
@@ -98,7 +107,6 @@ class Rotaract_Elastic_Caller {
 				}
 			}
 		}';
-		$path              = '/events/_search';
 
 		return elastic_request( $path, $search_param );
 	}
@@ -110,6 +118,7 @@ class Rotaract_Elastic_Caller {
 	 */
 	public function get_all_clubs(): array {
 		$clubs        = array();
+		$path         = 'clubs/_search';
 		$search_param = '{
 			"_source": [ "select_name", "district_name" ],
 			"size": "1000",
@@ -124,7 +133,6 @@ class Rotaract_Elastic_Caller {
 				}
 			}
 		}';
-		$path         = '/clubs/_search';
 
 		$res = elastic_request( $path, $search_param );
 
@@ -142,6 +150,7 @@ class Rotaract_Elastic_Caller {
 	 */
 	public function get_all_ressorts(): array {
 		$ressorts     = array();
+		$path         = 'ressorts/_search';
 		$search_param = '{
 			"_source": [ "select_name", "district_name", "homepage_url" ],
 			"size": "1000",
@@ -155,7 +164,6 @@ class Rotaract_Elastic_Caller {
 				}
 			}
 		}';
-		$path         = '/ressorts/_search';
 
 		$res = elastic_request( $path, $search_param );
 
@@ -173,6 +181,7 @@ class Rotaract_Elastic_Caller {
 	 */
 	public function get_all_districts(): array {
 		$districts    = array();
+		$path         = 'districts/_search';
 		$search_param = '{
 			"_source": [ "select_name", "district_name", "homepage_url" ],
 			"size": "1000",
@@ -186,7 +195,6 @@ class Rotaract_Elastic_Caller {
 				}
 			}
 		}';
-		$path         = '/districts/_search';
 
 		$res = elastic_request( $path, $search_param );
 

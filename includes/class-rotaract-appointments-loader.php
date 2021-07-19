@@ -1,9 +1,8 @@
 <?php
-
 /**
  * Register all actions and filters for the plugin
  *
- * @link       https://github.com/rotaract/appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
  * @since      1.0.0
  *
  * @package    Rotaract_Appointments

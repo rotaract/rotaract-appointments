@@ -225,7 +225,7 @@ class Rotaract_Appointments_Admin {
 		$options = get_option( 'rotaract_appointment_options' );
 		$owners  = get_all_owner();
 
-		include $this->get_partial( 'field_appointment_owners.php' );
+		include $this->get_partial( 'field-appointment-owners.php' );
 
 	}
 

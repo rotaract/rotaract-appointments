@@ -2,13 +2,21 @@
 /**
  * Interface functions to receive data from Elasticsearch API.
  *
- * @package Rotaract_Appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
+ * @since      1.0.0
+ *
+ * @package    Rotaract_Appointments
+ * @subpackage Rotaract_Appointments/includes
  */
 
 /**
  * Interface functions to receive data from Elasticsearch API.
  *
- * @package Rotaract_Appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
+ * @since      1.0.0
+ *
+ * @package    Rotaract_Appointments
+ * @subpackage Rotaract_Appointments/includes
  */
 class Rotaract_Elastic_Caller {
 

@@ -23,7 +23,7 @@
  * @subpackage Rotaract_Appointments/includes
  * @author     Ressort IT-Entwicklung - Rotaract Deutschland <it-entwicklung@rotaract.de>
  */
-class Rotaract_Appointments_i18n {
+class Rotaract_Appointments_I18n {
 
 	/**
 	 * Load the plugin text domain for translation.

@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       https://github.com/rotaract/appointments
+ * @link       https://github.com/rotaract/rotaract-appointments
  * @since      1.0.0
  *
  * @package    Rotaract_Appointments

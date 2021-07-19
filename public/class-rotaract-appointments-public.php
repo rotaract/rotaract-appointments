@@ -83,10 +83,10 @@ class Rotaract_Appointments_Public {
 	 */
 	public function __construct( string $rotaract_appointments, string $version, Rotaract_Elastic_Caller $elastic_caller ) {
 
-		$this->rotaract_appointments    = $rotaract_appointments;
-		$this->version        = $version;
-		$this->elastic_caller = $elastic_caller;
-		$this->parser         = new Parsedown();
+		$this->rotaract_appointments = $rotaract_appointments;
+		$this->version               = $version;
+		$this->elastic_caller        = $elastic_caller;
+		$this->parser                = new Parsedown();
 
 	}
 

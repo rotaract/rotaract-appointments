@@ -211,7 +211,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function rotaract_appointment_section( array $args ) {
 
-		include $this->get_partial( 'section_rotaract_appointments.php' );
+		include $this->get_partial( 'section-rotaract-appointments.php' );
 
 	}
 

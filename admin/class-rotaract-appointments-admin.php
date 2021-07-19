@@ -129,7 +129,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function elastic_missing_notice() {
 
-		include $this->get_partial( 'notice_elastic_missing.php' );
+		include $this->get_partial( 'notice-elastic-missing.php' );
 
 	}
 

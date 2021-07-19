@@ -41,7 +41,7 @@ class Rotaract_Appointments_Admin {
 	private string $version;
 
 	/**
-	 * The version of this plugin.
+	 * The version of the JavaScript dependency LC-select.
 	 *
 	 * @since    1.0.0
 	 * @access   private

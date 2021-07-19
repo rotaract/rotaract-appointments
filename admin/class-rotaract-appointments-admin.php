@@ -120,7 +120,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	private function get_partial( string $filename ): string {
 
-		return plugin_dir_path( __DIR__ ) . 'partials/' . $filename;
+		return plugin_dir_path( __FILE__ ) . 'partials/' . $filename;
 
 	}
 
@@ -173,7 +173,7 @@ class Rotaract_Appointments_Admin {
 				'administrator',
 				'rotaract',
 				'rotaract_settings_html',
-				plugins_url( 'images/wheel.svg', __FILE__ ),
+				plugins_url( 'images/wheel.svg', __DIR__ ),
 			);
 
 		}

@@ -108,7 +108,7 @@ class Rotaract_Elastic_Caller {
 			}
 		}';
 
-		return elastic_request( $path, $search_param );
+		return $this->elastic_request( $path, $search_param );
 	}
 
 	/**
@@ -134,7 +134,7 @@ class Rotaract_Elastic_Caller {
 			}
 		}';
 
-		$res = elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, $search_param );
 
 		foreach ( $res as $club ) {
 			$clubs[] = $club->_source->select_name;
@@ -165,7 +165,7 @@ class Rotaract_Elastic_Caller {
 			}
 		}';
 
-		$res = elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, $search_param );
 
 		foreach ( $res as $ressort ) {
 			$ressorts[] = $ressort->_source->select_name;
@@ -196,7 +196,7 @@ class Rotaract_Elastic_Caller {
 			}
 		}';
 
-		$res = elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, $search_param );
 
 		foreach ( $res as $district ) {
 			$districts[] = $district->_source->select_name;
@@ -211,9 +211,9 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_owners(): array {
-		$clubs     = get_all_clubs();
-		$ressorts  = get_all_ressorts();
-		$districts = get_all_districts();
+		$clubs     = $this->get_all_clubs();
+		$ressorts  = $this->get_all_ressorts();
+		$districts = $this->get_all_districts();
 		return array(
 			'clubs'     => $clubs,
 			'districts' => $districts,

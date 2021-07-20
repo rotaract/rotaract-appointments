@@ -223,7 +223,7 @@ class Rotaract_Appointments_Admin {
 	public function appointment_owners_field( array $args ) {
 		// Get the value of the setting we've registered with register_setting().
 		$options = get_option( 'rotaract_appointment_options' );
-		$owners  = get_all_owner();
+		$owners  = $this->elastic_caller->get_all_owners();
 
 		include $this->get_partial( 'field-appointment-owners.php' );
 

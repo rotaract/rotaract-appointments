@@ -144,7 +144,7 @@ class Rotaract_Appointments_Public {
 	 */
 	private function init_calendar() {
 		$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
-		$appointments = read_appointments( $owner );
+		$appointments = $this->elastic_caller->get_appointments( $owner );
 
 		$events = array_map( 'create_event', $appointments );
 

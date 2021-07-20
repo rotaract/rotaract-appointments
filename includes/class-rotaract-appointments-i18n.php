@@ -47,13 +47,17 @@ class Rotaract_Appointments_I18n {
 	 * @return string The translated name of the owner type.
 	 * @since  1.0.0
 	 */
-	public function localize_owner_type_name( string $owner_type_name ) {
+	public static function localize_owner_type_name( string $owner_type_name ) {
 
-		switch ($owner_type_name) {
-			case 'clubs': return __( 'clubs', 'rotaract-appointments' );
-			case 'districts': return __( 'districts', 'rotaract-appointments' );
-			case 'ressorts': return __( 'ressorts', 'rotaract-appointments' );
-			default: return $owner_type_name;
+		switch ( $owner_type_name ) {
+			case 'clubs':
+				return __( 'clubs', 'rotaract-appointments' );
+			case 'districts':
+				return __( 'districts', 'rotaract-appointments' );
+			case 'ressorts':
+				return __( 'ressorts', 'rotaract-appointments' );
+			default:
+				return $owner_type_name;
 		}
 	}
 

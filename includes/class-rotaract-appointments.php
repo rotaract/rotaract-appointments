@@ -142,7 +142,7 @@ class Rotaract_Appointments {
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Plugin_Name_i18n class in order to set the domain and to register the hook
+	 * Uses the Rotaract_Appointments_I18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -150,7 +150,7 @@ class Rotaract_Appointments {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Rotaract_Appointments_i18n();
+		$plugin_i18n = new Rotaract_Appointments_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}

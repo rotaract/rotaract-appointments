@@ -95,7 +95,7 @@ class Rotaract_Appointments_Admin {
 		// Including the lc_select script in footer results in broken owner selection in appointments submenu page.
 		wp_enqueue_script( 'lc-select', plugins_url( 'node_modules/lc-select/lc_select.min.js', __DIR__ ), array(), $this->lc_select_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array( 'appointments-admin-script-select' ), $this->version, true );
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array( 'lc-select' ), $this->version, true );
 		wp_localize_script(
 			$this->rotaract_appointments,
 			'lcData',
@@ -172,7 +172,7 @@ class Rotaract_Appointments_Admin {
 				'Rotaract',
 				'administrator',
 				'rotaract',
-				'rotaract_settings_html',
+				array( $this, 'rotaract_settings_html' ),
 				plugins_url( 'images/wheel.svg', __DIR__ ),
 			);
 

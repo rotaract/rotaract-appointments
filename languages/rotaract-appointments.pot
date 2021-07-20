@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-11 17:56+0200\n"
+"POT-Creation-Date: 2021-07-20 21:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Poedit 3.0\n"
 "X-Domain: rotaract-appointments\n"
@@ -18,60 +18,58 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x;_ex;_n;_nx;_n_noop;_nx_noop;translate_nooped_plural;esc_html__;esc_html_e;esc_html_x;esc_attr__;esc_attr_e;esc_attr_x\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#: rotaract-appointments.php:133
+#: admin/class-rotaract-appointments-admin.php:104
 msgid "Search"
 msgstr ""
 
-#: rotaract-appointments.php:134
+#: admin/class-rotaract-appointments-admin.php:105
 msgid "Add"
 msgstr ""
 
-#: rotaract-appointments.php:135
+#: admin/class-rotaract-appointments-admin.php:106
 msgid "Select"
 msgstr ""
 
-#: rotaract-appointments.php:136
+#: admin/class-rotaract-appointments-admin.php:107
 msgid "Nothing found."
 msgstr ""
 
-#: rotaract-appointments.php:157
-msgid "Settings for Appointments"
-msgstr ""
-
-#: rotaract-appointments.php:158
-msgid "Appointments"
-msgstr ""
-
-#: rotaract-appointments.php:177
+#: admin/class-rotaract-appointments-admin.php:146
+#: admin/partials/notice-elastic-missing.php:17
 msgid "Rotaract Events"
 msgstr ""
 
-#: rotaract-appointments.php:184
+#: admin/class-rotaract-appointments-admin.php:153
 msgid "Owners"
 msgstr ""
 
-#: rotaract-appointments.php:203
-msgid "Customize your calendar events here."
-msgstr ""
-
-#: rotaract-appointments.php:215
-msgid "Please set Elasticsearch Host in your WordPress configuration!"
-msgstr ""
-
-#: rotaract-appointments.php:221
-msgid "Rotaract Deutschland"
-msgstr ""
-
-#: rotaract-appointments.php:250
+#: admin/class-rotaract-appointments-admin.php:197
 msgid "Settings Saved"
 msgstr ""
 
+#: admin/partials/field-appointment-owners.php:19
+msgid "Rotaract Deutschland"
+msgstr ""
+
+#: admin/partials/notice-elastic-missing.php:18
+msgid "Please set Elasticsearch Host in your WordPress configuration!"
+msgstr ""
+
+#: admin/partials/section-rotaract-appointments.php:15
+msgid "Customize your calendar events here."
+msgstr ""
+
+#: includes/class-rotaract-appointments-i18n.php:54
 msgid "clubs"
-msgstr "Clubs"
+msgstr ""
 
+#: includes/class-rotaract-appointments-i18n.php:56
 msgid "districts"
-msgstr "Districts"
+msgstr ""
 
+#: includes/class-rotaract-appointments-i18n.php:58
 msgid "ressorts"
-msgstr "Ressorts"
+msgstr ""

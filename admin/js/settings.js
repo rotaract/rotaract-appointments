@@ -2,7 +2,8 @@
  * Custom JS intended to be included in the plugin's setting page.
  *
  * @author zimbcode
- * @package Rotaract-Appointments
+ * @package Rotaract_Appointments
+ * @subpackage Rotaract_Appointments/admin/js
  */
 
 /** Initialize LC-select field. */

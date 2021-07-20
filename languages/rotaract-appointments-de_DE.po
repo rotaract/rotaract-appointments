@@ -70,3 +70,12 @@ msgstr "Rotaract Deutschland"
 #: rotaract-appointments.php:250
 msgid "Settings Saved"
 msgstr "Einstellungen gespeichert"
+
+msgid "clubs"
+msgstr "Clubs"
+
+msgid "districts"
+msgstr "Distrikte"
+
+msgid "ressorts"
+msgstr "Ressorts"

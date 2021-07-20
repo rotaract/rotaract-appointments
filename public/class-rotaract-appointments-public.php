@@ -12,7 +12,7 @@
 /**
  * Markdown parser to convert description to HTML.
  */
-require 'vendor/autoload.php';
+require plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
 use Parsedown;
 
 /**

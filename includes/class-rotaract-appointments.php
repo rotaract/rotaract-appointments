@@ -75,8 +75,8 @@ class Rotaract_Appointments {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-			$this->version = PLUGIN_NAME_VERSION;
+		if ( defined( 'ROTARACT_APPOINTMENTS_VERSION' ) ) {
+			$this->version = ROTARACT_APPOINTMENTS_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}

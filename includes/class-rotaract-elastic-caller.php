@@ -36,7 +36,7 @@ class Rotaract_Elastic_Caller {
 	 */
 	public function __construct() {
 		if ( defined( 'ROTARACT_ELASTIC_HOST' ) ) {
-			$this->elastic_host = ROTARACT_ELASTIC_HOST;
+			$this->elastic_host = trailingslashit( ROTARACT_ELASTIC_HOST );
 		}
 	}
 
@@ -49,10 +49,10 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	private function elastic_request( string $api_path, string $search_param ): array {
-		if ( $this->isset_elastic_host() ) {
+		if ( ! $this->isset_elastic_host() ) {
 			return array();
 		}
-		$url    = trailingslashit( $this->elastic_host ) . $api_path;
+		$url    = $this->elastic_host . $api_path;
 		$header = array(
 			'Content-Type' => 'application/json',
 		);

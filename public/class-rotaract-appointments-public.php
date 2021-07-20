@@ -134,7 +134,7 @@ class Rotaract_Appointments_Public {
 	 * @return String containing empty div tag with id "rotaract-appointments"
 	 */
 	public function appointments_shortcode(): string {
-		add_action( 'wp_footer', 'init_calendar', 999 );
+		add_action( 'wp_print_footer_scripts', array( $this, 'init_calendar' ), 999 );
 
 		return '<div id="rotaract-appointments"></div>';
 	}
@@ -142,11 +142,11 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
-	private function init_calendar() {
+	public function init_calendar() {
 		$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
 		$appointments = $this->elastic_caller->get_appointments( $owner );
 
-		$events = array_map( 'create_event', $appointments );
+		$events = array_map( array( $this, 'create_event' ), $appointments );
 
 		include $this->get_partial( 'shortcode.php' );
 	}
@@ -154,11 +154,11 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Creates fullcalendar events from search results.
 	 *
-	 * @param array $appointment Appointment object from search results.
+	 * @param object $appointment Appointment object from search results.
 	 *
 	 * @return array in form of a fullcalendar event.
 	 */
-	private function create_event( array $appointment ): array {
+	private function create_event( object $appointment ): array {
 		return array(
 			'title'       => $appointment->_source->title,
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),

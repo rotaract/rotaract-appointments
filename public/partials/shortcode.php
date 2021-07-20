@@ -12,7 +12,7 @@
  */
 
 ?>
-<script>
+<script type="text/javascript" id="rotaract-appointments">
 document.addEventListener("DOMContentLoaded", function() {
 	const calendarEl = document.getElementById("rotaract-appointments");
 	const calendar = new FullCalendar.Calendar(calendarEl, {

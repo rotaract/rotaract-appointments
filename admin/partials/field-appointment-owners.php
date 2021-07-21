@@ -14,10 +14,13 @@
 ?>
 <div id="rotaract-appointment-owner">
 	<?php
-	foreach ( $selected_owners as $index => $selected_owner ) {
-		$this->print_appointment_owners_line( false, $index, $selected_owner['name'], $selected_owner['color'] );
+	if ( count( $selected_owners ) ) {
+		foreach ( $selected_owners as $index => $selected_owner ) {
+			$this->print_appointment_owners_line( false, $index, $selected_owner['name'], $selected_owner['color'] );
+		}
+	} else {
+		$this->print_appointment_owners_line( true, count( $selected_owners ) );
 	}
-	$this->print_appointment_owners_line( true, count( $selected_owners ) );
 	?>
 </div>
 <div class="owner-add">

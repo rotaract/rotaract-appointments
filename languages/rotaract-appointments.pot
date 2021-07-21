@@ -73,3 +73,33 @@ msgstr ""
 #: includes/class-rotaract-appointments-i18n.php:58
 msgid "ressorts"
 msgstr ""
+
+msgid "Owner"
+msgstr ""
+
+msgid "Color"
+msgstr ""
+
+msgid "Cranberry"
+msgstr ""
+
+msgid "Azure"
+msgstr ""
+
+msgid "Royal Blue"
+msgstr ""
+
+msgid "Sky Blue"
+msgstr ""
+
+msgid "Gold"
+msgstr ""
+
+msgid "Orange"
+msgstr ""
+
+msgid "Violet"
+msgstr ""
+
+msgid "Turquoise"
+msgstr ""

@@ -81,6 +81,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function enqueue_styles() {
 
+		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version, 'all' );
 		wp_enqueue_style( 'lc-select-light', plugins_url( 'node_modules/lc-select/themes/light.css', __DIR__ ), array(), $this->lc_select_version, 'all' );
 
 	}
@@ -139,7 +140,15 @@ class Rotaract_Appointments_Admin {
 	public function admin_init() {
 
 		// Register our settings.
-		register_setting( 'rotaract_appointments', 'rotaract_appointment_options' );
+		register_setting(
+			'rotaract_appointments',
+			'rotaract_appointment_owners',
+			array(
+				'type'              => 'array',
+				'default'           => array(),
+				'sanitize_callback' => array( $this, 'sanitize_rotaract_appointment_owners' ),
+			)
+		);
 
 		add_settings_section(
 			'rotaract_appointment_settings',
@@ -222,11 +231,59 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function appointment_owners_field( array $args ) {
 		// Get the value of the setting we've registered with register_setting().
-		$options = get_option( 'rotaract_appointment_options' );
-		$owners  = $this->elastic_caller->get_all_owners();
+		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
 		include $this->get_partial( 'field-appointment-owners.php' );
 
+	}
+
+	/**
+	 * Builds select tag containing grouped appointment options.
+	 *
+	 * @param bool        $is_new True if this intends to be a new owner.
+	 * @param int         $index Index of the parameter.
+	 * @param string|null $owner_name The owner's name.
+	 * @param string|null $owner_color Selected color.
+	 */
+	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
+		$owners        = $this->elastic_caller->get_all_owners();
+		$color_palette = array(
+			'#d91b5c' => __( 'Cranberry', 'rotaract-appointments' ),
+			'#0050a2' => __( 'Azure', 'rotaract-appointments' ),
+			'#0c3c7c' => __( 'Royal Blue', 'rotaract-appointments' ),
+			'#019fcb' => __( 'Sky Blue', 'rotaract-appointments' ),
+			'#f7a81b' => __( 'Gold', 'rotaract-appointments' ),
+			'#ff7600' => __( 'Orange', 'rotaract-appointments' ),
+			'#872175' => __( 'Violet', 'rotaract-appointments' ),
+			'#018d8d' => __( 'Turquoise', 'rotaract-appointments' ),
+		);
+
+		include $this->get_partial( 'field-appointment-owner.php' );
+
+	}
+
+	/**
+	 * Builds select tag containing grouped appointment options.
+	 *
+	 * @param array $input The POST data of the request on saving.
+	 * @return array
+	 */
+	public function sanitize_rotaract_appointment_owners( array $input ): array {
+
+		$new_input = array();
+		// Re-indexing the array.
+		foreach ( $input as $owner ) {
+			$name  = sanitize_text_field( $owner['name'] );
+			$color = sanitize_hex_color( $owner['color'] );
+			if ( empty( $name ) || empty( $color ) ) {
+				continue;
+			}
+			$new_input[] = array(
+				'name'  => $name,
+				'color' => $color,
+			);
+		}
+		return array_values( $new_input );
 	}
 
 }

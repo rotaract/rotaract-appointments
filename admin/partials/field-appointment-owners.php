@@ -12,18 +12,17 @@
  */
 
 ?>
-<select id="<?php echo esc_attr( $args['label_for'] ); ?>"
-	name="rotaract_appointment_options[<?php echo esc_attr( $args['label_for'] ); ?>][]"
-	class="lc_select"
-	multiple>
-	<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
-		<option value="Rotaract Deutschland Komitee"<?php echo in_array( 'Rotaract Deutschland Komitee', $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>>Rotaract Deutschland Komitee</option>
-	</optgroup>
-	<?php foreach ( $owners as $name => $items ) : ?>
-	<optgroup label="<?php echo esc_attr( Rotaract_Appointments_I18n::localize_owner_type_name( $name ) ); ?>">
-		<?php foreach ( $items as $item ) : ?>
-		<option value="<?php echo esc_attr( $item ); ?>"<?php echo in_array( $item, $options[ $args['label_for'] ], true ) ? ' selected' : ''; ?>><?php echo esc_html( $item ); ?></option>
-		<?php endforeach; ?>
-	</optgroup>
-	<?php endforeach; ?>
-</select>
+<div id="rotaract-appointment-owner">
+	<?php
+	foreach ( $selected_owners as $index => $selected_owner ) {
+		$this->print_appointment_owners_line( false, $index, $selected_owner['name'], $selected_owner['color'] );
+	}
+	$this->print_appointment_owners_line( true, count( $selected_owners ) );
+	?>
+</div>
+<div class="owner-add">
+	<button class="add-owner button" title="<?php esc_attr_e( 'Delete', 'rotaract-appointments' ); ?>">
+		<span class="dashicons dashicons-plus"></span>
+		<?php esc_html_e( 'Add', 'rotaract-appointments' ); ?>
+	</button>
+</div>

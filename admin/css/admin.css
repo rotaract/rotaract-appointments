@@ -1,0 +1,11 @@
+.button .dashicons {
+	line-height: 1.5em;
+}
+
+.owner-group, .owner-add {
+	margin: 0.5rem 0;
+}
+
+select.lc-select {
+	min-width: 150px;
+}

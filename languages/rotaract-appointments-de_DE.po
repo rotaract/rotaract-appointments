@@ -83,3 +83,33 @@ msgstr "Ressorts"
 
 #~ msgid "Appointments"
 #~ msgstr "Events"
+
+msgid "Owner"
+msgstr "Veranstalter"
+
+msgid "Color"
+msgstr "Farbe"
+
+msgid "Cranberry"
+msgstr "Cranberry"
+
+msgid "Azure"
+msgstr "Azur"
+
+msgid "Royal Blue"
+msgstr "Königsblau"
+
+msgid "Sky Blue"
+msgstr "Himmelblau"
+
+msgid "Gold"
+msgstr "Gold"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Violet"
+msgstr "Violett"
+
+msgid "Turquoise"
+msgstr "Türkis"

@@ -265,10 +265,10 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds select tag containing grouped appointment options.
 	 *
-	 * @param array $input The POST data of the request on saving.
+	 * @param array|null $input The POST data of the request on saving.
 	 * @return array
 	 */
-	public function sanitize_rotaract_appointment_owners( array $input ): array {
+	public function sanitize_rotaract_appointment_owners( ?array $input ): array {
 
 		$new_input = array();
 		// Re-indexing the array.

@@ -2,8 +2,35 @@
 	line-height: 1.5em;
 }
 
-.owner-group, .owner-add {
+.owner-group {
+	align-items: center;
+	background-color: #ddd;
+	border-color: #bbb;
+	border-style: solid;
+	border-radius: 0.5rem;
+	border-width: 0 0 0 0.75rem;
+	display: flex;
+	flex-wrap: wrap;
 	margin: 0.5rem 0;
+	padding: 0.5rem 1rem;
+	width: fit-content;
+}
+
+.owner-group > :not(:last-child) {
+	margin-right: 1rem;
+}
+
+.owner-group button.delete-owner {
+	background: none;
+	border: none;
+	color: #f00;
+	cursor: pointer;
+	padding: 0;
+	text-decoration: none;
+}
+
+.owner-add {
+	padding: 1rem;
 }
 
 select.lc-select {

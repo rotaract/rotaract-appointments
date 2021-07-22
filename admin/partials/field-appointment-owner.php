@@ -16,7 +16,7 @@
 <?php
 if ( $is_new ) :
 	?>
-	new-owner<?php endif; ?>">
+	new-owner<?php endif; ?>" style="background-color: <?php echo esc_attr( $owner_color ); ?>25; border-color: <?php echo esc_attr( $owner_color ); ?>;">
 	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]" class="lc-select owner-name" data-placeholder="<?php esc_attr_e( 'Owner', 'rotaract-appointments' ); ?>">
 		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
 			<option value="Rotaract Deutschland Komitee"
@@ -43,10 +43,12 @@ if ( $is_new ) :
 			<?php
 			if ( ! $is_new && $hex === $owner_color ) :
 				?>
-			selected<?php endif; ?>><?php echo esc_attr( $color ); ?></option>
+			selected<?php endif; ?>>
+			<?php echo esc_attr( $color ); ?>
+		</option>
 		<?php endforeach; ?>
 	</select>
-	<button class="delete-owner button" title="<?php esc_attr_e( 'Delete', 'rotaract-appointments' ); ?>">
+	<button class="delete-owner" title="<?php esc_attr_e( 'Delete', 'rotaract-appointments' ); ?>">
 		<span class="dashicons dashicons-no"></span>
 	</button>
 </div>

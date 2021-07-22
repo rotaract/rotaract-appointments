@@ -17,7 +17,8 @@ function lcSelectInit() {
 			enable_search: true,
 			wrap_width: 'inherit',
 			pre_placeh_opt: true,
-			labels: lcData.labels
+			labels: lcData.labels,
+			on_change: changeColor
 		}
 	);
 }
@@ -63,6 +64,9 @@ function addOwner( event ) {
 	let newSelectName  = newOwner.querySelector( 'select.owner-name' );
 	let newSelectColor = newOwner.querySelector( 'select.owner-color' );
 
+	newOwner.style.backgroundColor = null;
+	newOwner.style.borderColor     = null;
+
 	newSelectName.setAttribute( 'name', newSelectName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 	newSelectColor.setAttribute( 'name', newSelectColor.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 
@@ -80,4 +84,10 @@ function addOwner( event ) {
 function delOwner( event ) {
 	event.preventDefault();
 	event.target.closest( '.owner-group' ).remove();
+}
+
+function changeColor( newValue, targetField) {
+	const style           = targetField.closest( '.owner-group' ).style;
+	style.backgroundColor = newValue + '25';
+	style.borderColor     = newValue;
 }

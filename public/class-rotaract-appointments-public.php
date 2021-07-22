@@ -143,8 +143,14 @@ class Rotaract_Appointments_Public {
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
 	public function init_calendar() {
-		$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
-		$appointments = $this->elastic_caller->get_appointments( $owner );
+		$owner        = get_option( 'rotaract_appointment_owners' );
+		$owner_names  = array_map(
+			function ( $o ) {
+				return $o['name'];
+			},
+			$owner
+		);
+		$appointments = $this->elastic_caller->get_appointments( $owner_names );
 
 		$events = array_map( array( $this, 'create_event' ), $appointments );
 

@@ -87,10 +87,9 @@ class Rotaract_Elastic_Caller {
 	 *
 	 * @return array of appointments
 	 */
-	public function get_appointments( array $appointment_owner ) {
-		$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
-		$path              = 'events/_search';
-		$search_param      = array(
+	public function get_appointments( array $appointment_owner ): array {
+		$path         = 'events/_search';
+		$search_param = array(
 			'size'  => '1000',
 			'query' => array(
 				'bool' => array(
@@ -102,7 +101,7 @@ class Rotaract_Elastic_Caller {
 						),
 						array(
 							'terms' => array(
-								'owner_select_names.keyword' => array( $appointment_owner ),
+								'owner_select_names.keyword' => $appointment_owner,
 							),
 						),
 						array(

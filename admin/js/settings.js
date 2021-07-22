@@ -45,8 +45,10 @@ function addEventListeners() {
 	document.querySelector( 'button.add-owner' ).addEventListener( 'click', addOwner );
 }
 
-function addOwner( event ) {
-	event.preventDefault();
+function addOwner( event = null ) {
+	if ( event ) {
+		event.preventDefault();
+	}
 
 	const owners = document.querySelectorAll( '.owner-group select.owner-name' );
 	let newIndex = 0;
@@ -83,6 +85,9 @@ function addOwner( event ) {
 
 function delOwner( event ) {
 	event.preventDefault();
+	if ( document.querySelectorAll( '.owner-group' ).length < 2 ) {
+		addOwner();
+	}
 	event.target.closest( '.owner-group' ).remove();
 }
 

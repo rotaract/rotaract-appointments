@@ -89,26 +89,35 @@ class Rotaract_Elastic_Caller {
 	public function get_appointments( array $appointment_owner ) {
 		$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
 		$path              = 'events/_search';
-		$search_param      = '{
-			"size": "1000",
-			"query" : {
-				"bool" : {
-					"filter" : [
-						{ "match": { "publish_on_homepage": true } },
-						{ "terms": { "owner_select_names.keyword": [' . $appointment_owner . '] } },
-						{ "range": {
-							"begins_at": {
-								"gte": "now",
-								"lte": "now+1y/y"
-								}
-							}
-						}
-					]
-				}
-			}
-		}';
+		$search_param      = array(
+			'size'  => 1000,
+			'query' => array(
+				'bool' => array(
+					'filter' => array(
+						array(
+							'match' => array(
+								'publish_on_homepage' => true,
+							),
+						),
+						array(
+							'terms' => array(
+								'owner_select_names.keyword' => array( $appointment_owner ),
+							),
+						),
+						array(
+							'range' => array(
+								'begins_at' => array(
+									'gte' => 'now',
+									'lte' => 'now+1y/y',
+								),
+							),
+						),
+					),
+				),
+			),
+		);
 
-		return $this->elastic_request( $path, $search_param );
+		return $this->elastic_request( $path, wp_json_encode( $search_param ) );
 	}
 
 	/**
@@ -119,22 +128,33 @@ class Rotaract_Elastic_Caller {
 	public function get_all_clubs(): array {
 		$clubs        = array();
 		$path         = 'clubs/_search';
-		$search_param = '{
-			"_source": [ "select_name", "district_name" ],
-			"size": "1000",
-			"query" : {
-				"bool" : {
-					"must" : {
-						"match_all" : {}
-					},
-					"filter" : [
-						{ "terms": { "status": ["active", "founding", "preparing"] } }
-					]
-				}
-			}
-		}';
+		$search_param = array(
+			'_source' => array(
+				'select_name',
+				'district_name',
+			),
+			'size'    => 1000,
+			'query'   => array(
+				'bool' => array(
+					'must'   => array(
+						'match_all' => array(),
+					),
+					'filter' => array(
+						array(
+							'terms' => array(
+								'status' => array(
+									'active',
+									'founding',
+									'preparing',
+								),
+							),
+						),
+					),
+				),
+			),
+		);
 
-		$res = $this->elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		foreach ( $res as $club ) {
 			$clubs[] = $club->_source->select_name;
@@ -151,21 +171,24 @@ class Rotaract_Elastic_Caller {
 	public function get_all_ressorts(): array {
 		$ressorts     = array();
 		$path         = 'ressorts/_search';
-		$search_param = '{
-			"_source": [ "select_name", "district_name", "homepage_url" ],
-			"size": "1000",
-			"query" : {
-				"bool" : {
-					"must" : {
-						"match_all" : {}
-					},
-					"filter" : [
-					]
-				}
-			}
-		}';
+		$search_param = array(
+			'_source' => array(
+				'select_name',
+				'district_name',
+				'homepage_url',
+			),
+			'size'    => 1000,
+			'query'   => array(
+				'bool' => array(
+					'must'   => array(
+						'match_all' => array(),
+					),
+					'filter' => array(),
+				),
+			),
+		);
 
-		$res = $this->elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		foreach ( $res as $ressort ) {
 			$ressorts[] = $ressort->_source->select_name;
@@ -182,21 +205,24 @@ class Rotaract_Elastic_Caller {
 	public function get_all_districts(): array {
 		$districts    = array();
 		$path         = 'districts/_search';
-		$search_param = '{
-			"_source": [ "select_name", "district_name", "homepage_url" ],
-			"size": "1000",
-			"query" : {
-				"bool" : {
-					"must" : {
-						"match_all" : {}
-					},
-					"filter" : [
-					]
-				}
-			}
-		}';
+		$search_param = array(
+			'_source_' => array(
+				'select_name',
+				'district_name',
+				'homepage_url',
+			),
+			'size'     => 1000,
+			'query'    => array(
+				'bool' => array(
+					'must'   => array(
+						'match_all' => array(),
+					),
+					'filter' => array(),
+				),
+			),
+		);
 
-		$res = $this->elastic_request( $path, $search_param );
+		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		foreach ( $res as $district ) {
 			$districts[] = $district->_source->select_name;

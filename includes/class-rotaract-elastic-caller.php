@@ -66,7 +66,8 @@ class Rotaract_Elastic_Caller {
 		);
 		$res_body = wp_remote_retrieve_body( $res );
 
-		return json_decode( $res_body )->hits->hits;
+		$result = json_decode( $res_body )->hits->hits;
+		return $result ? $result : array();
 	}
 
 
@@ -90,7 +91,7 @@ class Rotaract_Elastic_Caller {
 		$appointment_owner = '"' . implode( '","', $appointment_owner ) . '"';
 		$path              = 'events/_search';
 		$search_param      = array(
-			'size'  => 1000,
+			'size'  => '1000',
 			'query' => array(
 				'bool' => array(
 					'filter' => array(
@@ -133,20 +134,15 @@ class Rotaract_Elastic_Caller {
 				'select_name',
 				'district_name',
 			),
-			'size'    => 1000,
+			'size'    => '1000',
 			'query'   => array(
-				'bool' => array(
-					'must'   => array(
-						'match_all' => array(),
-					),
+				'constant_score' => array(
 					'filter' => array(
-						array(
-							'terms' => array(
-								'status' => array(
-									'active',
-									'founding',
-									'preparing',
-								),
+						'terms' => array(
+							'status' => array(
+								'active',
+								'founding',
+								'preparing',
 							),
 						),
 					),
@@ -174,18 +170,8 @@ class Rotaract_Elastic_Caller {
 		$search_param = array(
 			'_source' => array(
 				'select_name',
-				'district_name',
-				'homepage_url',
 			),
-			'size'    => 1000,
-			'query'   => array(
-				'bool' => array(
-					'must'   => array(
-						'match_all' => array(),
-					),
-					'filter' => array(),
-				),
-			),
+			'size'    => '1000',
 		);
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
@@ -206,20 +192,10 @@ class Rotaract_Elastic_Caller {
 		$districts    = array();
 		$path         = 'districts/_search';
 		$search_param = array(
-			'_source_' => array(
+			'_source' => array(
 				'select_name',
-				'district_name',
-				'homepage_url',
 			),
-			'size'     => 1000,
-			'query'    => array(
-				'bool' => array(
-					'must'   => array(
-						'match_all' => array(),
-					),
-					'filter' => array(),
-				),
-			),
+			'size'    => '1000',
 		);
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );

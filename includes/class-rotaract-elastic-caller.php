@@ -67,7 +67,7 @@ class Rotaract_Elastic_Caller {
 		$res_body = wp_remote_retrieve_body( $res );
 
 		$result = json_decode( $res_body )->hits->hits;
-		return $result ? $result : array();
+		return $result ?: array();
 	}
 
 

@@ -81,6 +81,7 @@ function addOwner( event = null ) {
 	document.getElementById( 'rotaract-appointment-owner' ).append( newOwner );
 
 	lcSelectInit();
+	addEventListeners();
 }
 
 function delOwner( event ) {

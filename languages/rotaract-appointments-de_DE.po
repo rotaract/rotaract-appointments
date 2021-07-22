@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Rotaract Appointments\n"
 "Report-Msgid-Bugs-To: https://github.com/rotaract/rotaract-appointments/"
 "issues\n"
-"POT-Creation-Date: 2021-07-20 21:03+0200\n"
-"PO-Revision-Date: 2021-07-20 21:04+0200\n"
+"POT-Creation-Date: 2021-07-22 17:50+0200\n"
+"PO-Revision-Date: 2021-07-22 17:53+0200\n"
 "Last-Translator: Benno Bielmeier <benno.bielmeier@rotaract.de>\n"
 "Language-Team: https://github.com/rotaract\n"
 "Language: de_DE\n"
@@ -23,38 +23,84 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/class-rotaract-appointments-admin.php:104
+#: admin/class-rotaract-appointments-admin.php:105
 msgid "Search"
 msgstr "Suche"
 
-#: admin/class-rotaract-appointments-admin.php:105
+#: admin/class-rotaract-appointments-admin.php:106
+#: admin/partials/field-appointment-owners.php:29
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: admin/class-rotaract-appointments-admin.php:106
+#: admin/class-rotaract-appointments-admin.php:107
 msgid "Select"
 msgstr "Auswählen"
 
-#: admin/class-rotaract-appointments-admin.php:107
+#: admin/class-rotaract-appointments-admin.php:108
 msgid "Nothing found."
 msgstr "Kein Treffer."
 
-#: admin/class-rotaract-appointments-admin.php:146
+#: admin/class-rotaract-appointments-admin.php:155
 #: admin/partials/notice-elastic-missing.php:17
 msgid "Rotaract Events"
 msgstr "Rotaract Events"
 
-#: admin/class-rotaract-appointments-admin.php:153
+#: admin/class-rotaract-appointments-admin.php:162
 msgid "Owners"
 msgstr "Veranstalter"
 
-#: admin/class-rotaract-appointments-admin.php:197
+#: admin/class-rotaract-appointments-admin.php:206
 msgid "Settings Saved"
 msgstr "Einstellungen gespeichert"
 
-#: admin/partials/field-appointment-owners.php:19
+#: admin/class-rotaract-appointments-admin.php:251
+msgid "Cranberry"
+msgstr "Cranberry"
+
+#: admin/class-rotaract-appointments-admin.php:252
+msgid "Azure"
+msgstr "Azur"
+
+#: admin/class-rotaract-appointments-admin.php:253
+msgid "Royal Blue"
+msgstr "Königsblau"
+
+#: admin/class-rotaract-appointments-admin.php:254
+msgid "Sky Blue"
+msgstr "Himmelblau"
+
+#: admin/class-rotaract-appointments-admin.php:255
+msgid "Gold"
+msgstr "Gold"
+
+#: admin/class-rotaract-appointments-admin.php:256
+msgid "Orange"
+msgstr "Orange"
+
+#: admin/class-rotaract-appointments-admin.php:257
+msgid "Violet"
+msgstr "Violett"
+
+#: admin/class-rotaract-appointments-admin.php:258
+msgid "Turquoise"
+msgstr "Türkis"
+
+#: admin/partials/field-appointment-owner.php:20
+msgid "Owner"
+msgstr "Veranstalter"
+
+#: admin/partials/field-appointment-owner.php:21
 msgid "Rotaract Deutschland"
 msgstr "Rotaract Deutschland"
+
+#: admin/partials/field-appointment-owner.php:40
+msgid "Color"
+msgstr "Farbe"
+
+#: admin/partials/field-appointment-owner.php:49
+#: admin/partials/field-appointment-owners.php:27
+msgid "Delete"
+msgstr "Löschen"
 
 #: admin/partials/notice-elastic-missing.php:18
 msgid "Please set Elasticsearch Host in your WordPress configuration!"
@@ -83,33 +129,3 @@ msgstr "Ressorts"
 
 #~ msgid "Appointments"
 #~ msgstr "Events"
-
-msgid "Owner"
-msgstr "Veranstalter"
-
-msgid "Color"
-msgstr "Farbe"
-
-msgid "Cranberry"
-msgstr "Cranberry"
-
-msgid "Azure"
-msgstr "Azur"
-
-msgid "Royal Blue"
-msgstr "Königsblau"
-
-msgid "Sky Blue"
-msgstr "Himmelblau"
-
-msgid "Gold"
-msgstr "Gold"
-
-msgid "Orange"
-msgstr "Orange"
-
-msgid "Violet"
-msgstr "Violett"
-
-msgid "Turquoise"
-msgstr "Türkis"

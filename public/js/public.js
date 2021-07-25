@@ -8,24 +8,34 @@
 
 const rotaractCalendarOptions  = {
 	locale: appointmentsData.locale,
-	initialView: "listYear",
-	headerToolbar: {
-		start: "prev,next today",
-		center: "title",
-		end: "listYear,dayGridMonth"
+	initialView: 'listYear',
+	customButtons: {
+		ownerButton: {
+			text: appointmentsData.calendarBtn
+		}
 	},
-	height: "auto",
+	headerToolbar: {
+		start: 'prev,next',
+		center: 'title',
+		end: 'listYear,dayGridMonth'
+	},
+	footerToolbar: {
+		start: 'today',
+		center: '',
+		end: 'ownerButton'
+	},
+	height: 'auto',
 	views: {
 		listYear: {
 			eventDidMount( info ) {
-				var elem       = document.createElement( "div" );
+				var elem       = document.createElement( 'div' );
 				elem.innerHTML = info.event.extendedProps.description;
-				elem.classList.add( "event-description" );
+				elem.classList.add( 'event-description' );
 				info.el.append( elem );
 			},
 			eventClick( info ) {
 				if ( ! info.jsEvent.target.href) {
-					info.el.classList.toggle( "show" );
+					info.el.classList.toggle( 'show' );
 				}
 			}
 		},
@@ -49,4 +59,38 @@ const rotaractCalendarOptions  = {
 			}
 		}
 	}
+}
+
+var calendar;
+
+function calendarInit( eventSources ) {
+	const calendarEl = document.getElementById( "rotaract-appointments" );
+	calendar         = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions );
+	calendar.setOption( 'eventSources', eventSources );
+	calendar.render();
+	tippy(
+		'button.fc-ownerButton-button',
+		{
+			allowHTML: true,
+			content: document.getElementById( 'calendar-owners' ).innerHTML,
+			interactive: true,
+			theme: 'rotaract',
+			trigger: 'click'
+		}
+	);
+}
+
+function toggleOwner( el ) {
+	el.classList.toggle( 'off' );
+	calendar.getEvents().forEach(
+		function (e) {
+			if ( e.source.id === el.dataset.owner ) {
+				if (e.display === 'none') {
+					e.setProp( 'display', 'auto' );
+				} else {
+					e.setProp( 'display', 'none' );
+				}
+			}
+		}
+	)
 }

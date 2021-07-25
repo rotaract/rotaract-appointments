@@ -120,7 +120,8 @@ class Rotaract_Appointments_Public {
 			$this->rotaract_appointments,
 			'appointmentsData',
 			array(
-				'locale' => explode( '_', get_locale(), 2 )[0],
+				'locale'      => explode( '_', get_locale(), 2 )[0],
+				'calendarBtn' => __( 'Calendars', 'rotaract-appointments' ),
 			)
 		);
 
@@ -175,6 +176,7 @@ class Rotaract_Appointments_Public {
 			);
 
 			$event_sources[] = array(
+				'id'        => $owner['name'],
 				'title'     => $owner['name'],
 				'color'     => $owner['color'],
 				'textColor' => '#fff',

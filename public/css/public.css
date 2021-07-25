@@ -1,3 +1,13 @@
+#rotaract-appointments {
+	--fc-button-bg-color: #e7e7e8;
+	--fc-button-border-color: #e7e7e8;
+	--fc-button-text-color: #333333;
+	--fc-button-hover-bg-color: #c5c1bb;
+	--fc-button-hover-border-color: #c5c1bb;
+	--fc-button-active-bg-color: #c5c1bb;
+	--fc-button-active-border-color: #c5c1bb;
+	--fc-today-bg-color: #e6e5d8;
+}
 .fc table {
 	margin-bottom: 0;
 }
@@ -19,7 +29,7 @@
 .fc-list-event.show > .event-description {
 	display: table-cell;
 }
-.fc-list-event.show: hover > .event-description {
+.fc-list-event.show:hover > .event-description {
 	background-color: var(--fc-list-event-hover-bg-color, #f5f5f5);
 	border: none;
 }
@@ -27,8 +37,18 @@
 .fc .fc-scroller-liquid-absolute {
 	overflow: visible !important;
 }
-#rotaract-appointments p: last-of-type {
+.fc .fc-toolbar {
+	--fc-event-bg-color: transparent;
+}
+#rotaract-appointments p:last-of-type {
 	margin-bottom: 0.5em;
+}
+.fc-event {
+	cursor: pointer;
+}
+.fc-daygrid-day-number,
+.fc-col-header-cell-cushion {
+	color: #687d90;
 }
 
 /*fix fullcalendar sticky behaviour*/
@@ -41,8 +61,9 @@
 	background-color: #fff;
 	background-clip: padding-box;
 	border: 1px solid rgba(0,8,16,.15);
-	color: #333;
+	border-radius: 6px;
 	box-shadow: 0 4px 14px -2px rgba(0,8,16,.15);
+	color: #333;
 }
 .tippy-box[data-theme~=rotaract]>.tippy-backdrop {
 	background-color: #fff;
@@ -51,6 +72,23 @@
 	padding: 12px;
 	border-radius: 4px;
 	border-top: 2px solid var(--fc-event-bg-color, #d91b5c);
+}
+.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner {
+	cursor: pointer;
+	margin: 0 -12px;
+	padding: 6px 12px;
+}
+.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner:hover {
+	background-color: #eeeeee;
+}
+.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner.off {
+	color: #999999;
+}
+.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner.off span.fc-list-event-dot {
+	border-color: #999999 !important;
+}
+.tippy-box[data-theme~=rotaract]>.tippy-content span.fc-list-event-dot {
+	margin-right: 8px;
 }
 .tippy-box[data-theme~=rotaract]>.tippy-arrow:after,
 .tippy-box[data-theme~=rotaract]>.tippy-svg-arrow:after {

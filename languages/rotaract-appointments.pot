@@ -119,3 +119,7 @@ msgstr ""
 #: includes/class-rotaract-appointments-i18n.php:58
 msgid "ressorts"
 msgstr ""
+
+#: includes/class-rotaract-appointments-public.php:124
+msgid "Calendars"
+msgstr ""

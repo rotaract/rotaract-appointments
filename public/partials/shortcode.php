@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			end: "listYear,dayGridMonth"
 		},
 		height: "auto",
-		events: <?php echo wp_json_encode( $events ); ?>
+		eventSources: <?php echo wp_json_encode( $event_sources ); ?>
 	});
 	calendar.render();
 });

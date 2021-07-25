@@ -90,7 +90,7 @@ class Rotaract_Elastic_Caller {
 	public function get_appointments( array $appointment_owner ): array {
 		$path         = 'events/_search';
 		$search_param = array(
-			'size'  => '1000',
+			'size'  => '100',
 			'query' => array(
 				'bool' => array(
 					'filter' => array(

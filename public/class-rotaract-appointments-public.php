@@ -143,16 +143,32 @@ class Rotaract_Appointments_Public {
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
 	public function init_calendar() {
-		$owner        = get_option( 'rotaract_appointment_owners' );
+		$owners       = get_option( 'rotaract_appointment_owners' );
 		$owner_names  = array_map(
 			function ( $o ) {
 				return $o['name'];
 			},
-			$owner
+			$owners
 		);
 		$appointments = $this->elastic_caller->get_appointments( $owner_names );
 
-		$events = array_map( array( $this, 'create_event' ), $appointments );
+		$event_sources = array();
+
+		foreach ( $owners as $owner ) {
+			$owner_appointments = array_filter(
+				$appointments,
+				function ( $a ) use ( $owner ) {
+					return in_array( $owner['name'], $a->_source->owner_select_names, true );
+				}
+			);
+
+			$event_sources[] = array(
+				'title'     => $owner['name'],
+				'color'     => $owner['color'],
+				'textColor' => '#fff',
+				'events'    => array_values( array_map( array( $this, 'create_event' ), $owner_appointments ) ),
+			);
+		}
 
 		include $this->get_partial( 'shortcode.php' );
 	}
@@ -171,7 +187,7 @@ class Rotaract_Appointments_Public {
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
 			'allDay'      => $appointment->_source->all_day,
 			'description' => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $this->parser->text( $appointment->_source->description ) . '</div>',
-			'owner'       => $appointment->_source->owner,
+			'owner'       => $appointment->_source->owner_select_names,
 		);
 	}
 

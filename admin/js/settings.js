@@ -1,7 +1,7 @@
 /**
  * Custom JS intended to be included in the plugin's setting page.
  *
- * @author zimbcode
+ * @author Rotaract Germany
  * @package Rotaract_Appointments
  * @subpackage Rotaract_Appointments/admin/js
  */

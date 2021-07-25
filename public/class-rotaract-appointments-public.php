@@ -112,6 +112,15 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar' ), $this->version, true );
+		wp_localize_script(
+			$this->rotaract_appointments,
+			'appointmentsData',
+			array(
+				'locale' => explode( '_', get_locale(), 2 )[0],
+			)
+		);
+
 	}
 
 	/**

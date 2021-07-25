@@ -13,17 +13,13 @@
 	},
 	"license": "MIT",
 	"author": "Rotaract Germany",
-	"files": [
-	],
+	"files": [],
 	"repository": "github:rotaract/rotaract-appointments",
 	"slug": "rotaract-appointments",
-	"author": "Rotaract Germany",
-	"scripts": {
-	},
-	"devDependencies": {
-	},
+	"scripts": {},
 	"dependencies": {
 		"fullcalendar": "5.8.0",
-		"lc-select": "1.1.4"
+		"lc-select": "1.1.4",
+		"tippy.js": "6.3.1"
 	}
 }

@@ -97,8 +97,8 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
 		wp_enqueue_style( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.css', __DIR__ ), array(), $this->fullcalendar_version, 'all' );
+		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array( 'fullcalendar' ), $this->version, 'all' );
 
 	}
 
@@ -112,7 +112,10 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar' ), $this->version, true );
+		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->version, true );
+		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->version, true );
+
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'tippy' ), $this->version, true );
 		wp_localize_script(
 			$this->rotaract_appointments,
 			'appointmentsData',
@@ -195,7 +198,7 @@ class Rotaract_Appointments_Public {
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
 			'allDay'      => $appointment->_source->all_day,
-			'description' => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $this->parser->text( $appointment->_source->description ) . '</div>',
+			'description' => '<h5 class="event-title">' . $appointment->_source->title . '</h5>' . $this->parser->text( $appointment->_source->description ),
 			'owner'       => $appointment->_source->owner_select_names,
 		);
 	}

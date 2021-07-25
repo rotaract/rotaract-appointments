@@ -6,15 +6,9 @@
  * @subpackage Rotaract_Appointments/public/js
  */
 
-const rotaractCalendarOptions = {
+const rotaractCalendarOptions  = {
 	locale: appointmentsData.locale,
 	initialView: "listYear",
-	eventDidMount: function(info) {
-		var elem       = document.createElement( "div" );
-		elem.innerHTML = info.event.extendedProps.description;
-		elem.classList.add( "event-description" );
-		info.el.append( elem );
-	},
 	headerToolbar: {
 		start: "prev,next today",
 		center: "title",
@@ -23,6 +17,12 @@ const rotaractCalendarOptions = {
 	height: "auto",
 	views: {
 		listYear: {
+			eventDidMount( info ) {
+				var elem       = document.createElement( "div" );
+				elem.innerHTML = info.event.extendedProps.description;
+				elem.classList.add( "event-description" );
+				info.el.append( elem );
+			},
 			eventClick( info ) {
 				if ( ! info.jsEvent.target.href) {
 					info.el.classList.toggle( "show" );
@@ -30,18 +30,22 @@ const rotaractCalendarOptions = {
 			}
 		},
 		dayGridMonth: {
-			eventClick( info ) {
-				if ( ! info.jsEvent.target.href) {
-					info.el.classList.toggle( "show" );
-				}
-				let descEl = info.el.querySelector( ".event-description" );
-				if (descEl) {
-					descEl.style.left = "50%%";
-					let newLeft       = descEl.getBoundingClientRect().left - screen.width / 10;
-					if (newLeft < 0 || newLeft + descEl.offsetWidth > screen.width * 0.8) {
-						descEl.style.left = "calc(50%% - " + newLeft + "px)";
+			eventDidMount( info ) {
+				const calEl = info.el.closest( '#rotaract-appointments' );
+				tippy(
+					info.el,
+					{
+						allowHTML: true,
+						appendTo: calEl,
+						content: info.event.extendedProps.description,
+						interactive: true,
+						theme: 'rotaract',
+						trigger: 'click',
+						onShow() {
+							calEl.style.setProperty( '--fc-event-bg-color', info.event.source.internalEventSource._raw.color );
+						}
 					}
-				}
+				);
 			}
 		}
 	}

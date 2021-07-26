@@ -81,7 +81,7 @@ function calendarInit( eventSources ) {
 }
 
 function createEventContent( eventInfo ) {
-	const address = eventInfo.extendedProps.address.replace( /(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" title="' + eventInfo.title + '">$&</a>' )
+	const address = eventInfo.extendedProps.address.replace( /https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" title="' + eventInfo.title + '">$&</a>' )
 
 	let html = '<h5 class="event-title">';
 	html    += eventInfo.title;

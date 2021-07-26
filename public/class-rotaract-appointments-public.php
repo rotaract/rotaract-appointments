@@ -97,8 +97,8 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
 		wp_enqueue_style( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.css', __DIR__ ), array(), $this->fullcalendar_version, 'all' );
+		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array( 'fullcalendar' ), $this->version, 'all' );
 
 	}
 
@@ -111,6 +111,19 @@ class Rotaract_Appointments_Public {
 
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
+
+		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->version, true );
+		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->version, true );
+
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'tippy' ), $this->version, true );
+		wp_localize_script(
+			$this->rotaract_appointments,
+			'appointmentsData',
+			array(
+				'locale'      => explode( '_', get_locale(), 2 )[0],
+				'calendarBtn' => __( 'Calendars', 'rotaract-appointments' ),
+			)
+		);
 
 	}
 
@@ -143,10 +156,33 @@ class Rotaract_Appointments_Public {
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
 	public function init_calendar() {
-		$owner        = get_option( 'rotaract_appointment_options' )['rotaract_appointment_owners'];
-		$appointments = $this->elastic_caller->get_appointments( $owner );
+		$owners       = get_option( 'rotaract_appointment_owners' );
+		$owner_names  = array_map(
+			function ( $o ) {
+				return $o['name'];
+			},
+			$owners
+		);
+		$appointments = $this->elastic_caller->get_appointments( $owner_names );
 
-		$events = array_map( array( $this, 'create_event' ), $appointments );
+		$event_sources = array();
+
+		foreach ( $owners as $owner ) {
+			$owner_appointments = array_filter(
+				$appointments,
+				function ( $a ) use ( $owner ) {
+					return in_array( $owner['name'], $a->_source->owner_select_names, true );
+				}
+			);
+
+			$event_sources[] = array(
+				'id'        => $owner['name'],
+				'title'     => $owner['name'],
+				'color'     => $owner['color'],
+				'textColor' => '#fff',
+				'events'    => array_values( array_map( array( $this, 'create_event' ), $owner_appointments ) ),
+			);
+		}
 
 		include $this->get_partial( 'shortcode.php' );
 	}
@@ -164,8 +200,8 @@ class Rotaract_Appointments_Public {
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
 			'allDay'      => $appointment->_source->all_day,
-			'description' => '<div class="event-title">' . $appointment->_source->title . '</div><div class="event-description-inner">' . $this->parser->text( $appointment->_source->description ) . '</div>',
-			'owner'       => $appointment->_source->owner,
+			'description' => '<h5 class="event-title">' . $appointment->_source->title . '</h5>' . $this->parser->text( $appointment->_source->description ),
+			'owner'       => $appointment->_source->owner_select_names,
 		);
 	}
 

@@ -10,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-07-20 21:03+0200\n"
+"POT-Creation-Date: 2021-07-22 17:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Poedit 3.0\n"
 "X-Domain: rotaract-appointments\n"
@@ -21,37 +21,83 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: vendor\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
-#: admin/class-rotaract-appointments-admin.php:104
+#: admin/class-rotaract-appointments-admin.php:105
 msgid "Search"
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:105
+#: admin/class-rotaract-appointments-admin.php:106
+#: admin/partials/field-appointment-owners.php:29
 msgid "Add"
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:106
+#: admin/class-rotaract-appointments-admin.php:107
 msgid "Select"
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:107
+#: admin/class-rotaract-appointments-admin.php:108
 msgid "Nothing found."
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:146
+#: admin/class-rotaract-appointments-admin.php:155
 #: admin/partials/notice-elastic-missing.php:17
 msgid "Rotaract Events"
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:153
+#: admin/class-rotaract-appointments-admin.php:162
 msgid "Owners"
 msgstr ""
 
-#: admin/class-rotaract-appointments-admin.php:197
+#: admin/class-rotaract-appointments-admin.php:206
 msgid "Settings Saved"
 msgstr ""
 
-#: admin/partials/field-appointment-owners.php:19
+#: admin/class-rotaract-appointments-admin.php:251
+msgid "Cranberry"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:252
+msgid "Azure"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:253
+msgid "Royal Blue"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:254
+msgid "Sky Blue"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:255
+msgid "Gold"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:256
+msgid "Orange"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:257
+msgid "Violet"
+msgstr ""
+
+#: admin/class-rotaract-appointments-admin.php:258
+msgid "Turquoise"
+msgstr ""
+
+#: admin/partials/field-appointment-owner.php:20
+msgid "Owner"
+msgstr ""
+
+#: admin/partials/field-appointment-owner.php:21
 msgid "Rotaract Deutschland"
+msgstr ""
+
+#: admin/partials/field-appointment-owner.php:40
+msgid "Color"
+msgstr ""
+
+#: admin/partials/field-appointment-owner.php:49
+#: admin/partials/field-appointment-owners.php:27
+msgid "Delete"
 msgstr ""
 
 #: admin/partials/notice-elastic-missing.php:18
@@ -72,4 +118,8 @@ msgstr ""
 
 #: includes/class-rotaract-appointments-i18n.php:58
 msgid "ressorts"
+msgstr ""
+
+#: includes/class-rotaract-appointments-public.php:124
+msgid "Calendars"
 msgstr ""

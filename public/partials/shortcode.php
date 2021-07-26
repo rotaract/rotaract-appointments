@@ -12,41 +12,16 @@
  */
 
 ?>
+<div id="calendar-owners" style="display: none">
+	<?php foreach ( $owners as $owner ) : ?>
+	<div class="calendar-owner" onclick="toggleOwner(this)" data-owner="<?php echo esc_attr( $owner['name'] ); ?>">
+		<span class="fc-list-event-dot" style="border-color: <?php echo esc_attr( $owner['color'] ); ?>"></span>
+		<span><?php echo esc_html( $owner['name'] ); ?></span>
+	</div>
+	<?php endforeach; ?>
+</div>
 <script type="text/javascript" id="rotaract-appointments">
 document.addEventListener("DOMContentLoaded", function() {
-	const calendarEl = document.getElementById("rotaract-appointments");
-	const calendar = new FullCalendar.Calendar(calendarEl, {
-		locale: "de",
-		initialView: "listYear",
-		eventDidMount: function(info) {
-			var elem = document.createElement("div");
-			elem.innerHTML = info.event.extendedProps.description;
-			elem.classList.add("event-description");
-			info.el.append(elem);
-		},
-		eventClick: function(info) {
-			if (!info.jsEvent.target.href) {
-				info.el.classList.toggle("show");
-				if (info.view.type !== "listYear") {
-					let descEl = info.el.querySelector(".event-description");
-					if (descEl) {
-						descEl.style.left = "50%%";
-						let newLeft = descEl.getBoundingClientRect().left - screen.width / 10;
-						if (newLeft < 0 || newLeft + descEl.offsetWidth > screen.width * 0.8) {
-							descEl.style.left = "calc(50%% - " + newLeft + "px)";
-						}
-					}
-				}
-			}
-		},
-		headerToolbar: {
-			start: "prev,next today",
-			center: "title",
-			end: "listYear,dayGridMonth"
-		},
-		height: "auto",
-		events: <?php echo wp_json_encode( $events ); ?>
-	});
-	calendar.render();
+	calendarInit(<?php echo wp_json_encode( $event_sources ); ?>);
 });
 </script>

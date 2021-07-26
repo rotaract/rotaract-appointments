@@ -11,7 +11,7 @@ addEventListeners();
 
 /** Initialize LC-select field. */
 function lcSelectInit() {
-	new lc_select(
+	lc_select(
 		'select.lc-select',
 		{
 			enable_search: true,

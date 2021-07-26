@@ -59,7 +59,7 @@ const rotaractCalendarOptions  = {
 			}
 		}
 	}
-}
+};
 
 var calendar;
 
@@ -81,7 +81,7 @@ function calendarInit( eventSources ) {
 }
 
 function createEventContent( eventInfo ) {
-	const address = eventInfo.extendedProps.address.replace( /https?\:\/\/[a-z0-9\-\.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' )
+	const address = eventInfo.extendedProps.address.replace( /https?\:\/\/[a-z0-9\-\.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
 
 	let html = '<h5 class="event-title">';
 	html    += eventInfo.title;
@@ -101,7 +101,7 @@ function rotaractDateOptions( allDay = false ) {
 		year: 'numeric',
 		month: '2-digit',
 		day: '2-digit'
-	}
+	};
 	if ( ! allDay ) {
 		options.hour   = '2-digit';
 		options.minute = '2-digit';
@@ -121,5 +121,5 @@ function toggleOwner( el ) {
 				}
 			}
 		}
-	)
+	);
 }

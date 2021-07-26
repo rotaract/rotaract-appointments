@@ -1,5 +1,16 @@
 = Rotaract Appointments
 
+:badge_url: https://img.shields.io
+:repo_path: rotaract/rotaract-appointments
+:slug: rotaract-appointments
+
+// General Badges
+image:{badge_url}/badge/Open_Source-❤-orange[Open Source, link="https://opensource.org"]
+image:{badge_url}/github/package-json/keywords/{repo_path}[GitHub package.json keywords, link="https://github.com/{repo_path}/blob/HEAD/package.json"]
+image:{badge_url}/badge/code_style-WordPress-brightgreen[Code Style, link="https://make.wordpress.org/core/handbook/best-practices/coding-standards/"] +
+// Status Badges
+image:https://github.com/{repo_path}/actions/workflows/build.yml/badge.svg[Build Plugin ZIP, link="https://github.com/{repo_path}/actions/workflows/build.yml"]
+
 https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
 == Setup

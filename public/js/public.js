@@ -29,7 +29,7 @@ const rotaractCalendarOptions  = {
 		listYear: {
 			eventDidMount( info ) {
 				let elem       = document.createElement( 'div' );
-				elem.innerHTML = `<h5 class="event-title">${info.event.title}</h5><p class="event-info">${info.event.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions(info.event.allDay) )}, ${info.event.extendedProps.address}</p>${info.event.extendedProps.description}`;
+				elem.innerHTML = createEventContent( info );
 				elem.classList.add( 'event-description' );
 				info.el.append( elem );
 			},
@@ -47,7 +47,7 @@ const rotaractCalendarOptions  = {
 					{
 						allowHTML: true,
 						appendTo: calEl,
-						content: `<h5 class="event-title">${info.event.title}</h5><p class="event-info">${info.event.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions(info.event.allDay) )}, ${info.event.extendedProps.address}</p>${info.event.extendedProps.description}`,
+						content: createEventContent( info ),
 						interactive: true,
 						theme: 'rotaract',
 						trigger: 'click',
@@ -78,6 +78,22 @@ function calendarInit( eventSources ) {
 			trigger: 'click'
 		}
 	);
+}
+
+function createEventContent( info ) {
+	const address = info.event.extendedProps.address.replace( /(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" title="' + info.event.title + '">$&</a>' )
+
+	let html = '<h5 class="event-title">';
+	html    += info.event.title;
+	html    += '</h5>';
+	html    += '<p class="event-info">';
+	html    += info.event.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions( info.event.allDay ) );
+	html    += ', ';
+	html    += address;
+	html    += '</p>';
+	html    += info.event.extendedProps.description;
+
+	return html;
 }
 
 function rotaractDateOptions( allDay = false ) {

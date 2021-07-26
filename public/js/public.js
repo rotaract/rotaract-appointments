@@ -64,7 +64,7 @@ const rotaractCalendarOptions  = {
 let calendar;
 
 function calendarInit( eventSources ) {
-	const calendarEl = document.getElementById( "rotaract-appointments" );
+	const calendarEl = document.getElementById( 'rotaract-appointments' );
 	calendar         = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions );
 	calendar.setOption( 'eventSources', eventSources );
 	calendar.render();

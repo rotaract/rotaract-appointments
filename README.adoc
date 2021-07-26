@@ -43,4 +43,22 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 
 . Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
 . Install Plugin in your WordPress instance
+
+== Configuration
+
 . Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`
++
+.snippet of `wp-config.php`
+[source,php]
+----
+/**
+ * Rotaract Params
+ */
+define( 'ROTARACT_ELASTIC_HOST', 'https://my-elastic-host.com:9200' );
+----
+. Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
+. Add at least one owner, select a color and save changes
+
+== Usage
+
+. Add the shortcode `[rotaract-appointments]` to a new or existing site that will insert the calendar

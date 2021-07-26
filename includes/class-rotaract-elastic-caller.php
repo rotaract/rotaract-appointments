@@ -67,6 +67,9 @@ class Rotaract_Elastic_Caller {
 		$res_body = wp_remote_retrieve_body( $res );
 
 		$result = json_decode( $res_body )->hits->hits;
+
+		do_action( 'qm/debug', $result );
+
 		return $result ?: array();
 	}
 
@@ -107,8 +110,8 @@ class Rotaract_Elastic_Caller {
 						array(
 							'range' => array(
 								'begins_at' => array(
-									'gte' => 'now',
-									'lte' => 'now+1y/y',
+									'gte' => 'now-1y/y',
+									'lte' => 'now+2y/y',
 								),
 							),
 						),
@@ -133,7 +136,7 @@ class Rotaract_Elastic_Caller {
 				'select_name',
 				'district_name',
 			),
-			'size'    => '1000',
+			'size'    => '250',
 			'query'   => array(
 				'constant_score' => array(
 					'filter' => array(
@@ -170,7 +173,7 @@ class Rotaract_Elastic_Caller {
 			'_source' => array(
 				'select_name',
 			),
-			'size'    => '1000',
+			'size'    => '20',
 		);
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
@@ -194,7 +197,7 @@ class Rotaract_Elastic_Caller {
 			'_source' => array(
 				'select_name',
 			),
-			'size'    => '1000',
+			'size'    => '20',
 		);
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );

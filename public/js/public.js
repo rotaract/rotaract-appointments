@@ -28,8 +28,8 @@ const rotaractCalendarOptions  = {
 	views: {
 		listYear: {
 			eventDidMount( info ) {
-				var elem       = document.createElement( 'div' );
-				elem.innerHTML = info.event.extendedProps.description;
+				let elem       = document.createElement( 'div' );
+				elem.innerHTML = `<h5 class="event-title">${info.event.title}</h5><p class="event-info">${info.event.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions(info.event.allDay) )}, ${info.event.extendedProps.address}</p>${info.event.extendedProps.description}`;
 				elem.classList.add( 'event-description' );
 				info.el.append( elem );
 			},
@@ -47,7 +47,7 @@ const rotaractCalendarOptions  = {
 					{
 						allowHTML: true,
 						appendTo: calEl,
-						content: info.event.extendedProps.description,
+						content: `<h5 class="event-title">${info.event.title}</h5><p class="event-info">${info.event.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions(info.event.allDay) )}, ${info.event.extendedProps.address}</p>${info.event.extendedProps.description}`,
 						interactive: true,
 						theme: 'rotaract',
 						trigger: 'click',
@@ -78,6 +78,19 @@ function calendarInit( eventSources ) {
 			trigger: 'click'
 		}
 	);
+}
+
+function rotaractDateOptions( allDay = false ) {
+	let options = {
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit'
+	}
+	if ( ! allDay ) {
+		options.hour   = '2-digit';
+		options.minute = '2-digit';
+	}
+	return options;
 }
 
 function toggleOwner( el ) {

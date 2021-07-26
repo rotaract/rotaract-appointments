@@ -23,6 +23,11 @@
 	padding: 8px 14px 22px;
 	transition: height 0.5s;
 }
+#rotaract-appointments .event-info {
+	color: #687d90;
+	font-size: 0.85em;
+	margin-bottom: 1.5rem;
+}
 .fc-list-event.show > .fc-list-event-title {
 	display: none;
 }

@@ -5,6 +5,7 @@
  * @package Rotaract_Appointments
  * @subpackage Rotaract_Appointments/admin/js
  */
+/* globals lcData */
 
 lcSelectInit();
 addEventListeners();

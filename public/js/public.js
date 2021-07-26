@@ -5,6 +5,9 @@
  * @package Rotaract_Appointments
  * @subpackage Rotaract_Appointments/public/js
  */
+/* globals appointmentsData */
+/* exported calendarInit */
+/* exported toggleOwner */
 
 const rotaractCalendarOptions  = {
 	locale: appointmentsData.locale,

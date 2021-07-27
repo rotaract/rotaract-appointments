@@ -57,6 +57,9 @@ function addEventListeners() {
 	document.querySelector( 'button.add-owner' ).addEventListener( 'click', addOwner );
 }
 
+/**
+ * Adds new owner whose events to display.
+ */
 function addOwner( event = null ) {
 	if ( event ) {
 		event.preventDefault();
@@ -96,6 +99,9 @@ function addOwner( event = null ) {
 	addEventListeners();
 }
 
+/**
+ * Removes owner selection.
+ */
 function delOwner( event ) {
 	event.preventDefault();
 	if ( document.querySelectorAll( '.owner-group' ).length < 2 ) {
@@ -104,6 +110,12 @@ function delOwner( event ) {
 	event.target.closest( '.owner-group' ).remove();
 }
 
+/**
+ * on_change callback updating the color.
+ *
+ * @param newValue
+ * @param targetField
+ */
 function changeColor( newValue, targetField) {
 	const style           = targetField.closest( '.owner-group' ).style;
 	style.backgroundColor = newValue + '25';

@@ -5,6 +5,7 @@
  * @package Rotaract_Appointments
  * @subpackage Rotaract_Appointments/admin/js
  */
+
 /* globals lcData */
 
 lcSelectInit();
@@ -111,7 +112,7 @@ function delOwner( event ) {
 }
 
 /**
- * on_change callback updating the color.
+ * LC-select's on_change callback updating the color.
  *
  * @param newValue
  * @param targetField

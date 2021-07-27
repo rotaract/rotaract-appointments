@@ -10,7 +10,9 @@
 lcSelectInit();
 addEventListeners();
 
-/** Initialize LC-select field. */
+/**
+ * Initializes LC-select targeting the select field.
+ */
 function lcSelectInit() {
 	lc_select(
 		'select.lc-select',
@@ -24,6 +26,9 @@ function lcSelectInit() {
 	);
 }
 
+/**
+ * Removes LC-select resulting in plain HTML select field.
+ */
 function lcSelectDestroy() {
 	const destroyEvent     = new Event( 'lc-select-destroy' );
 	const lcSelectElements = document.querySelectorAll( 'select.lc-select' );
@@ -34,6 +39,12 @@ function lcSelectDestroy() {
 	);
 }
 
+/**
+ * Registers click events to add or delete appointment owner.
+ *
+ * @see delOwner
+ * @see addOwner
+ */
 function addEventListeners() {
 	// Add Delete Listeners.
 	const delBtns = document.querySelectorAll( 'button.delete-owner' );

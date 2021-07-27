@@ -9,6 +9,9 @@
 /* exported calendarInit */
 /* exported toggleOwner */
 
+/**
+ * Configuration of FullCalendar's options.
+ */
 const rotaractCalendarOptions  = {
 	locale: appointmentsData.locale,
 	initialView: 'listYear',
@@ -66,6 +69,14 @@ const rotaractCalendarOptions  = {
 
 let calendar;
 
+/**
+ * Initializes Tippy.js, FullCalendar.
+ *
+ * It generates and renders the FullCalendar, set the sources of the events and registers tippy popups.
+ * It is intended to be called once after DOM as finished loading.
+ *
+ * @param eventSources The sources of the displayed events.
+ */
 function calendarInit( eventSources ) {
 	const calendarEl = document.getElementById( 'rotaract-appointments' );
 	calendar         = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions );
@@ -83,6 +94,13 @@ function calendarInit( eventSources ) {
 	);
 }
 
+/**
+ * Generates the HTML representation of an event's content aka description (incl. time and venue).
+ *
+ * @param {object} eventInfo The info data object of an event.
+ *
+ * @return The generated HTML tags.
+ */
 function createEventContent( eventInfo ) {
 	const address = eventInfo.extendedProps.address.replace( /https?\:\/\/[a-z0-9\-\.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
 
@@ -99,6 +117,13 @@ function createEventContent( eventInfo ) {
 	return html;
 }
 
+/**
+ * Returns the date and time format options.
+ *
+ * @param {boolean} [allDay] Whether to return the date and time format for a all day event.
+ *
+ * @return The format option.
+ */
 function rotaractDateOptions( allDay = false ) {
 	let options = {
 		year: 'numeric',
@@ -112,6 +137,11 @@ function rotaractDateOptions( allDay = false ) {
 	return options;
 }
 
+/**
+ * Toggles the display attribute of all events of an certain owner.
+ *
+ * @param el The visual HTML toggle element.
+ */
 function toggleOwner( el ) {
 	el.classList.toggle( 'off' );
 	calendar.getEvents().forEach(

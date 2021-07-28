@@ -53,7 +53,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of this plugin.
 	 */
-	private string $fullcalendar_version = '5.8.0';
+	private string $fullcalendar_version = '5.9.0';
 
 	/**
 	 * The Elasticsearch caller.

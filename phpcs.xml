@@ -13,4 +13,6 @@
 	<rule ref="WordPress">
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
 	</rule>
+
+	<rule ref="PHPCompatibility" />
 </ruleset>

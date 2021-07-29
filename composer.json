@@ -23,6 +23,7 @@
 		"erusev/parsedown": "1.8.0-beta-7"
 	},
 	"require-dev": {
+		"wp-cli/wp-cli-bundle": "^2.5",
 		"wp-coding-standards/wpcs": "^2.3",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
 	},

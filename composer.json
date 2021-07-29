@@ -30,6 +30,6 @@
 	"minimum-stability": "stable",
 	"scripts": {
 		"lint": "phpcs --standard=phpcs.xml",
-		"translate": "wp-cli i18n make-mo languages"
+		"translate": "wp i18n make-mo languages"
 	}
 }

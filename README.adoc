@@ -29,7 +29,6 @@ composer install
 ----
 npm install
 ----
-. https://make.wordpress.org/cli/handbook/guides/installing/[Install WP-CLI]
 . Build Translation Files
 +
 [source]

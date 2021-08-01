@@ -38,13 +38,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
       - name: Install PHP dependencies
-        run: composer install --no-dev --no-progress -o -n
+        run: composer install --no-interaction --no-progress
 
       - name: Generate MO files for localization
-        run: |
-          curl -O "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
-          php wp-cli.phar i18n make-mo languages
-          rm wp-cli.phar
+        run: composer translate
+
+      - name: Cleanup composer development packages and optimize autoloader
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
 
       - name: Upload Plugin
         uses: actions/upload-artifact@v2

@@ -7,6 +7,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
+== {compare}/v1.3.3\...v1.3.4[1.3.4] - 2021-08-02
+
+=== Added
+
+* Add https://jshint.com[JSHint] as static code analyser for all JavaScript of this plugin.
+** It was added as development dependency.
+** This also brought some minor style adjustments in the JavaScript files in order to conform with the analyzer.
+* The new GitHub Action job `jshint` was added utilizing JSHint.
+
 == {compare}/v1.3.2\...v1.3.3[1.3.3] - 2021-08-02
 
 === Fixed

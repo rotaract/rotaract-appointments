@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
+== {compare}/v1.3.4\...v1.3.5[1.3.5] - 2021-08-02
+
+=== Fixed
+
+* Fix a bug in GitHub action that caused the inclusion of the NPM development dependencies (namely JSHint) in the release ZIP file of this plugin.
+
+=== Changed
+
+* Refactor unwrapping of appointments data received from elastic queries.
+
 == {compare}/v1.3.3\...v1.3.4[1.3.4] - 2021-08-02
 
 === Added

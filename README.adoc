@@ -20,8 +20,18 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from https:
 * Multiple views: list view, month view
 * Customizable colors per event owner / event source
 * Open-Source
+* Internationalization
 
 == Setup
+
+.Prerequisites
+[NOTE]
+--
+* https://wordpress.com[WordPress] instance
+* https://www.php.net[PHP] version 7.4.0 or higher
+* https://getcomposer.org[Composer]
+* https://nodejs.org[Node.js]
+--
 
 In order to either setup the environment for development or install plugin manually follow these steps.
 
@@ -31,7 +41,7 @@ In order to either setup the environment for development or install plugin manua
 ----
 composer install
 ----
-. Install Node Dependencies
+. Install Node Dependencies (add command option `--production` if you do not need development tools)
 +
 [source]
 ----
@@ -45,6 +55,13 @@ composer translate
 ----
 
 == Installation
+
+.Prerequisites
+[NOTE]
+--
+* https://wordpress.com[WordPress] instance
+* https://www.php.net[PHP] version 7.4.0 or higher
+--
 
 IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].
 

@@ -70,16 +70,6 @@ class Rotaract_Elastic_Caller {
 		return $result ?: array();
 	}
 
-	/**
-	 * Unwrap item of received elastic collection.
-	 *
-	 * @param  object $item Object of collection to unwrap.
-	 * @return object unwrapped object
-	 */
-	private function unwrap_elastic_collection( object $item ): object {
-		return $item->_source->select_name;
-	}
-
 
 	/**
 	 * Check if Elasticsearch host URL is set.
@@ -161,7 +151,8 @@ class Rotaract_Elastic_Caller {
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
-		return array_map( $this->unwrap_elastic_collection, $res );
+		// Unwrap array of club objects.
+		return array_map( fn( object $club ): object => $club->_source->select_name, $res );
 	}
 
 	/**
@@ -181,7 +172,8 @@ class Rotaract_Elastic_Caller {
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
-		return array_map( $this->unwrap_elastic_collection, $res );
+		// Unwrap array of ressort objects.
+		return array_map( fn( object $ressort ): object => $ressort->_source->select_name, $res );
 	}
 
 	/**
@@ -201,7 +193,8 @@ class Rotaract_Elastic_Caller {
 
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
-		return array_map( $this->unwrap_elastic_collection, $res );
+		// Unwrap array of district objects.
+		return array_map( fn( object $district ): object => $district->_source->select_name, $res );
 	}
 
 	/**

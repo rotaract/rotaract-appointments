@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - name: Install Node dependencies
-        run: npm ci
+        run: npm ci --production
 
       - name: Validate composer.json and composer.lock
         run: composer validate

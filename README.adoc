@@ -61,3 +61,16 @@ define( 'ROTARACT_ELASTIC_HOST', 'https://my-elastic-host.com:9200' );
 == Usage
 
 . Add the shortcode `[rotaract-appointments]` to a new or existing site that will insert the calendar
+
+== Legal Notices
+
+Copyright (c) 2021, Rotaract Deutschland
+
+Licensed under European Union Public License 1.2 (EUPL-1.2).
+
+_Rotary_, _Rotaract_, _Interact_ are trademarks or registered trademarks of Rotary International and are used with the permission of Rotary International.
+Other trademarks not owned by Rotary International are the property of their respective owners.
+The license above does not grant any rights under trademark law and all such rights are reserved.
+Modified versions must be renamed to avoid use of any Rotary International trademarks, including but not limited to _Rotary_, _Rotaract_, _Interact_.
+
+All Rotary, Rotaract and Interact logos and graphics are under copyright.

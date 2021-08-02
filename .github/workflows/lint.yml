@@ -26,3 +26,22 @@ jobs:
 
       - name: Run PHPCS
         run: composer lint .
+
+  jshint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Run JSHint
+        run: npx jshint **/js/*.js

@@ -1,0 +1,32 @@
+{
+	"bitwise": true,
+	"curly": true,
+	"eqeqeq": true,
+	"esversion": 6,
+	"forin": false,
+	"freeze": true,
+	"futurehostile": true,
+	"latedef": "nofunc",
+	"leanswitch": true,
+	"noarg": true,
+	"nocomma": true,
+	"nonbsp": true,
+	"nonew": true,
+	"noreturnawait": true,
+	"predef": [
+		"tippy",
+		"lc_select",
+		"FullCalendar"
+	],
+	"shadow": false,
+	"singleGroups": false,
+	"trailingcomma": false,
+	"undef": true,
+	"unused": true,
+	"varstmt": true,
+
+	"boss": true,
+	"eqnull": true,
+
+	"browser": true
+}

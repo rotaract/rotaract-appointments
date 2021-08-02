@@ -21,5 +21,8 @@
 		"fullcalendar": "5.9.0",
 		"lc-select": "1.1.4",
 		"tippy.js": "6.3.1"
+	},
+	"devDependencies": {
+		"jshint": "^2.13.0"
 	}
 }

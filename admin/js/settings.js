@@ -6,12 +6,16 @@
  * @subpackage Rotaract_Appointments/admin/js
  */
 
+/* globals lcData */
+
 lcSelectInit();
 addEventListeners();
 
-/** Initialize LC-select field. */
+/**
+ * Initializes LC-select targeting the select field.
+ */
 function lcSelectInit() {
-	new lc_select(
+	lc_select(
 		'select.lc-select',
 		{
 			enable_search: true,
@@ -23,6 +27,9 @@ function lcSelectInit() {
 	);
 }
 
+/**
+ * Removes LC-select resulting in plain HTML select field.
+ */
 function lcSelectDestroy() {
 	const destroyEvent     = new Event( 'lc-select-destroy' );
 	const lcSelectElements = document.querySelectorAll( 'select.lc-select' );
@@ -33,6 +40,12 @@ function lcSelectDestroy() {
 	);
 }
 
+/**
+ * Registers click events to add or delete appointment owner.
+ *
+ * @see delOwner
+ * @see addOwner
+ */
 function addEventListeners() {
 	// Add Delete Listeners.
 	const delBtns = document.querySelectorAll( 'button.delete-owner' );
@@ -45,6 +58,9 @@ function addEventListeners() {
 	document.querySelector( 'button.add-owner' ).addEventListener( 'click', addOwner );
 }
 
+/**
+ * Adds new owner whose events to display.
+ */
 function addOwner( event = null ) {
 	if ( event ) {
 		event.preventDefault();
@@ -84,6 +100,9 @@ function addOwner( event = null ) {
 	addEventListeners();
 }
 
+/**
+ * Removes owner selection.
+ */
 function delOwner( event ) {
 	event.preventDefault();
 	if ( document.querySelectorAll( '.owner-group' ).length < 2 ) {
@@ -92,6 +111,12 @@ function delOwner( event ) {
 	event.target.closest( '.owner-group' ).remove();
 }
 
+/**
+ * LC-select's on_change callback updating the color.
+ *
+ * @param newValue
+ * @param targetField
+ */
 function changeColor( newValue, targetField) {
 	const style           = targetField.closest( '.owner-group' ).style;
 	style.backgroundColor = newValue + '25';

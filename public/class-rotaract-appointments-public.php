@@ -87,6 +87,8 @@ class Rotaract_Appointments_Public {
 		$this->version               = $version;
 		$this->elastic_caller        = $elastic_caller;
 		$this->parser                = new Parsedown();
+		// Escape user-input within the generated HTML.
+		$this->parser->setSafeMode( true );
 
 	}
 

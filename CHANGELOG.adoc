@@ -1,0 +1,95 @@
+= Changelog
+
+:repo: https://github.com/rotaract/rotaract-appointments
+:compare: {repo}/compare
+
+All notable changes to this project will be documented in this file.
+
+The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
+
+== {compare}/v1.3.4\...v1.3.5[1.3.5] - 2021-08-02
+
+=== Fixed
+
+* Fix a bug in GitHub action that caused the inclusion of the NPM development dependencies (namely JSHint) in the release ZIP file of this plugin.
+
+=== Changed
+
+* Refactor unwrapping of appointments data received from elastic queries.
+
+== {compare}/v1.3.3\...v1.3.4[1.3.4] - 2021-08-02
+
+=== Added
+
+* Add https://jshint.com[JSHint] as static code analyser for all JavaScript of this plugin.
+** It was added as development dependency.
+** This also brought some minor style adjustments in the JavaScript files in order to conform with the analyzer.
+* The new GitHub Action job `jshint` was added utilizing JSHint.
+
+== {compare}/v1.3.2\...v1.3.3[1.3.3] - 2021-08-02
+
+=== Fixed
+
+* Escape HTML code within the event's description markdown.
+
+== {compare}/v1.3.1\...v1.3.2[1.3.2] - 2021-08-01
+
+=== Added
+
+* https://github.com/wp-cli/wp-cli[WP-CLI] as Composer development dependency.
+** This allows to simplify the setup process by save the WP-CLI step of downloading and installing it as it is now part of the Composer dependency installation.
+** Also, the GitHub Action is now more lightweight and faster since WP-CLI is cached as a composer dependency.
+
+== {compare}/v1.3.0\...v1.3.1[1.3.1] - 2021-08-01
+
+=== Added
+
+* https://github.com/PHPCompatibility/PHPCompatibility[PHPCompativility] coding standard for PHP CodeSniffer to rule set defined in link:{repo}/blob/v1.3.1/phpcs.xml[phpcs.xml].
+
+== {compare}/v1.2.1\...v1.3.0[1.3.0] - 2021-08-01
+
+=== Changed
+
+* Update https://github.com/fullcalendar/fullcalendar[FullCalendar] to version https://github.com/fullcalendar/fullcalendar/releases/tag/v5.9.0[5.9.0].
+
+== {compare}/v1.2.0\...v1.2.1[1.2.1] - 2021-07-27
+
+=== Added
+
+* Instruct the browser to omit the https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer[Referer] header when navigating to the target resource of the events' location URL.
+** -> no leaking of referrer information
+** -> better https://developers.google.com/web/tools/lighthouse[Lighthouse] score
+
+== {compare}/v1.1.0\...v1.2.0[1.2.0] - 2021-07-26
+
+=== Added
+
+* Display event's location and localized (start) time between the title and description.
+** If the location contains a URL it will be clickable.
+
+=== Changed
+
+* Extend time range of displayed appointments: ± 1 year from today
+
+
+== {compare}/v1.0.0\...v1.1.0[1.1.0] - 2021-07-
+
+=== Added
+
+* Make it a "`real`" multi-calendar.
+** Every calendar of a chosen owner has its unique color.
+** WordPress user can pick the calendar color from a predefined set in the settings page.
+** Calendars can be visually distinguished in the timeline as well as in the moth view of the calendar by their picked color.
+** Site visitor can enable / disable certain calendars.
+* Change mouse cursor when hovering extendable events in calendar in both views (timeline and moth view).
+* Hardening event popup in moth view by using https://github.com/atomiks/tippyjs[tippy.js].
+
+.Documentation
+* {repo}/blob/v1.1.0/README.adoc[README] description of how to configure the plugin.
+* {repo}/blob/v1.1.0/README.adoc[README] description of how to use the plugin i.e. how to insert calender into a WordPress page.
+
+=== Fixed
+
+* Fix Elasticsearch queries.
+
+== 1.0.0 - 2021-07-20

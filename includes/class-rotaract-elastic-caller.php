@@ -152,7 +152,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		// Unwrap array of club objects.
-		return array_map( fn( object $club ): object => $club->_source->select_name, $res );
+		return array_map( fn( object $club ): string => $club->_source->select_name, $res );
 	}
 
 	/**
@@ -173,7 +173,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		// Unwrap array of ressort objects.
-		return array_map( fn( object $ressort ): object => $ressort->_source->select_name, $res );
+		return array_map( fn( object $ressort ): string => $ressort->_source->select_name, $res );
 	}
 
 	/**
@@ -194,7 +194,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
 
 		// Unwrap array of district objects.
-		return array_map( fn( object $district ): object => $district->_source->select_name, $res );
+		return array_map( fn( object $district ): string => $district->_source->select_name, $res );
 	}
 
 	/**

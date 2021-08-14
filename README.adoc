@@ -13,6 +13,14 @@ image:https://github.com/{repo_path}/actions/workflows/build.yml/badge.svg[Build
 
 https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
+== Features
+
+* Display events from mein Rotaract that are allowed to be visible
+* Multiple event owners / event sources
+* Multiple views: list view, month view
+* Customizable colors per event owner / event source
+* Open-Source
+
 == Setup
 
 In order to either setup the environment for development or install plugin manually follow these steps.

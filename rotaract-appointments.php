@@ -10,7 +10,7 @@
  * Plugin Name: Rotaract Appointments
  * Plugin URI:  https://github.com/rotaract/rotaract-appointments
  * Description: Plugin for managing "mein Rotaract" appointments.
- * Version: 1.0.0
+ * Version: 1.3.6
  * Author: Ressort IT-Entwicklung - Rotaract Deutschland
  * Author URI: https://rotaract.de/ueber-rotaract/rdk/
  * Text Domain: rotaract-appointments

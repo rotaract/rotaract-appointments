@@ -9,6 +9,10 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 == Unreleased
 
+=== Added
+
+* List features in link:README.adoc[].
+
 === Changed
 
 * Display events in month list instead of year list in frontend

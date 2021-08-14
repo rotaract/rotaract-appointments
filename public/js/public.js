@@ -15,7 +15,7 @@
  */
 const rotaractCalendarOptions  = {
 	locale: appointmentsData.locale,
-	initialView: 'listYear',
+	initialView: 'listMonth',
 	customButtons: {
 		ownerButton: {
 			text: appointmentsData.calendarBtn
@@ -24,7 +24,7 @@ const rotaractCalendarOptions  = {
 	headerToolbar: {
 		start: 'prev,next',
 		center: 'title',
-		end: 'listYear,dayGridMonth'
+		end: 'listMonth,dayGridMonth'
 	},
 	footerToolbar: {
 		start: 'today',
@@ -33,7 +33,7 @@ const rotaractCalendarOptions  = {
 	},
 	height: 'auto',
 	views: {
-		listYear: {
+		listMonth: {
 			eventDidMount( info ) {
 				let elem       = document.createElement( 'div' );
 				elem.innerHTML = createEventContent( info.event );
@@ -103,7 +103,7 @@ function calendarInit( eventSources ) {
  * @return The generated HTML tags.
  */
 function createEventContent( eventInfo ) {
-	const address = eventInfo.extendedProps.address.replace( /https?\:\/\/[a-z0-9\-\.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
+	const address = eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
 
 	let html = '<h5 class="event-title">';
 	html    += eventInfo.title;

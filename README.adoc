@@ -21,7 +21,7 @@ image:https://github.com/{repo_path}/actions/workflows/build.yml/badge.svg[Build
 
 https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
-== Features
+== ⭐ Features
 
 * Display events from mein Rotaract that are allowed to be visible
 * Multiple event owners / event sources
@@ -30,9 +30,9 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from https:
 * Open-Source
 * Internationalization
 
-== Setup
+== 🏗️ Setup
 
-.Prerequisites
+.🧰 Prerequisites
 [NOTE]
 --
 * https://wordpress.com[WordPress] instance
@@ -62,7 +62,7 @@ npm install
 composer translate
 ----
 
-== Installation
+== 🔧 Installation
 
 .Prerequisites
 [NOTE]
@@ -76,7 +76,7 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 . Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
 . Install Plugin in your WordPress instance
 
-== Configuration
+== 🪛 Configuration
 
 . Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`
 +
@@ -91,11 +91,11 @@ define( 'ROTARACT_ELASTIC_HOST', 'https://my-elastic-host.com:9200' );
 . Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
 . Add at least one owner, select a color and save changes
 
-== Usage
+== 🪄 Usage
 
-. Add the shortcode `[rotaract-appointments]` to a new or existing site that will insert the calendar
+. Add the shortcode `[rotaract-appointments]` to a new or existing site that will insert the calendar.
 
-== Legal Notices
+== ⚖️ Legal Notices
 
 Copyright (c) 2021, Rotaract Deutschland
 

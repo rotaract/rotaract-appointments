@@ -1,5 +1,13 @@
 = Rotaract Appointments
 
+ifdef::env-github[]
+:tip-caption: 💡
+:note-caption: ℹ
+:important-caption: ❗
+:caution-caption: 🔥
+:warning-caption: ⚠
+endif::[]
+
 :badge_url: https://img.shields.io
 :repo_path: rotaract/rotaract-appointments
 :slug: rotaract-appointments

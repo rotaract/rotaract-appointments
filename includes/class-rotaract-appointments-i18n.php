@@ -59,6 +59,7 @@ class Rotaract_Appointments_I18n {
 			default:
 				return $owner_type_name;
 		}
+
 	}
 
 }

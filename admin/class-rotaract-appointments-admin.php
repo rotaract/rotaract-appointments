@@ -2,11 +2,11 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       https://github.com/rotaract/rotaract-appointments
- * @since      1.0.0
+ * @link        https://github.com/rotaract/rotaract-appointments
+ * @since       1.0.0
  *
- * @package    Rotaract_Appointments
- * @subpackage Rotaract_Appointments/admin
+ * @package     Rotaract_Appointments
+ * @subpackage  Rotaract_Appointments/admin
  */
 
 /**
@@ -15,56 +15,56 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @since      1.0.0
- * @package    Rotaract_Appointments
- * @subpackage Rotaract_Appointments/admin
- * @author     Ressort IT-Entwicklung - Rotaract Deutschland <it-entwicklung@rotaract.de>
+ * @since       1.0.0
+ * @package     Rotaract_Appointments
+ * @subpackage  Rotaract_Appointments/admin
+ * @author      Ressort IT-Entwicklung - Rotaract Deutschland <it-entwicklung@rotaract.de>
  */
 class Rotaract_Appointments_Admin {
 
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $rotaract_appointments    The ID of this plugin.
+	 * @since   1.0.0
+	 * @access  private
+	 * @var     string  $rotaract_appointments  The ID of this plugin.
 	 */
 	private string $rotaract_appointments;
 
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $version    The current version of this plugin.
+	 * @since   1.0.0
+	 * @access  private
+	 * @var     string  $version  The current version of this plugin.
 	 */
 	private string $version;
 
 	/**
 	 * The version of the JavaScript dependency LC-select.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $lc_select_version    The current version of lc_select.
+	 * @since   1.0.0
+	 * @access  private
+	 * @var     string  $lc_select_version  The current version of lc_select.
 	 */
 	private string $lc_select_version = '1.1.4';
 
 	/**
 	 * The Elasticsearch caller.
 	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      Rotaract_Elastic_Caller $elastic_caller    The object that handles search calls to the Elasticsearch instance.
+	 * @since   1.0.0
+	 * @access  private
+	 * @var     Rotaract_Elastic_Caller  $elastic_caller  The object that handles search calls to the Elasticsearch instance.
 	 */
 	private Rotaract_Elastic_Caller $elastic_caller;
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param    string                  $rotaract_appointments The name of this plugin.
-	 * @param    string                  $version     The version of this plugin.
-	 * @param    Rotaract_Elastic_Caller $elastic_caller Elasticsearch call handler.
-	 * @since    1.0.0
+	 * @since  1.0.0
+	 * @param  string                  $rotaract_appointments  The name of this plugin.
+	 * @param  string                  $version  The version of this plugin.
+	 * @param  Rotaract_Elastic_Caller $elastic_caller  Elasticsearch call handler.
 	 */
 	public function __construct( string $rotaract_appointments, string $version, Rotaract_Elastic_Caller $elastic_caller ) {
 
@@ -77,7 +77,7 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since  1.0.0
 	 */
 	public function enqueue_styles() {
 
@@ -89,7 +89,7 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Register the JavaScript for the admin area.
 	 *
-	 * @since    1.0.0
+	 * @since  1.0.0
 	 */
 	public function enqueue_scripts() {
 
@@ -115,9 +115,10 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Returns the full include path for a partial.
 	 *
-	 * @param string $filename Name of the file to be included.
+	 * @since  1.0.0
+	 * @param  string $filename  Name of the file to be included.
 	 *
-	 * @return string Path for include statement.
+	 * @return  string  Path for include statement.
 	 */
 	private function get_partial( string $filename ): string {
 
@@ -127,6 +128,8 @@ class Rotaract_Appointments_Admin {
 
 	/**
 	 * HTML notice that elasticsearch configuration is missing.
+	 *
+	 * @since  1.0.0
 	 */
 	public function elastic_missing_notice() {
 
@@ -136,6 +139,8 @@ class Rotaract_Appointments_Admin {
 
 	/**
 	 * Adds setting fields for this plugin.
+	 *
+	 * @since  1.0.0
 	 */
 	public function admin_init() {
 
@@ -168,12 +173,16 @@ class Rotaract_Appointments_Admin {
 				'class'     => 'appointment_owners',
 			)
 		);
+
 	}
 
 	/**
 	 * Adds setting menu and submenu page for this plugin.
+	 *
+	 * @since  1.0.0
 	 */
 	public function admin_menu() {
+
 		if ( empty( $GLOBALS['admin_page_hooks']['rotaract'] ) ) {
 
 			add_menu_page(
@@ -186,12 +195,16 @@ class Rotaract_Appointments_Admin {
 			);
 
 		}
+
 	}
 
 	/**
 	 * Builds the HTML for the appointments submenu page.
+	 *
+	 * @since  1.0.0
 	 */
 	public function rotaract_settings_html() {
+
 		// Check user capabilities.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -216,7 +229,8 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Developers section callback function.
 	 *
-	 * @param array $args  The settings array, defining title, id, callback.
+	 * @since  1.0.0
+	 * @param  array $args  The settings array, defining title, id, callback.
 	 */
 	public function rotaract_appointment_section( array $args ) {
 
@@ -227,9 +241,11 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds select tag containing grouped appointment options.
 	 *
-	 * @param array $args  The settings array, defining ...
+	 * @since  1.0.0
+	 * @param  array $args  The settings array, defining ...
 	 */
 	public function appointment_owners_field( array $args ) {
+
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
@@ -240,12 +256,14 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds select tag containing grouped appointment options.
 	 *
-	 * @param bool        $is_new True if this intends to be a new owner.
-	 * @param int         $index Index of the parameter.
-	 * @param string|null $owner_name The owner's name.
-	 * @param string|null $owner_color Selected color.
+	 * @since  1.0.0
+	 * @param  bool        $is_new  True if this intends to be a new owner.
+	 * @param  int         $index  Index of the parameter.
+	 * @param  string|null $owner_name  The owner's name.
+	 * @param  string|null $owner_color  Selected color.
 	 */
 	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
+
 		$owners        = $this->elastic_caller->get_all_owners();
 		$color_palette = array(
 			'#d91b5c' => __( 'Cranberry', 'rotaract-appointments' ),
@@ -265,12 +283,14 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds select tag containing grouped appointment options.
 	 *
-	 * @param array|null $input The POST data of the request on saving.
-	 * @return array
+	 * @param  array|null $input  The POST data of the request on saving.
+	 *
+	 * @return  array  Sanitized version of input array.
 	 */
 	public function sanitize_rotaract_appointment_owners( ?array $input ): array {
 
 		$new_input = array();
+
 		// Re-indexing the array.
 		foreach ( $input as $owner ) {
 			$name  = sanitize_text_field( $owner['name'] );
@@ -283,7 +303,9 @@ class Rotaract_Appointments_Admin {
 				'color' => $color,
 			);
 		}
+
 		return array_values( $new_input );
+
 	}
 
 }

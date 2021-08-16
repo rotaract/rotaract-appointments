@@ -4,11 +4,11 @@
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       https://github.com/rotaract/rotaract-appointments
- * @since      1.0.0
+ * @link        https://github.com/rotaract/rotaract-appointments
+ * @since       1.0.0
  *
- * @package    Rotaract_Appointments
- * @subpackage Rotaract_Appointments/public/partials
+ * @package     Rotaract_Appointments
+ * @subpackage  Rotaract_Appointments/public/partials
  */
 
 ?>

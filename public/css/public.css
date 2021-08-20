@@ -76,7 +76,7 @@
 .tippy-box[data-theme~=rotaract]>.tippy-content {
 	padding: 12px;
 	border-radius: 4px;
-	border-top: 2px solid var(--fc-event-bg-color, #d91b5c);
+	border-top: 2px solid var(--fc-event-bg-color, #d41367);
 }
 .tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner {
 	cursor: pointer;

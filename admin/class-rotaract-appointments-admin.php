@@ -248,7 +248,7 @@ class Rotaract_Appointments_Admin {
 	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
 		$owners        = $this->elastic_caller->get_all_owners();
 		$color_palette = array(
-			'#d91b5c' => __( 'Cranberry', 'rotaract-appointments' ),
+			'#d41367' => __( 'Cranberry', 'rotaract-appointments' ),
 			'#0050a2' => __( 'Azure', 'rotaract-appointments' ),
 			'#0c3c7c' => __( 'Royal Blue', 'rotaract-appointments' ),
 			'#019fcb' => __( 'Sky Blue', 'rotaract-appointments' ),

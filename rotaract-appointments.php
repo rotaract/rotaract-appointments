@@ -23,10 +23,6 @@
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       rotaract-appointments
  * Domain Path:       /languages
- *
- * Use of this source code is governed by an MIT-style
- * license that can be found in the LICENSE file or at
- * https://opensource.org/licenses/MIT.
  */
 
 // If this file is called directly, abort.

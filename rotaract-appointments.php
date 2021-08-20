@@ -7,19 +7,22 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * Plugin Name: Rotaract Appointments
- * Plugin URI:  https://github.com/rotaract/rotaract-appointments
- * Description: Plugin for managing "mein Rotaract" appointments.
- * Version: 1.3.6
- * Author: Ressort IT-Entwicklung - Rotaract Deutschland
- * Author URI: https://rotaract.de/ueber-rotaract/rdk/
- * Text Domain: rotaract-appointments
- * Domain Path: /languages
+ * @link              https://github.com/rotaract/rotaract-appointments
+ * @since             1.0.0
+ * @package           Rotaract_Appointments
+ * @category          Core
  *
- * @link https://github.com/rotaract/rotaract-appointments
- * @since 1.0.0
- * @package Rotaract_Appointments
- * @category Core
+ * @wordpress-plugin
+ * Plugin Name:       Rotaract Appointments
+ * Plugin URI:        https://github.com/rotaract/rotaract-appointments
+ * Description:       Plugin for managing "mein Rotaract" appointments.
+ * Version:           1.3.6
+ * Author:            Ressort IT-Entwicklung - Rotaract Deutschland
+ * Author URI:        https://rotaract.de/ueber-rotaract/rdk/
+ * License:           EUPL-1.2
+ * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+ * Text Domain:       rotaract-appointments
+ * Domain Path:       /languages
  *
  * Use of this source code is governed by an MIT-style
  * license that can be found in the LICENSE file or at

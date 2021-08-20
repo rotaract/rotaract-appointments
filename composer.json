@@ -9,7 +9,7 @@
 	],
 	"homepage": "https://github.com/rotaract/rotaract-appointments",
 	"readme": "README.adoc",
-	"license": "MIT",
+	"license": "EUPL-1.2",
 	"authors": [
 		{
 			"name": "Rotaract Germany"

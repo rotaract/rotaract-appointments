@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ROTARACT_APPOINTMENTS_VERSION', '1.0.0' );
+define( 'ROTARACT_APPOINTMENTS_VERSION', '1.3.6' );
 
 /**
  * The core plugin class that is used to define internationalization,

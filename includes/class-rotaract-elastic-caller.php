@@ -126,7 +126,6 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_clubs(): array {
-		$clubs        = array();
 		$path         = 'clubs/_search';
 		$search_param = array(
 			'_source' => array(
@@ -161,7 +160,6 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_ressorts(): array {
-		$ressorts     = array();
 		$path         = 'ressorts/_search';
 		$search_param = array(
 			'_source' => array(
@@ -182,7 +180,6 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_districts(): array {
-		$districts    = array();
 		$path         = 'districts/_search';
 		$search_param = array(
 			'_source' => array(

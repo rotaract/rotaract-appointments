@@ -74,7 +74,7 @@ composer translate
 IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].
 
 . Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
-. Install Plugin in your WordPress instance
+. Install and activate plugin in WordPress
 
 == 🪛 Configuration
 

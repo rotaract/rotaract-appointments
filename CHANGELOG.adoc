@@ -7,15 +7,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== Unreleased
+== {compare}/v1.3.6\...main[Unreleased]
 
 === Added
 
-* List features in link:README.adoc[].
+* List of features in link:README.adoc[].
+* Add more icons in link:README.adoc[].
+* Describe prerequisites of this plugin;
+  Especially, the minimum PHP version has to be 7.4.0 or higher.
 
 === Changed
 
-* Display events in month list instead of year list in frontend
+* Update hex value of Rotaract cranberry.
+* Display events in month list instead of year list in frontend.
+
+=== Fixed
+
+* Fix not yet updated license change in link:composer.json[] and link:package.json[].
 
 == {compare}/v1.3.5\...v1.3.6[1.3.6] - 2021-08-04
 

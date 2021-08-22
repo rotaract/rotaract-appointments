@@ -43,7 +43,7 @@ class Rotaract_Appointments {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $rotaract_appointments    The string used to uniquely identify this plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
 	protected string $plugin_name;
 
@@ -80,7 +80,7 @@ class Rotaract_Appointments {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->rotaract_appointments = 'rotaract-appointments';
+		$this->plugin_name = 'rotaract-appointments';
 
 		$this->load_dependencies();
 		$this->set_locale();

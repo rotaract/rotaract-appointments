@@ -13,7 +13,6 @@
  * Markdown parser to convert description to HTML.
  */
 require plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
-use Parsedown;
 
 /**
  * The admin-specific functionality of the plugin.

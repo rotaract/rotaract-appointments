@@ -47,13 +47,22 @@ class Rotaract_Appointments_Public {
 	private string $version;
 
 	/**
-	 * The version of this plugin.
+	 * The version of fullcalendar.
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $fullcalendar_version    The current version of this plugin.
+	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
 	private string $fullcalendar_version = '5.9.0';
+
+	/**
+	 * The version of tippy.js
+	 *
+	 * @since    1.3.8
+	 * @access   private
+	 * @var      string    $tippy_version    The current version of tippy.js.
+	 */
+	private string $tippy_version = '6.3.2';
 
 	/**
 	 * The Elasticsearch caller.
@@ -69,7 +78,7 @@ class Rotaract_Appointments_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      Parsedown $parser    The current version of this plugin.
+	 * @var      Parsedown $parser    The Markdown parser.
 	 */
 	private Parsedown $parser;
 
@@ -114,8 +123,8 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 
-		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->version, true );
-		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->version, true );
+		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->tippy_version, true );
+		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->tippy_version, true );
 
 		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'tippy' ), $this->version, true );
 		wp_localize_script(

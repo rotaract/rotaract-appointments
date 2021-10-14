@@ -2,6 +2,7 @@
 
 :repo: https://github.com/rotaract/rotaract-appointments
 :compare: {repo}/compare
+:github-pr: {repo}/pull
 
 All notable changes to this project will be documented in this file.
 
@@ -9,9 +10,16 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 == {compare}/v1.3.7\...main[Unreleased]
 
+=== Changed
+
+* Bump `lc-select` from 1.1.4 to 1.1.5. {github-pr}/55[#55]
+* Bump `composer` from 2.1.5 to 2.1.9. {github-pr}/58[#58]
+* Bump `fullcalendar` from 5.9.0 to 5.10.0. {github-pr}/59[#59]
+
 === Fixed
 
-* Fix bug with a variable name, causing WordPress to crash.
+* Fix bug with a variable name, causing WordPress to crash. {github-pr}/54[#54]
+* Fix PHP warning concerning redundant use statement. {github-pr}/56[#56]
 
 == {compare}/v1.3.6\...v1.3.7[1.3.7] - 2021-08-20
 

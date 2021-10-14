@@ -53,7 +53,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
-	private string $fullcalendar_version = '5.9.0';
+	private string $fullcalendar_version = '5.10.0';
 
 	/**
 	 * The version of tippy.js

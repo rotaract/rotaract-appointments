@@ -61,7 +61,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $tippy_version    The current version of tippy.js.
 	 */
-	private string $tippy_version = '6.3.2';
+	private string $tippy_version = '6.3.3';
 
 	/**
 	 * The Elasticsearch caller.

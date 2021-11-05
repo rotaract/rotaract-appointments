@@ -20,7 +20,7 @@
 	"dependencies": {
 		"fullcalendar": "5.10.1",
 		"lc-select": "1.1.5",
-		"tippy.js": "6.3.3"
+		"tippy.js": "6.3.4"
 	},
 	"devDependencies": {
 		"jshint": "^2.13.1"

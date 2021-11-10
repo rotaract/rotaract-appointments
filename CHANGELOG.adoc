@@ -13,7 +13,7 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 === Changed
 
 * Bump `fullcalendar` from 5.10.0 to 5.10.1. {github-pr}/63[#64]
-* Bump `tippy.js` from 6.3.2 to 6.3.3. {github-pr}/63[#63]
+* Bump `tippy.js` from 6.3.2 to 6.3.6. {github-pr}/63[#63] {github-pr}/66[#66] {github-pr}/67[#67]
 
 == {compare}/v1.3.7\...v1.3.8[1.3.8] - 2021-10-14
 

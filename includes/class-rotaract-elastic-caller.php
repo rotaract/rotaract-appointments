@@ -9,6 +9,9 @@
  * @subpackage Rotaract_Appointments/includes
  */
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
+
 /**
  * Interface functions to receive data from Elasticsearch API.
  *
@@ -21,63 +24,51 @@
 class Rotaract_Elastic_Caller {
 
 	/**
-	 * The host URL auf the Elasticsearch instance containing Rotaract events.
+	 * The elasticsearch API client instance.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 * @access   private
-	 * @var      string    $elastic_host    The host URL auf the Elasticsearch instance containing Rotaract events.
+	 * @var      Client $client    The elasticsearch API client instance.
 	 */
-	private string $elastic_host;
+	private Client $client;
 
 	/**
 	 * Set the Elasticsearch host URL if defined.
 	 *
-	 * @since    1.0.0
+	 * @since    2.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'ROTARACT_ELASTIC_HOST' ) ) {
-			$this->elastic_host = trailingslashit( ROTARACT_ELASTIC_HOST );
+		if ( defined( 'ROTARACT_ELASTIC_CLOUD_ID' ) &&
+			defined( 'ROTARACT_ELASTIC_API_ID' ) &&
+			defined( 'ROTARACT_ELASTIC_API_KEY' ) ) {
+			$this->client = ClientBuilder::create()
+				->setElasticCloudId( ROTARACT_ELASTIC_CLOUD_ID )
+				->setApiKey( ROTARACT_ELASTIC_API_ID, ROTARACT_ELASTIC_API_KEY )
+				->build();
 		}
+	}
+
+	/**
+	 * Check if Elasticsearch host URL is set.
+	 *
+	 * @since  2.0.0
+	 * @return boolean
+	 */
+	public function isset_client(): bool {
+		return isset( $this->client );
 	}
 
 	/**
 	 * Receive appointments from elestic that match the search_param.
 	 *
-	 * @param String $api_path absolute API path.
-	 * @param String $search_param API attributes in JSON format.
-	 *
+	 * @param array $params Search query.
 	 * @return array of appointments
 	 */
-	private function elastic_request( string $api_path, string $search_param ): array {
-		if ( ! $this->isset_elastic_host() ) {
+	private function elastic_request( array $params ): array {
+		if ( ! $this->isset_client() ) {
 			return array();
 		}
-		$url    = $this->elastic_host . $api_path;
-		$header = array(
-			'Content-Type' => 'application/json',
-		);
-
-		$res      = wp_remote_post(
-			$url,
-			array(
-				'headers' => $header,
-				'body'    => $search_param,
-			)
-		);
-		$res_body = wp_remote_retrieve_body( $res );
-
-		$result = json_decode( $res_body )->hits->hits;
-		return $result ?: array();
-	}
-
-
-	/**
-	 * Check if Elasticsearch host URL is set.
-	 *
-	 * @return boolean
-	 */
-	public function isset_elastic_host(): bool {
-		return isset( $this->elastic_host );
+		return $this->client->search( $params )['hits']['hits'];
 	}
 
 	/**
@@ -88,27 +79,29 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_appointments( array $appointment_owner ): array {
-		$path         = 'events/_search';
-		$search_param = array(
-			'size'  => '100',
-			'query' => array(
-				'bool' => array(
-					'filter' => array(
-						array(
-							'match' => array(
-								'publish_on_homepage' => true,
+		$params = array(
+			'index' => 'events',
+			'body'  => array(
+				'size'  => '100',
+				'query' => array(
+					'bool' => array(
+						'filter' => array(
+							array(
+								'match' => array(
+									'publish_on_homepage' => true,
+								),
 							),
-						),
-						array(
-							'terms' => array(
-								'owner_select_names.keyword' => $appointment_owner,
+							array(
+								'terms' => array(
+									'owner_select_names.keyword' => $appointment_owner,
+								),
 							),
-						),
-						array(
-							'range' => array(
-								'begins_at' => array(
-									'gte' => 'now-1y/y',
-									'lte' => 'now+2y/y',
+							array(
+								'range' => array(
+									'begins_at' => array(
+										'gte' => 'now-1y/y',
+										'lte' => 'now+2y/y',
+									),
 								),
 							),
 						),
@@ -117,7 +110,7 @@ class Rotaract_Elastic_Caller {
 			),
 		);
 
-		return $this->elastic_request( $path, wp_json_encode( $search_param ) );
+		return $this->elastic_request( $params );
 	}
 
 	/**
@@ -126,21 +119,23 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_clubs(): array {
-		$path         = 'clubs/_search';
-		$search_param = array(
-			'_source' => array(
-				'select_name',
-				'district_name',
-			),
-			'size'    => '250',
-			'query'   => array(
-				'constant_score' => array(
-					'filter' => array(
-						'terms' => array(
-							'status' => array(
-								'active',
-								'founding',
-								'preparing',
+		$params = array(
+			'index' => 'clubs',
+			'body'  => array(
+				'_source' => array(
+					'select_name',
+					'district_name',
+				),
+				'size'    => '250',
+				'query'   => array(
+					'constant_score' => array(
+						'filter' => array(
+							'terms' => array(
+								'status' => array(
+									'active',
+									'founding',
+									'preparing',
+								),
 							),
 						),
 					),
@@ -148,7 +143,7 @@ class Rotaract_Elastic_Caller {
 			),
 		);
 
-		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
+		$res = $this->elastic_request( $params );
 
 		// Unwrap array of club objects.
 		return array_map( fn( object $club ): string => $club->_source->select_name, $res );
@@ -160,15 +155,17 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_ressorts(): array {
-		$path         = 'ressorts/_search';
-		$search_param = array(
-			'_source' => array(
-				'select_name',
+		$params = array(
+			'index' => 'ressorts',
+			'body'  => array(
+				'_source' => array(
+					'select_name',
+				),
+				'size'    => '20',
 			),
-			'size'    => '20',
 		);
 
-		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
+		$res = $this->elastic_request( $params );
 
 		// Unwrap array of ressort objects.
 		return array_map( fn( object $ressort ): string => $ressort->_source->select_name, $res );
@@ -180,17 +177,19 @@ class Rotaract_Elastic_Caller {
 	 * @return array of appointments
 	 */
 	public function get_all_districts(): array {
-		$path         = 'districts/_search';
-		$search_param = array(
-			'_source' => array(
-				'select_name',
+		$params = array(
+			'index' => 'districts',
+			'body'  => array(
+				'_source' => array(
+					'select_name',
+				),
+				'size'    => '20',
 			),
-			'size'    => '20',
 		);
 
-		$res = $this->elastic_request( $path, wp_json_encode( $search_param ) );
+		$res = $this->elastic_request( $params );
 
-		// Unwrap array of district objects.
+		// Unwrap array of ressort objects.
 		return array_map( fn( object $district ): string => $district->_source->select_name, $res );
 	}
 

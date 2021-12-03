@@ -169,7 +169,7 @@ class Rotaract_Appointments {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		if ( ! $this->elastic_caller->isset_elastic_host() ) {
+		if ( ! $this->elastic_caller->isset_client() ) {
 			$this->loader->add_action( 'admin_notices', $plugin_admin, 'elastic_missing_notice' );
 		}
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );

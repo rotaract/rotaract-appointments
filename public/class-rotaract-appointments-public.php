@@ -181,7 +181,7 @@ class Rotaract_Appointments_Public {
 			$owner_appointments = array_filter(
 				$appointments,
 				function ( $a ) use ( $owner ) {
-					return in_array( $owner['name'], $a->_source->owner_select_names, true );
+					return in_array( $owner['name'], $a['_source']['owner_select_names'], true );
 				}
 			);
 
@@ -200,19 +200,19 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Creates fullcalendar events from search results.
 	 *
-	 * @param object $appointment Appointment object from search results.
+	 * @param array $appointment Appointment object from search results.
 	 *
 	 * @return array in form of a fullcalendar event.
 	 */
-	private function create_event( object $appointment ): array {
+	private function create_event( array $appointment ): array {
 		return array(
-			'title'       => $appointment->_source->title,
-			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->begins_at ) ),
-			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment->_source->ends_at ) ),
-			'allDay'      => $appointment->_source->all_day,
-			'address'     => $appointment->_source->address,
-			'description' => $this->parser->text( $appointment->_source->description ),
-			'owner'       => $appointment->_source->owner_select_names,
+			'title'       => $appointment['_source']['title'],
+			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['begins_at'] ) ),
+			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['ends_at'] ) ),
+			'allDay'      => $appointment['_source']['all_day'],
+			'address'     => $appointment['_source']['address'],
+			'description' => $this->parser->text( $appointment['_source']['description'] ),
+			'owner'       => $appointment['_source']['owner_select_names'],
 		);
 	}
 

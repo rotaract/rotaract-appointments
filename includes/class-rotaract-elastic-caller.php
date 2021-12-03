@@ -26,7 +26,7 @@ class Rotaract_Elastic_Caller {
 	/**
 	 * The elasticsearch API client instance.
 	 *
-	 * @since    2.0.0
+	 * @since    1.0.0
 	 * @access   private
 	 * @var      Client $client    The elasticsearch API client instance.
 	 */
@@ -38,12 +38,12 @@ class Rotaract_Elastic_Caller {
 	 * @since    2.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'ROTARACT_ELASTIC_CLOUD_ID' ) &&
-			defined( 'ROTARACT_ELASTIC_API_ID' ) &&
-			defined( 'ROTARACT_ELASTIC_API_KEY' ) ) {
+		if ( defined( 'ROTARACT_APPOINTMENTS_CLOUD_ID' ) &&
+			defined( 'ROTARACT_APPOINTMENTS_API_ID' ) &&
+			defined( 'ROTARACT_APPOINTMENTS_API_KEY' ) ) {
 			$this->client = ClientBuilder::create()
-				->setElasticCloudId( ROTARACT_ELASTIC_CLOUD_ID )
-				->setApiKey( ROTARACT_ELASTIC_API_ID, ROTARACT_ELASTIC_API_KEY )
+				->setElasticCloudId( ROTARACT_APPOINTMENTS_CLOUD_ID )
+				->setApiKey( ROTARACT_APPOINTMENTS_API_ID, ROTARACT_APPOINTMENTS_API_KEY )
 				->build();
 		}
 	}
@@ -51,7 +51,7 @@ class Rotaract_Elastic_Caller {
 	/**
 	 * Check if Elasticsearch host URL is set.
 	 *
-	 * @since  2.0.0
+	 * @since  1.0.0
 	 * @return boolean
 	 */
 	public function isset_client(): bool {

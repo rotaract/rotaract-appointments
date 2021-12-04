@@ -78,7 +78,7 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 
 == 🪛 Configuration
 
-. Set parameter `ROTARACT_ELASTIC_HOST` in your `wp-config.php`
+. Set parameter `ROTARACT_APPOINTMENTS_CLOUD_ID`, `ROTARACT_APPOINTMENTS_API_ID` and `ROTARACT_APPOINTMENTS_API_KEY` in your `wp-config.php`
 +
 .snippet of `wp-config.php`
 [source,php]
@@ -86,7 +86,9 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 /**
  * Rotaract Params
  */
-define( 'ROTARACT_ELASTIC_HOST', 'https://my-elastic-host.com:9200' );
+define( 'ROTARACT_APPOINTMENTS_CLOUD_ID', '<your-elastic-cloud-id>' );
+define( 'ROTARACT_APPOINTMENTS_API_ID', '<your-elastic-api-id>' );
+define( 'ROTARACT_APPOINTMENTS_API_KEY', '<your-elastic-api-key>' );
 ----
 . Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
 . Add at least one owner, select a color and save changes

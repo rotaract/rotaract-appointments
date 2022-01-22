@@ -19,11 +19,11 @@ image:{badge_url}/badge/code_style-WordPress-brightgreen[Code Style, link="https
 // Status Badges
 image:https://github.com/{repo_path}/actions/workflows/build.yml/badge.svg[Build Plugin ZIP, link="https://github.com/{repo_path}/actions/workflows/build.yml"]
 
-https://wordpress.org/[WordPress] plugin for displaying appointments from https://mein.rotaract.de[mein Rotaract] using https://github.com/fullcalendar/fullcalendar[FullCalendar].
+https://wordpress.org/[WordPress] plugin for displaying appointments from Elastic using https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
 == ⭐ Features
 
-* Display events from mein Rotaract that are allowed to be visible
+* Display events from Elastic that are allowed to be visible
 * Multiple event owners / event sources
 * Multiple views: list view, month view
 * Customizable colors per event owner / event source

@@ -1,9 +1,11 @@
 {
 	"name": "rotaract-appointments",
-	"description": "WordPress plugin for displaying appointments from mein Rotaract.",
+	"description": "WordPress plugin for displaying appointments from Elastic.",
 	"keywords": [
 		"wordpress",
 		"plugin",
+		"event",
+		"appointment",
 		"rotaract"
 	],
 	"homepage": "https://github.com/rotaract/rotaract-appointments",

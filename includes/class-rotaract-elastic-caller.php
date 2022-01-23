@@ -146,7 +146,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $params );
 
 		// Unwrap array of club objects.
-		return array_map( fn( object $club ): string => $club->_source->select_name, $res );
+		return array_map( fn( array $club ): string => $club['_source']['select_name'], $res );
 	}
 
 	/**
@@ -168,7 +168,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $params );
 
 		// Unwrap array of ressort objects.
-		return array_map( fn( object $ressort ): string => $ressort->_source->select_name, $res );
+		return array_map( fn( array $ressort ): string => $ressort['_source']['select_name'], $res );
 	}
 
 	/**
@@ -190,7 +190,7 @@ class Rotaract_Elastic_Caller {
 		$res = $this->elastic_request( $params );
 
 		// Unwrap array of ressort objects.
-		return array_map( fn( object $district ): string => $district->_source->select_name, $res );
+		return array_map( fn( array $district ): string => $district['_source']['select_name'], $res );
 	}
 
 	/**

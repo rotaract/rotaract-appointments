@@ -8,12 +8,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== {compare}/v1.3.8\...main[Unreleased]
+== {compare}/v1.4.0\...main[Unreleased]
+
+== {compare}/v1.3.8\...v1.4.0[1.4.0] - 2022-03-08
 
 === Changed
 
-* Bump `fullcalendar` from 5.10.0 to 5.10.1. {github-pr}/63[#64]
+* Use official ElasticSearch PHP package. {github-pr}/69[#69]
+* Bump `fullcalendar` from 5.10.0 to 5.10.2. {github-pr}/63[#64] {github-pr}/77[#77]
 * Bump `tippy.js` from 6.3.2 to 6.3.7. {github-pr}/63[#63] {github-pr}/66[#66] {github-pr}/67[#67] {github-pr}/68[#68]
+* Bump `jshint` from 2.13.1 to 2.13.4. {github-pr}/71[#71] {github-pr}/72[#72] {github-pr}/73[#73]
+* Bump `phpcodesniffer-composer-installer` from 0.7.1 to 0.7.2
+* Bump `wp-cli-bundle` from 2.5.0 to 2.6.0
+* Bump `popperjs` from 2.9.2 to 2.11.2
+
+=== Fixed
+
+* Bug causing error in admin panel when loading owners
+* Change structure of uploaded ZIP file
 
 == {compare}/v1.3.7\...v1.3.8[1.3.8] - 2021-10-14
 

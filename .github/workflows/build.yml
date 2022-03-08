@@ -44,6 +44,5 @@ jobs:
         with:
           name: rotaract-appointments
           path: |
-            /home/runner/work/rotaract-appointments/*
-            !/home/runner/work/rotaract-appointments/tmp
-            !/home/runner/work/rotaract-appointments/.*
+            /home/runner/work/rotaract-appointments/
+            !/home/runner/work/rotaract-appointments/rotaract-appointments/.*

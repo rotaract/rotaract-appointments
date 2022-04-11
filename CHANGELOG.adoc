@@ -10,6 +10,10 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 == {compare}/v1.4.0\...main[Unreleased]
 
+=== Changed
+
+* Bump `fullcalendar` from 5.10.2 to 5.11.0. {github-pr}/85[#85]
+
 == {compare}/v1.3.8\...v1.4.0[1.4.0] - 2022-03-08
 
 === Changed

@@ -40,7 +40,7 @@ jobs:
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
 
       - name: Upload Plugin
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: rotaract-appointments
           path: |

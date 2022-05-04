@@ -20,7 +20,7 @@
 		"issues": "https://github.com/rotaract/rotaract-appointments/issues"
 	},
 	"require": {
-		"elasticsearch/elasticsearch": "~7.0",
+		"elasticsearch/elasticsearch": "~8.2",
 		"erusev/parsedown": "1.8.0-beta-7"
 	},
 	"require-dev": {

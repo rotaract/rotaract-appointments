@@ -10,39 +10,56 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      php-version: latest
+      extensions: imagick
+      key: rotaract-club-finder #  an be any string, change to clear the extension cache.
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          cache: npm
-      - name: Install Node.js dependencies
-        run: npm ci --production
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        cache: npm
+    - name: Install Node.js dependencies
+      run: npm ci --production
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-      - name: Install PHP dependencies
-        run: composer install --no-interaction --no-progress
+    - name: Setup cache environment
+      id: extcache
+      uses: shivammathur/cache-extensions@v1
+      with:
+        php-version: ${{ env.php-version }}
+        extensions: ${{ env.extensions }}
+        key: ${{ env.key }}
 
-      - name: Generate MO files for localization
-        run: composer translate
+    - name: Cache extensions
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.extcache.outputs.dir }}
+        key: ${{ steps.extcache.outputs.key }}
+        restore-keys: ${{ steps.extcache.outputs.key }}
 
-      - name: Cleanup composer development packages and optimize autoloader
-        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ env.php-version }}
+        extensions: ${{ env.extensions }}
+        tools: wp
 
-      - name: Upload Plugin
-        uses: actions/upload-artifact@v3
-        with:
-          name: rotaract-appointments
-          path: |
-            /home/runner/work/rotaract-appointments/
-            !/home/runner/work/rotaract-appointments/rotaract-appointments/.*
+    - name: Validate composer.json and composer.lock
+      run: composer validate
+
+    - name: Generate MO files for localization
+      run: composer translate
+
+    - name: Cleanup composer development packages and optimize autoloader
+      run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
+
+    - name: Upload Plugin
+      uses: actions/upload-artifact@v3
+      with:
+        name: rotaract-appointments
+        path: |
+          ./*
+          !tmp
+          !.*

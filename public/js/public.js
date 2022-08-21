@@ -128,6 +128,25 @@ function calendarInit( index, short, days, views, initView ) {
 }
 
 /**
+ * Validates whether a string is a valid URL.
+ *
+ * @param {string} string String that might be a valid URL.
+ *
+ * @return {boolean} `true`if string is a valid URL; otherwise `false`.
+ */
+function isValidHttpUrl( string ) {
+	let url;
+
+	try {
+		url = new URL(string);
+	} catch (_) {
+		return false;
+	}
+
+	return url.protocol === "http:" || url.protocol === "https:";
+}
+
+/**
  * Generates the HTML representation of an event's content aka description (incl. time and venue).
  *
  * @param {object} eventInfo The info data object of an event.

@@ -9,8 +9,8 @@
  * @subpackage Rotaract_Appointments/includes
  */
 
-use Elasticsearch\Client;
-use Elasticsearch\ClientBuilder;
+use Elastic\Elasticsearch\Client;
+use Elastic\Elasticsearch\ClientBuilder;
 
 /**
  * Interface functions to receive data from Elasticsearch API.

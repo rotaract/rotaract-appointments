@@ -43,7 +43,7 @@ class Rotaract_Elastic_Caller {
 			defined( 'ROTARACT_APPOINTMENTS_API_KEY' ) ) {
 			$this->client = ClientBuilder::create()
 				->setElasticCloudId( ROTARACT_APPOINTMENTS_CLOUD_ID )
-				->setApiKey( ROTARACT_APPOINTMENTS_API_ID, ROTARACT_APPOINTMENTS_API_KEY )
+				->setApiKey( ROTARACT_APPOINTMENTS_API_KEY, ROTARACT_APPOINTMENTS_API_ID )
 				->build();
 		}
 	}

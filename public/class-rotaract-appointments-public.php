@@ -229,6 +229,7 @@ class Rotaract_Appointments_Public {
 	 */
 	private function create_event( array $appointment ): array {
 		return array(
+			'id'          => $appointment['_source']['id'],
 			'title'       => $appointment['_source']['title'],
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['begins_at'] ) ),
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['ends_at'] ) ),

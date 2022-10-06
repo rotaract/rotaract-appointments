@@ -88,6 +88,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 })
 
 let calendar;
+let eventSourcesBackup;
 
 /**
  * Initializes Tippy.js, FullCalendar.
@@ -98,7 +99,8 @@ let calendar;
  * @param eventSources The sources of the displayed events.
  */
 function calendarInit( eventSources, short, days, views, initView ) {
-	const calendarEl = document.getElementById( 'rotaract-appointments' );
+	eventSourcesBackup = eventSources;
+	const calendarEl   = document.getElementById( 'rotaract-appointments' );
 
 	const viewList = views.split( ',' );
 	if ( ! viewList.includes( initView )) {
@@ -107,6 +109,7 @@ function calendarInit( eventSources, short, days, views, initView ) {
 
 	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) );
 	calendar.setOption( 'eventSources', eventSources );
+	deduplicate();
 	calendar.render();
 	tippy(
 		'button.fc-ownerButton-button',
@@ -174,14 +177,24 @@ function rotaractDateOptions( allDay = false ) {
  */
 function toggleOwner( el ) {
 	el.classList.toggle( 'off' );
+	const es = calendar.getEventSourceById( el.dataset.owner );
+	if (es) {
+		es.remove()
+	} else {
+		calendar.addEventSource( eventSourcesBackup.find( b => el.dataset.owner === b.id ) )
+	}
+	deduplicate();
+}
+
+/**
+ * Toggles the display attribute of all events of an certain owner.
+ */
+function deduplicate() {
 	calendar.getEvents().forEach(
-		function (e) {
-			if ( e.source.id === el.dataset.owner ) {
-				if (e.display === 'none') {
-					e.setProp( 'display', 'auto' );
-				} else {
-					e.setProp( 'display', 'none' );
-				}
+		(e, index, events) =>
+		{
+			if ( e.extendedProps.owner.length > 1 ) {
+				e.setProp( 'display', events.some( (f, i) => f.id === e.id && i < index && f.display !== 'none' ) ? 'none' : 'auto' );
 			}
 		}
 	);

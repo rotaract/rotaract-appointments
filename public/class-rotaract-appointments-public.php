@@ -88,7 +88,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      array $shortcode_atts    Arguments for calendar shortcode.
 	 */
-	private array $shortcode_atts;
+	private array $shortcode_atts = array();
 
 	/**
 	 * Initialize the class and set its properties.
@@ -166,7 +166,7 @@ class Rotaract_Appointments_Public {
 	 * @see init_calendar
 	 */
 	public function appointments_shortcode( $atts ): string {
-		$this->shortcode_atts = shortcode_atts(
+		$this->shortcode_atts[] = shortcode_atts(
 			array(
 				'views' => 'listQuarter,dayGridMonth',
 				'init'  => 'listQuarter',
@@ -178,7 +178,7 @@ class Rotaract_Appointments_Public {
 		);
 		add_action( 'wp_print_footer_scripts', array( $this, 'init_calendar' ), 999 );
 
-		return '<div id="rotaract-appointments" class="rotaract-appointments-' . $this->shortcode_atts['style'] . '"></div>';
+		return '<div id="rotaract-appointments-' . ( count( $this->shortcode_atts ) - 1 ) . '" class="rotaract-appointments rotaract-appointments-' . end( $this->shortcode_atts )['style'] . '"></div>';
 	}
 
 	/**
@@ -193,10 +193,16 @@ class Rotaract_Appointments_Public {
 			$owners
 		);
 		$appointments = $this->elastic_caller->get_appointments( $owner_names );
-		$views        = $this->shortcode_atts['views'];
-		$init_view    = $this->shortcode_atts['init'];
-		$short        = 'short' === $this->shortcode_atts['style'] ? 'true' : 'false';
-		$days         = $this->shortcode_atts['days'];
+
+		$shortcodes = array();
+		foreach ( $this->shortcode_atts as $shortcode_att ) {
+			$shortcodes[] = array(
+				'views'     => $shortcode_att['views'],
+				'init_view' => $shortcode_att['init'],
+				'short'     => 'short' === $shortcode_att['style'] ? 'true' : 'false',
+				'days'      => $shortcode_att['days'],
+			);
+		}
 
 		$event_sources = array();
 

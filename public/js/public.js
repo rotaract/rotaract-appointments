@@ -88,7 +88,6 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 })
 
 let calendar;
-let eventSourcesBackup;
 
 /**
  * Initializes Tippy.js, FullCalendar.
@@ -98,9 +97,8 @@ let eventSourcesBackup;
  *
  * @param eventSources The sources of the displayed events.
  */
-function calendarInit( eventSources, short, days, views, initView ) {
-	eventSourcesBackup = eventSources;
-	const calendarEl   = document.getElementById( 'rotaract-appointments' );
+function calendarInit( index, short, days, views, initView ) {
+	const calendarEl = document.getElementById( 'rotaract-appointments-' + index );
 
 	const viewList = views.split( ',' );
 	if ( ! viewList.includes( initView )) {
@@ -181,7 +179,7 @@ function toggleOwner( el ) {
 	if (es) {
 		es.remove()
 	} else {
-		calendar.addEventSource( eventSourcesBackup.find( b => el.dataset.owner === b.id ) )
+		calendar.addEventSource( eventSources.find( b => el.dataset.owner === b.id ) )
 	}
 	deduplicate();
 }

@@ -21,7 +21,10 @@
 	<?php endforeach; ?>
 </div>
 <script type="text/javascript" id="rotaract-appointments">
+const eventSources = <?php echo wp_json_encode( $event_sources ); ?>;
 document.addEventListener("DOMContentLoaded", function() {
-	calendarInit(<?php echo wp_json_encode( $event_sources ); ?>, <?php echo esc_js( $short ); ?>, <?php echo esc_js( $days ); ?>, '<?php echo esc_js( $views ); ?>', '<?php echo esc_js( $init_view ); ?>');
+	<?php foreach ( $shortcodes as $index => $shortcode_atts ) : ?>
+	calendarInit(<?php echo wp_json_encode( $index ); ?>, <?php echo esc_js( $shortcode_atts['short'] ); ?>, <?php echo esc_js( $shortcode_atts['days'] ); ?>, '<?php echo esc_js( $shortcode_atts['views'] ); ?>', '<?php echo esc_js( $shortcode_atts['init_view'] ); ?>');
+	<?php endforeach; ?>
 });
 </script>

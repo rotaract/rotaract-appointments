@@ -130,15 +130,19 @@ function calendarInit( eventSources, short, days, views, initView ) {
 function createEventContent( eventInfo ) {
 	const address = eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
 
-	let html = '<h5 class="event-title">';
+	let html = '<p class="event-info">';
+	html    += eventInfo.extendedProps.owner.join( ', ' );
+	html    += '</p>';
+	html    += '<h5 class="event-title">';
 	html    += eventInfo.title;
 	html    += '</h5>';
 	html    += '<p class="event-info">';
 	html    += eventInfo.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions( eventInfo.allDay ) );
-	html    += ', ';
-	html    += address;
-	html    += '</p>';
-	html    += eventInfo.extendedProps.description;
+	if (address) {
+		html += ', ' + address;
+	}
+	html += '</p>';
+	html += eventInfo.extendedProps.description;
 
 	return html;
 }

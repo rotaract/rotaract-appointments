@@ -13,9 +13,9 @@
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = ( short, viewList, initView ) => ({
+const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
-	initialView: initView,
+	initialView: days ? 'listDaysManual' : initView,
 	customButtons: {
 		ownerButton: {
 			text: appointmentsData.calendarBtn
@@ -77,6 +77,12 @@ const rotaractCalendarOptions  = ( short, viewList, initView ) => ({
 				months: 3,
 				buttonText: 'Quartal'
 			}
+		},
+		listDaysManual: {
+			type: 'list',
+			duration: {
+				days: days
+			}
 		}
 	}
 })
@@ -91,7 +97,7 @@ let calendar;
  *
  * @param eventSources The sources of the displayed events.
  */
-function calendarInit( eventSources, short, views, initView ) {
+function calendarInit( eventSources, short, days, views, initView ) {
 	const calendarEl = document.getElementById( 'rotaract-appointments' );
 
 	const viewList = views.split( ',' );
@@ -99,7 +105,7 @@ function calendarInit( eventSources, short, views, initView ) {
 		initView = viewList[0];
 	}
 
-	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, viewList, initView ) );
+	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) );
 	calendar.setOption( 'eventSources', eventSources );
 	calendar.render();
 	tippy(

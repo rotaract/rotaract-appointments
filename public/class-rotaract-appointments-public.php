@@ -171,6 +171,7 @@ class Rotaract_Appointments_Public {
 				'views' => 'listQuarter,dayGridMonth',
 				'init'  => 'listQuarter',
 				'style' => 'normal',
+				'days'  => 'null',
 			),
 			$atts,
 			'rotaract-appointments'
@@ -195,6 +196,7 @@ class Rotaract_Appointments_Public {
 		$views        = $this->shortcode_atts['views'];
 		$init_view    = $this->shortcode_atts['init'];
 		$short        = 'short' === $this->shortcode_atts['style'] ? 'true' : 'false';
+		$days         = $this->shortcode_atts['days'];
 
 		$event_sources = array();
 

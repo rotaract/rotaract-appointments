@@ -34,8 +34,10 @@
 .fc-list-event.show > .event-description {
 	display: table-cell;
 }
+.fc-list-event.show:hover td {
+	background: none !important;
+}
 .fc-list-event.show:hover > .event-description {
-	background-color: var(--fc-list-event-hover-bg-color, #f5f5f5);
 	border: none;
 }
 .fc .fc-scroller-harness,
@@ -54,6 +56,35 @@
 .fc-daygrid-day-number,
 .fc-col-header-cell-cushion {
 	color: #687d90;
+}
+
+/* short style */
+
+#rotaract-appointments.rotaract-appointments-short .fc-scroller {
+	overflow: hidden !important;
+}
+#rotaract-appointments.rotaract-appointments-short tr.fc-list-event {
+	align-items: baseline;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+#rotaract-appointments.rotaract-appointments-short tr.fc-list-event > td.fc-list-event-time {
+	border: none;
+	flex: 1 0 0%;
+	font-size: 0.9em;
+}
+#rotaract-appointments.rotaract-appointments-short tr.fc-list-event > td.fc-list-event-graphic {
+	border: none;
+	flex: 0 0 auto;
+	order: -1;
+}
+#rotaract-appointments.rotaract-appointments-short tr.fc-list-event > td.fc-list-event-title {
+	border-top: none;
+	flex: 1 0 100%;
+}
+#rotaract-appointments.rotaract-appointments-short tr.fc-list-event.show > .event-description {
+	display: block !important;
 }
 
 /*fix fullcalendar sticky behaviour*/

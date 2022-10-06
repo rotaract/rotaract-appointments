@@ -13,7 +13,7 @@
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = ( viewList, initView ) => ({
+const rotaractCalendarOptions  = ( short, viewList, initView ) => ({
 	locale: appointmentsData.locale,
 	initialView: initView,
 	customButtons: {
@@ -22,12 +22,12 @@ const rotaractCalendarOptions  = ( viewList, initView ) => ({
 		}
 	},
 	headerToolbar: {
-		start: 'prev,next',
-		center: 'title',
-		end: viewList.join( ',' )
+		start: short ? '' : 'prev,next',
+		center: short ? '' : 'title',
+		end: short ? '' : viewList.join( ',' )
 	},
 	footerToolbar: {
-		start: 'today',
+		start: short ? 'prev,today,next' : 'today',
 		center: '',
 		end: 'ownerButton'
 	},
@@ -91,7 +91,7 @@ let calendar;
  *
  * @param eventSources The sources of the displayed events.
  */
-function calendarInit( eventSources, views, initView ) {
+function calendarInit( eventSources, short, views, initView ) {
 	const calendarEl = document.getElementById( 'rotaract-appointments' );
 
 	const viewList = views.split( ',' );
@@ -99,7 +99,7 @@ function calendarInit( eventSources, views, initView ) {
 		initView = viewList[0];
 	}
 
-	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( viewList, initView ) );
+	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, viewList, initView ) );
 	calendar.setOption( 'eventSources', eventSources );
 	calendar.render();
 	tippy(

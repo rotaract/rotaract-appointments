@@ -170,13 +170,14 @@ class Rotaract_Appointments_Public {
 			array(
 				'views' => 'listQuarter,dayGridMonth',
 				'init'  => 'listQuarter',
+				'style' => 'normal',
 			),
 			$atts,
 			'rotaract-appointments'
 		);
 		add_action( 'wp_print_footer_scripts', array( $this, 'init_calendar' ), 999 );
 
-		return '<div id="rotaract-appointments"></div>';
+		return '<div id="rotaract-appointments" class="rotaract-appointments-' . $this->shortcode_atts['style'] . '"></div>';
 	}
 
 	/**
@@ -193,6 +194,7 @@ class Rotaract_Appointments_Public {
 		$appointments = $this->elastic_caller->get_appointments( $owner_names );
 		$views        = $this->shortcode_atts['views'];
 		$init_view    = $this->shortcode_atts['init'];
+		$short        = 'short' === $this->shortcode_atts['style'] ? 'true' : 'false';
 
 		$event_sources = array();
 

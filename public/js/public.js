@@ -87,7 +87,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 	}
 })
 
-let calendar;
+const calendar = [];
 
 /**
  * Initializes Tippy.js, FullCalendar.
@@ -105,15 +105,15 @@ function calendarInit( index, short, days, views, initView ) {
 		initView = viewList[0];
 	}
 
-	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) );
-	calendar.setOption( 'eventSources', eventSources );
-	deduplicate();
-	calendar.render();
+	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) ) ) - 1;
+	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
+	deduplicate( lastCalIndex );
+	calendar[lastCalIndex].render();
 	tippy(
-		'button.fc-ownerButton-button',
+		'#rotaract-appointments-' + index + ' button.fc-ownerButton-button',
 		{
 			allowHTML: true,
-			content: document.getElementById( 'calendar-owners' ).innerHTML,
+			content: document.getElementById( 'calendar-owners-' + index ).innerHTML,
 			interactive: true,
 			theme: 'rotaract',
 			trigger: 'click'
@@ -173,22 +173,22 @@ function rotaractDateOptions( allDay = false ) {
  *
  * @param el The visual HTML toggle element.
  */
-function toggleOwner( el ) {
+function toggleOwner( index, el ) {
 	el.classList.toggle( 'off' );
-	const es = calendar.getEventSourceById( el.dataset.owner );
+	const es = calendar[index].getEventSourceById( el.dataset.owner );
 	if (es) {
 		es.remove()
 	} else {
-		calendar.addEventSource( eventSources.find( b => el.dataset.owner === b.id ) )
+		calendar[index].addEventSource( eventSources.find( b => el.dataset.owner === b.id ) )
 	}
-	deduplicate();
+	deduplicate( index );
 }
 
 /**
  * Toggles the display attribute of all events of an certain owner.
  */
-function deduplicate() {
-	calendar.getEvents().forEach(
+function deduplicate( calIndex ) {
+	calendar[calIndex].getEvents().forEach(
 		(e, index, events) =>
 		{
 			if ( e.extendedProps.owner.length > 1 ) {

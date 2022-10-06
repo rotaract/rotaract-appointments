@@ -73,11 +73,15 @@
 	border: none;
 	flex: 1 0 0%;
 	font-size: 0.9em;
+	padding-bottom: 0;
 }
 #rotaract-appointments.rotaract-appointments-short tr.fc-list-event > td.fc-list-event-graphic {
 	border: none;
 	flex: 0 0 auto;
+	font-size: 0.9em;
+	padding-bottom: 0;
 	order: -1;
+	width: auto;
 }
 #rotaract-appointments.rotaract-appointments-short tr.fc-list-event > td.fc-list-event-title {
 	border-top: none;

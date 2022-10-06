@@ -7,6 +7,7 @@
  */
 
 /* globals appointmentsData */
+/* globals eventSources */
 /* exported calendarInit */
 /* exported toggleOwner */
 
@@ -85,7 +86,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 			}
 		}
 	}
-})
+});
 
 const calendar = [];
 
@@ -177,9 +178,9 @@ function toggleOwner( index, el ) {
 	el.classList.toggle( 'off' );
 	const es = calendar[index].getEventSourceById( el.dataset.owner );
 	if (es) {
-		es.remove()
+		es.remove();
 	} else {
-		calendar[index].addEventSource( eventSources.find( b => el.dataset.owner === b.id ) )
+		calendar[index].addEventSource( eventSources.find( b => el.dataset.owner === b.id ) );
 	}
 	deduplicate( index );
 }

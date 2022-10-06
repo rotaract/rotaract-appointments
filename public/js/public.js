@@ -7,33 +7,34 @@
  */
 
 /* globals appointmentsData */
+/* globals eventSources */
 /* exported calendarInit */
 /* exported toggleOwner */
 
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = {
+const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
-	initialView: 'listMonth',
+	initialView: days ? 'listDaysManual' : initView,
 	customButtons: {
 		ownerButton: {
 			text: appointmentsData.calendarBtn
 		}
 	},
 	headerToolbar: {
-		start: 'prev,next',
-		center: 'title',
-		end: 'listMonth,dayGridMonth'
+		start: short ? '' : 'prev,next',
+		center: short ? '' : 'title',
+		end: short ? '' : viewList.join( ',' )
 	},
 	footerToolbar: {
-		start: 'today',
+		start: short ? 'prev,today,next' : 'today',
 		center: '',
 		end: 'ownerButton'
 	},
 	height: 'auto',
 	views: {
-		listMonth: {
+		list: {
 			eventDidMount( info ) {
 				let elem       = document.createElement( 'div' );
 				elem.innerHTML = createEventContent( info.event );
@@ -46,7 +47,7 @@ const rotaractCalendarOptions  = {
 				}
 			}
 		},
-		dayGridMonth: {
+		dayGrid: {
 			eventDidMount( info ) {
 				const calEl = info.el.closest( '#rotaract-appointments' );
 				tippy(
@@ -64,11 +65,30 @@ const rotaractCalendarOptions  = {
 					}
 				);
 			}
+		},
+		listYear: {
+			type: 'list',
+			duration: {
+				months: 12
+			}
+		},
+		listQuarter: {
+			type: 'list',
+			duration: {
+				months: 3,
+				buttonText: 'Quartal'
+			}
+		},
+		listDaysManual: {
+			type: 'list',
+			duration: {
+				days: days
+			}
 		}
 	}
-};
+});
 
-let calendar;
+const calendar = [];
 
 /**
  * Initializes Tippy.js, FullCalendar.
@@ -78,16 +98,23 @@ let calendar;
  *
  * @param eventSources The sources of the displayed events.
  */
-function calendarInit( eventSources ) {
-	const calendarEl = document.getElementById( 'rotaract-appointments' );
-	calendar         = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions );
-	calendar.setOption( 'eventSources', eventSources );
-	calendar.render();
+function calendarInit( index, short, days, views, initView ) {
+	const calendarEl = document.getElementById( 'rotaract-appointments-' + index );
+
+	const viewList = views.split( ',' );
+	if ( ! viewList.includes( initView )) {
+		initView = viewList[0];
+	}
+
+	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) ) ) - 1;
+	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
+	deduplicate( lastCalIndex );
+	calendar[lastCalIndex].render();
 	tippy(
-		'button.fc-ownerButton-button',
+		'#rotaract-appointments-' + index + ' button.fc-ownerButton-button',
 		{
 			allowHTML: true,
-			content: document.getElementById( 'calendar-owners' ).innerHTML,
+			content: document.getElementById( 'calendar-owners-' + index ).innerHTML,
 			interactive: true,
 			theme: 'rotaract',
 			trigger: 'click'
@@ -105,15 +132,19 @@ function calendarInit( eventSources ) {
 function createEventContent( eventInfo ) {
 	const address = eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
 
-	let html = '<h5 class="event-title">';
+	let html = '<p class="event-info">';
+	html    += eventInfo.extendedProps.owner.join( ', ' );
+	html    += '</p>';
+	html    += '<h5 class="event-title">';
 	html    += eventInfo.title;
 	html    += '</h5>';
 	html    += '<p class="event-info">';
 	html    += eventInfo.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions( eventInfo.allDay ) );
-	html    += ', ';
-	html    += address;
-	html    += '</p>';
-	html    += eventInfo.extendedProps.description;
+	if (address) {
+		html += ', ' + address;
+	}
+	html += '</p>';
+	html += eventInfo.extendedProps.description;
 
 	return html;
 }
@@ -143,16 +174,26 @@ function rotaractDateOptions( allDay = false ) {
  *
  * @param el The visual HTML toggle element.
  */
-function toggleOwner( el ) {
+function toggleOwner( index, el ) {
 	el.classList.toggle( 'off' );
-	calendar.getEvents().forEach(
-		function (e) {
-			if ( e.source.id === el.dataset.owner ) {
-				if (e.display === 'none') {
-					e.setProp( 'display', 'auto' );
-				} else {
-					e.setProp( 'display', 'none' );
-				}
+	const es = calendar[index].getEventSourceById( el.dataset.owner );
+	if (es) {
+		es.remove();
+	} else {
+		calendar[index].addEventSource( eventSources.find( b => el.dataset.owner === b.id ) );
+	}
+	deduplicate( index );
+}
+
+/**
+ * Toggles the display attribute of all events of an certain owner.
+ */
+function deduplicate( calIndex ) {
+	calendar[calIndex].getEvents().forEach(
+		(e, index, events) =>
+		{
+			if ( e.extendedProps.owner.length > 1 ) {
+				e.setProp( 'display', events.some( (f, i) => f.id === e.id && i < index && f.display !== 'none' ) ? 'none' : 'auto' );
 			}
 		}
 	);

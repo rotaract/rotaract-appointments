@@ -82,6 +82,15 @@ class Rotaract_Appointments_Public {
 	private Parsedown $parser;
 
 	/**
+	 * The shortcode Arguments.
+	 *
+	 * @since    2.0.0
+	 * @access   private
+	 * @var      array $shortcode_atts    Arguments for calendar shortcode.
+	 */
+	private array $shortcode_atts = array();
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @param    string                  $rotaract_appointments    The name of the plugin.
@@ -151,15 +160,25 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Enqueues all style and script files and init calendar.
 	 *
+	 * @param array $atts user defined attributes in shortcode tag.
+	 * @return String containing empty div tag with id "rotaract-appointments"
 	 * @see appointments_enqueue_scripts
 	 * @see init_calendar
-	 *
-	 * @return String containing empty div tag with id "rotaract-appointments"
 	 */
-	public function appointments_shortcode(): string {
+	public function appointments_shortcode( $atts ): string {
+		$this->shortcode_atts[] = shortcode_atts(
+			array(
+				'views' => 'listQuarter,dayGridMonth',
+				'init'  => 'listQuarter',
+				'style' => 'normal',
+				'days'  => 'null',
+			),
+			$atts,
+			'rotaract-appointments'
+		);
 		add_action( 'wp_print_footer_scripts', array( $this, 'init_calendar' ), 999 );
 
-		return '<div id="rotaract-appointments"></div>';
+		return '<div id="rotaract-appointments-' . ( count( $this->shortcode_atts ) - 1 ) . '" class="rotaract-appointments rotaract-appointments-' . end( $this->shortcode_atts )['style'] . '"></div>';
 	}
 
 	/**
@@ -174,6 +193,16 @@ class Rotaract_Appointments_Public {
 			$owners
 		);
 		$appointments = $this->elastic_caller->get_appointments( $owner_names );
+
+		$shortcodes = array();
+		foreach ( $this->shortcode_atts as $shortcode_att ) {
+			$shortcodes[] = array(
+				'views'     => $shortcode_att['views'],
+				'init_view' => $shortcode_att['init'],
+				'short'     => 'short' === $shortcode_att['style'] ? 'true' : 'false',
+				'days'      => $shortcode_att['days'],
+			);
+		}
 
 		$event_sources = array();
 
@@ -206,6 +235,7 @@ class Rotaract_Appointments_Public {
 	 */
 	private function create_event( array $appointment ): array {
 		return array(
+			'id'          => $appointment['_source']['id'],
 			'title'       => $appointment['_source']['title'],
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['begins_at'] ) ),
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['ends_at'] ) ),

@@ -49,6 +49,10 @@ msgstr "Rotaract Events"
 msgid "Owners"
 msgstr "Veranstalter"
 
+#: admin/class-rotaract-appointments-admin.php:174
+msgid "Manual"
+msgstr "Anleitung"
+
 #: admin/class-rotaract-appointments-admin.php:206
 msgid "Settings Saved"
 msgstr "Einstellungen gespeichert"
@@ -101,6 +105,47 @@ msgstr "Farbe"
 #: admin/partials/field-appointment-owners.php:27
 msgid "Delete"
 msgstr "Löschen"
+
+#: admin/partials/field-shortcode-manual.php:16
+msgid "You need to add this shortcode wherever you want your calendar to appear:"
+msgstr "Füge diesen Shortcode dort ein, wo der Kalender angezeigt werden soll:"
+
+#: admin/partials/field-shortcode-manual.php:19
+msgid "Customization"
+msgstr "Anpassungen"
+
+#: admin/partials/field-shortcode-manual.php:20
+msgid "You can customize your calendar by adding attributes to your shortcode. Those are the following:"
+msgstr "Du kannst das Aussehen deines Kalenders anpassen. Folgende Attribute kannst du dafür zu deinem Shortcode hinzufügen:"
+
+#: admin/partials/field-shortcode-manual.php:23
+msgid "If you just wanted to show the events of the next X (e.g. 50) days in a list, add the day attribute. All other params will be ignored which means you cannot have other views than this list."
+msgstr "Wenn du die Termine der nächsten X (z.B. 50) Tage in einer Liste anzeigen möchtest, nutze das day Attribut. Alle anderen Angaben werden ignoriert, d.h. es sind auch keine anderen Ansichten möglich."
+
+#: admin/partials/field-shortcode-manual.php:27
+msgid "In your calendar visitors may switch between different views. You can define a list of views that they can choose from. Please set those as a comma-separated list without empty spaces."
+msgstr "Im Kalender können Besucher zwischen verschiedenen Ansichten wechseln. Du kannst vorgeben, welche Ansichten zur Auswahl stehen. Bitte setze diese als Komma-separierte Liste ohne Leerzeichen."
+
+#: admin/partials/field-shortcode-manual.php:29
+msgid "Possible values are"
+msgstr "Mögliche Werte sind"
+
+#: admin/partials/field-shortcode-manual.php:33
+msgid "If you have defined multiple views you may also want to say which one shall be shown by default. It has to be one of those you declared in views attribute."
+msgstr "Wenn du mehrere Ansichten definiert hast, kannst du auch vorgeben, welche standardmäßig ausgewählt sein soll. Es muss eine Ansicht sein, die zuvor im views Attribut angegeben wurde."
+
+#: admin/partials/field-shortcode-manual.php:35
+msgid "first item in"
+msgstr "erstes Element in"
+
+#: admin/partials/field-shortcode-manual.php:35
+#: admin/partials/field-shortcode-manual.php:40
+msgid "Default value"
+msgstr "Standardwert"
+
+#: admin/partials/field-shortcode-manual.php:38
+msgid "Lets say you want to display your events in a sidebar. You can choose a short layout that will fit into a widget. Please notice that you cannot have multiple views then but you can set which one is used."
+msgstr "Angenommen, der Kalender soll in der Seitenleiste angezeigt werden. Du kannst das 'short' Layout verwenden, das perfekt in Widgets passt. Beachte bitte, dass du dann nur eine Ansicht wählen kannst."
 
 #: admin/partials/notice-elastic-missing.php:18
 msgid "Please set Elasticsearch Host in your WordPress configuration!"

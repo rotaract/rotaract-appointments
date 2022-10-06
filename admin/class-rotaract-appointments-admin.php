@@ -168,6 +168,14 @@ class Rotaract_Appointments_Admin {
 				'class'     => 'appointment_owners',
 			)
 		);
+
+		add_settings_field(
+			'rotaract_appointment_shortcode_manual',
+			__( 'Manual', 'rotaract-appointments' ),
+			array( $this, 'appointment_owners_shortcode_manual' ),
+			'rotaract',
+			'rotaract_appointment_settings'
+		);
 	}
 
 	/**
@@ -284,6 +292,17 @@ class Rotaract_Appointments_Admin {
 			);
 		}
 		return array_values( $new_input );
+	}
+
+	/**
+	 * Builds manual text that tells user how to add and customize the shortcode.
+	 *
+	 * @param array $args  The settings array, defining ...
+	 */
+	public function appointment_owners_shortcode_manual( array $args ) {
+
+		include $this->get_partial( 'field-shortcode-manual.php' );
+
 	}
 
 }

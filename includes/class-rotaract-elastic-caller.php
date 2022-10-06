@@ -82,7 +82,7 @@ class Rotaract_Elastic_Caller {
 		$params = array(
 			'index' => 'events',
 			'body'  => array(
-				'size'  => '100',
+				'size'  => '10000',
 				'query' => array(
 					'bool' => array(
 						'filter' => array(

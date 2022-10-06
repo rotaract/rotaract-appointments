@@ -47,6 +47,10 @@ msgstr ""
 msgid "Owners"
 msgstr ""
 
+#: admin/class-rotaract-appointments-admin.php:174
+msgid "Manual"
+msgstr ""
+
 #: admin/class-rotaract-appointments-admin.php:206
 msgid "Settings Saved"
 msgstr ""
@@ -98,6 +102,47 @@ msgstr ""
 #: admin/partials/field-appointment-owner.php:49
 #: admin/partials/field-appointment-owners.php:27
 msgid "Delete"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:16
+msgid "You need to add this shortcode wherever you want your calendar to appear:"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:19
+msgid "Customization"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:20
+msgid "You can customize your calendar by adding attributes to your shortcode. Those are the following:"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:23
+msgid "If you just wanted to show the events of the next X (e.g. 50) days in a list, add the day attribute. All other params will be ignored which means you cannot have other views than this list."
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:27
+msgid "In your calendar visitors may switch between different views. You can define a list of views that they can choose from. Please set those as a comma-separated list without empty spaces."
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:29
+msgid "Possible values are"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:33
+msgid "If you have defined multiple views you may also want to say which one shall be shown by default. It has to be one of those you declared in views attribute."
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:35
+msgid "first item in"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:35
+#: admin/partials/field-shortcode-manual.php:40
+msgid "Default value"
+msgstr ""
+
+#: admin/partials/field-shortcode-manual.php:38
+msgid "Lets say you want to display your events in a sidebar. You can choose a short layout that will fit into a widget. Please notice that you cannot have multiple views then but you can set which one is used."
 msgstr ""
 
 #: admin/partials/notice-elastic-missing.php:18

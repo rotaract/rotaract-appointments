@@ -46,7 +46,7 @@ const rotaractCalendarOptions  = ( viewList, initView ) => ({
 				}
 			}
 		},
-		grid: {
+		dayGrid: {
 			eventDidMount( info ) {
 				const calEl = info.el.closest( '#rotaract-appointments' );
 				tippy(

@@ -99,7 +99,7 @@ define( 'ROTARACT_APPOINTMENTS_API_KEY', '<your-elastic-api-key>' );
 
 == ⚖️ Legal Notices
 
-Copyright (c) 2021, Rotaract Deutschland
+Copyright (c) 2022, Rotaract Deutschland
 
 Licensed under European Union Public License 1.2 (EUPL-1.2).
 

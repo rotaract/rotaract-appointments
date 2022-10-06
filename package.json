@@ -20,9 +20,9 @@
 	"slug": "rotaract-appointments",
 	"scripts": {},
 	"dependencies": {
-		"fullcalendar": "^5.11.3",
-		"lc-select": "^1.1.5",
-		"tippy.js": "^6.3.7"
+		"fullcalendar": "5.11.3",
+		"lc-select": "1.1.5",
+		"tippy.js": "6.3.7"
 	},
 	"devDependencies": {
 		"jshint": "^2.13.5"

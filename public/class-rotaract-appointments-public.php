@@ -168,8 +168,8 @@ class Rotaract_Appointments_Public {
 	public function appointments_shortcode( $atts ): string {
 		$this->shortcode_atts = shortcode_atts(
 			array(
-				'views' => 'listMonth,dayGridMonth',
-				'init'  => 'listMonth',
+				'views' => 'listQuarter,dayGridMonth',
+				'init'  => 'listQuarter',
 			),
 			$atts,
 			'rotaract-appointments'

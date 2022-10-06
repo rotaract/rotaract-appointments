@@ -70,10 +70,16 @@ const rotaractCalendarOptions  = ( viewList, initView ) => ({
 			duration: {
 				months: 12
 			}
+		},
+		listQuarter: {
+			type: 'list',
+			duration: {
+				months: 3,
+				buttonText: 'Quartal'
+			}
 		}
-	);
-	return options;
-}
+	}
+})
 
 let calendar;
 

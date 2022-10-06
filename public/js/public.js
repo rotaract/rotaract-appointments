@@ -13,60 +13,71 @@
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = {
-	locale: appointmentsData.locale,
-	initialView: 'listMonth',
-	customButtons: {
-		ownerButton: {
-			text: appointmentsData.calendarBtn
-		}
-	},
-	headerToolbar: {
-		start: 'prev,next',
-		center: 'title',
-		end: 'listMonth,dayGridMonth'
-	},
-	footerToolbar: {
-		start: 'today',
-		center: '',
-		end: 'ownerButton'
-	},
-	height: 'auto',
-	views: {
-		listMonth: {
-			eventDidMount( info ) {
-				let elem       = document.createElement( 'div' );
-				elem.innerHTML = createEventContent( info.event );
-				elem.classList.add( 'event-description' );
-				info.el.append( elem );
-			},
-			eventClick( info ) {
-				if ( ! info.jsEvent.target.href) {
-					info.el.classList.toggle( 'show' );
-				}
+function rotaractCalendarOptions( viewList, initView ) {
+	const options           = {
+		locale: appointmentsData.locale,
+		customButtons: {
+			ownerButton: {
+				text: appointmentsData.calendarBtn
 			}
 		},
-		dayGridMonth: {
-			eventDidMount( info ) {
-				const calEl = info.el.closest( '#rotaract-appointments' );
-				tippy(
-					info.el,
-					{
-						allowHTML: true,
-						appendTo: calEl,
-						content: createEventContent( info.event ),
-						interactive: true,
-						theme: 'rotaract',
-						trigger: 'click',
-						onShow() {
-							calEl.style.setProperty( '--fc-event-bg-color', info.event.source.internalEventSource._raw.color );
-						}
-					}
-				);
+		headerToolbar: {
+			start: 'prev,next',
+			center: 'title'
+		},
+		footerToolbar: {
+			start: 'today',
+			center: '',
+			end: 'ownerButton'
+		},
+		height: 'auto',
+		views: {}
+	};
+	const listViewFunctions = {
+		eventDidMount( info ) {
+			let elem        = document.createElement( 'div' );
+			elem.innerHTML  = createEventContent( info.event );
+			elem.classList.add( 'event-description' );
+			info.el.append( elem );
+		},
+		eventClick( info ) {
+			if ( ! info.jsEvent.target.href) {
+				info.el.classList.toggle( 'show' );
 			}
 		}
-	}
-};
+	};
+	const gridViewFunctions   = {
+		eventDidMount( info ) {
+			const calEl       = info.el.closest( '#rotaract-appointments' );
+			tippy(
+				info.el,
+				{
+					allowHTML: true,
+					appendTo: calEl,
+					content: createEventContent( info.event ),
+					interactive: true,
+					theme: 'rotaract',
+					trigger: 'click',
+					onShow() {
+						calEl.style.setProperty( '--fc-event-bg-color', info.event.source.internalEventSource._raw.color );
+					}
+				}
+			);
+		}
+	};
+	options.initialView       = initView;
+	options.headerToolbar.end = viewList.join( ',' );
+	viewList.forEach(
+		function (v) {
+			if ([ 'listDay', 'listWeek', 'listMonth', 'listYear' ].includes( v )) {
+				options.views[v] = listViewFunctions;
+			} else if ([ 'dayGridMonth', 'dayGridDay', 'dayGridWeek', 'timeGridWeek', 'timeGridDay' ].includes( v )) {
+				options.views[v] = gridViewFunctions;
+			}
+		}
+	);
+	return options;
+}
 
 let calendar;
 
@@ -78,9 +89,15 @@ let calendar;
  *
  * @param eventSources The sources of the displayed events.
  */
-function calendarInit( eventSources ) {
+function calendarInit( eventSources, views, initView ) {
 	const calendarEl = document.getElementById( 'rotaract-appointments' );
-	calendar         = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions );
+
+	const viewList = views.split( ',' );
+	if ( ! viewList.includes( initView )) {
+		initView = viewList[0];
+	}
+
+	calendar = new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( viewList, initView ) );
 	calendar.setOption( 'eventSources', eventSources );
 	calendar.render();
 	tippy(

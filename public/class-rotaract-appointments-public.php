@@ -82,6 +82,15 @@ class Rotaract_Appointments_Public {
 	private Parsedown $parser;
 
 	/**
+	 * The shortcode Arguments.
+	 *
+	 * @since    2.0.0
+	 * @access   private
+	 * @var      array $shortcode_atts    Arguments for calendar shortcode.
+	 */
+	private array $shortcode_atts;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @param    string                  $rotaract_appointments    The name of the plugin.
@@ -151,12 +160,20 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Enqueues all style and script files and init calendar.
 	 *
+	 * @param array $atts user defined attributes in shortcode tag.
+	 * @return String containing empty div tag with id "rotaract-appointments"
 	 * @see appointments_enqueue_scripts
 	 * @see init_calendar
-	 *
-	 * @return String containing empty div tag with id "rotaract-appointments"
 	 */
-	public function appointments_shortcode(): string {
+	public function appointments_shortcode( $atts ): string {
+		$this->shortcode_atts = shortcode_atts(
+			array(
+				'views' => 'listMonth,dayGridMonth',
+				'init'  => 'listMonth',
+			),
+			$atts,
+			'rotaract-appointments'
+		);
 		add_action( 'wp_print_footer_scripts', array( $this, 'init_calendar' ), 999 );
 
 		return '<div id="rotaract-appointments"></div>';
@@ -174,6 +191,8 @@ class Rotaract_Appointments_Public {
 			$owners
 		);
 		$appointments = $this->elastic_caller->get_appointments( $owner_names );
+		$views        = $this->shortcode_atts['views'];
+		$init_view    = $this->shortcode_atts['init'];
 
 		$event_sources = array();
 

@@ -22,6 +22,6 @@
 </div>
 <script type="text/javascript" id="rotaract-appointments">
 document.addEventListener("DOMContentLoaded", function() {
-	calendarInit(<?php echo wp_json_encode( $event_sources ); ?>);
+	calendarInit(<?php echo wp_json_encode( $event_sources ); ?>, '<?php echo esc_js( $views ); ?>', '<?php echo esc_js( $init_view ); ?>');
 });
 </script>

@@ -20,7 +20,7 @@
 .event-description {
 	display: none;
 	overflow: hidden;
-	padding: 8px 14px 22px;
+	padding: 11px 14px 22px;
 	transition: height 0.5s;
 }
 .rotaract-appointments .event-info {

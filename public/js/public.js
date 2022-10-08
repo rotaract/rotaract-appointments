@@ -49,7 +49,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 		},
 		dayGrid: {
 			eventDidMount( info ) {
-				const calEl = info.el.closest( '#rotaract-appointments' );
+				const calEl = info.el.closest( '.rotaract-appointments' );
 				tippy(
 					info.el,
 					{

@@ -17,7 +17,8 @@
 if ( $is_new ) :
 	?>
 	new-owner<?php endif; ?>" style="background-color: <?php echo esc_attr( $owner_color ); ?>25; border-color: <?php echo esc_attr( $owner_color ); ?>;">
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]" class="lc-select owner-name" data-placeholder="<?php esc_attr_e( 'Owner', 'rotaract-appointments' ); ?>">
+	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]" class="lc-select owner-name" data-placeholder="<?php esc_attr_e( 'Owner', 'rotaract-appointments' ); ?>" required>
+		<option hidden selected value>---</option>
 		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
 			<option value="Rotaract Deutschland Komitee"
 				<?php
@@ -37,7 +38,8 @@ if ( $is_new ) :
 		</optgroup>
 		<?php endforeach; ?>
 	</select>
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="lc-select owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
+	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="lc-select owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>" required>
+		<option hidden selected value>---</option>
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
 		<option value="<?php echo esc_attr( $hex ); ?>"
 			<?php

@@ -88,6 +88,9 @@ function addOwner( event = null ) {
 	newSelectName.setAttribute( 'name', newSelectName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 	newSelectColor.setAttribute( 'name', newSelectColor.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 
+	newSelectName.value  = null;
+	newSelectColor.value = null;
+
 	newOwner.querySelectorAll( 'option' ).forEach(
 		function (option) {
 			option.removeAttribute( 'selected' );

@@ -47,7 +47,7 @@ class Rotaract_Appointments_Admin {
 	 * @access   private
 	 * @var      string    $lc_select_version    The current version of lc_select.
 	 */
-	private string $lc_select_version = '1.1.5';
+	private string $lc_select_version = '1.1.7';
 
 	/**
 	 * The Elasticsearch caller.

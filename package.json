@@ -25,6 +25,6 @@
 		"tippy.js": "6.3.7"
 	},
 	"devDependencies": {
-		"jshint": "^2.13.5"
+		"jshint": "^2.13.6"
 	}
 }

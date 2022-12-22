@@ -128,13 +128,16 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_scripts() {
 
+		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), null, true );
+
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/fullcalendar/locales-all.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
+		wp_enqueue_script( 'fullcalendar-ical', plugins_url( 'node_modules/@fullcalendar/icalendar/index.global.min.js', __DIR__ ), array( 'fullcalendar', 'ical-js' ), $this->fullcalendar_version, true );
 
 		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->tippy_version, true );
 		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->tippy_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'tippy' ), $this->version, true );
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'fullcalendar-ical', 'tippy' ), $this->version, true );
 		wp_localize_script(
 			$this->rotaract_appointments,
 			'appointmentsData',

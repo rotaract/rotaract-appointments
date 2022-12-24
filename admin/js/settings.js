@@ -48,7 +48,7 @@ function lcSelectDestroy() {
  */
 function addEventListeners() {
 	// Add Delete Listeners.
-	const delBtns = document.querySelectorAll( 'button.delete-owner' );
+	const delBtns = document.querySelectorAll( 'button.delete-line' );
 	delBtns.forEach(
 		function( delBtn ) {
 			delBtn.addEventListener( 'click', delLine );
@@ -56,6 +56,7 @@ function addEventListeners() {
 	);
 
 	document.querySelector( 'button.add-owner' ).addEventListener( 'click', addOwner );
+	document.querySelector( 'button.add-ics' ).addEventListener( 'click', addFeed );
 }
 
 /**
@@ -145,7 +146,7 @@ function addFeed( event = null ) {
 		}
 	);
 
-	document.getElementById( 'rotaract-appointment-owner' ).append( newFeed );
+	document.getElementById( 'rotaract-appointment-ics' ).append( newFeed );
 
 	lcSelectInit();
 	addEventListeners();

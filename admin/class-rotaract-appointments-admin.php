@@ -307,7 +307,6 @@ class Rotaract_Appointments_Admin {
 	public function appointment_ics_field( array $args ) {
 		// Get the value of the setting we've registered with register_setting().
 		$ics_feeds = get_option( 'rotaract_appointment_ics' );
-		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-ics.php' );
 	}

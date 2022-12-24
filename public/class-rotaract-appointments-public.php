@@ -189,6 +189,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function init_calendar() {
 		$owners       = get_option( 'rotaract_appointment_owners' );
+		$feeds        = get_option( 'rotaract_appointment_ics' );
 		$owner_names  = array_map(
 			function ( $o ) {
 				return $o['name'];
@@ -223,6 +224,17 @@ class Rotaract_Appointments_Public {
 				'color'     => $owner['color'],
 				'textColor' => '#fff',
 				'events'    => array_values( array_map( array( $this, 'create_event' ), $owner_appointments ) ),
+			);
+		}
+
+		foreach ( $feeds as $feed ) {
+			$event_sources[] = array(
+				'id'        => $feed['name'],
+				'title'     => $feed['name'],
+				'url'       => $feed['url'],
+				'color'     => $feed['color'],
+				'textColor' => '#fff',
+				'format'    => 'ics',
 			);
 		}
 

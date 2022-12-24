@@ -12,14 +12,14 @@
  */
 
 ?>
-<div class="ics-group
+<div class="ics-group appointment-line
 <?php
 if ( $is_new ) :
 	?>
 	new-feed<?php endif; ?>" style="background-color: <?php echo esc_attr( $feed_color ); ?>25; border-color: <?php echo esc_attr( $owner_color ); ?>;">
 	<input type="text" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][name]" class="feed-name" placeholder="<?php esc_attr_e( 'Name', 'rotaract-appointments' ); ?>" required>
-	<input type="url" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][url]" class="feed-name" placeholder="<?php esc_attr_e( 'URL', 'rotaract-appointments' ); ?>" required>
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="lc-select owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>" required>
+	<input type="url" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][url]" class="feed-url" placeholder="<?php esc_attr_e( 'URL', 'rotaract-appointments' ); ?>" required>
+	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="lc-select feed-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>" required>
 		<option hidden selected value>---</option>
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
 		<option value="<?php echo esc_attr( $hex ); ?>"

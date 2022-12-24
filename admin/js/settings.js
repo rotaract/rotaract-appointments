@@ -43,7 +43,7 @@ function lcSelectDestroy() {
 /**
  * Registers click events to add or delete appointment owner.
  *
- * @see delOwner
+ * @see delLine
  * @see addOwner
  */
 function addEventListeners() {
@@ -51,7 +51,7 @@ function addEventListeners() {
 	const delBtns = document.querySelectorAll( 'button.delete-owner' );
 	delBtns.forEach(
 		function( delBtn ) {
-			delBtn.addEventListener( 'click', delOwner );
+			delBtn.addEventListener( 'click', delLine );
 		}
 	);
 
@@ -104,14 +104,62 @@ function addOwner( event = null ) {
 }
 
 /**
+ * Adds new ics calendar feeds.
+ */
+function addFeed( event = null ) {
+	if ( event ) {
+		event.preventDefault();
+	}
+
+	const owners = document.querySelectorAll( '.ics-group input.feed-name' );
+	let newIndex = 0;
+	owners.forEach(
+		function (feed) {
+			let i    = parseInt( feed.getAttribute( 'name' ).split( /\[|\]/ )[1] );
+			newIndex = Math.max( newIndex, i );
+		}
+	);
+	newIndex += 1;
+
+	lcSelectDestroy();
+
+	let newFeed        = document.querySelector( '.ics-group' ).cloneNode( true );
+	let newInputName   = newFeed.querySelector( 'input.feed-name' );
+	let newInputUrl    = newFeed.querySelector( 'input.feed-url' );
+	let newSelectColor = newFeed.querySelector( 'select.feed-color' );
+
+	newFeed.style.backgroundColor = null;
+	newFeed.style.borderColor     = null;
+
+	newInputName.setAttribute( 'name', newInputName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
+	newInputUrl.setAttribute( 'name', newInputUrl.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
+	newSelectColor.setAttribute( 'name', newSelectColor.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
+
+	newInputName.value   = null;
+	newInputUrl.value    = null;
+	newSelectColor.value = null;
+
+	newFeed.querySelectorAll( 'option' ).forEach(
+		function (option) {
+			option.removeAttribute( 'selected' );
+		}
+	);
+
+	document.getElementById( 'rotaract-appointment-owner' ).append( newFeed );
+
+	lcSelectInit();
+	addEventListeners();
+}
+
+/**
  * Removes owner selection.
  */
-function delOwner( event ) {
+function delLine( event ) {
 	event.preventDefault();
-	if ( document.querySelectorAll( '.owner-group' ).length < 2 ) {
+	if ( document.querySelectorAll( '.appointment-line' ).length < 2 ) {
 		addOwner();
 	}
-	event.target.closest( '.owner-group' ).remove();
+	event.target.closest( '.appointment-line' ).remove();
 }
 
 /**
@@ -121,7 +169,7 @@ function delOwner( event ) {
  * @param targetField
  */
 function changeColor( newValue, targetField) {
-	const style           = targetField.closest( '.owner-group' ).style;
+	const style           = targetField.closest( '.appointment-line' ).style;
 	style.backgroundColor = newValue + '25';
 	style.borderColor     = newValue;
 }

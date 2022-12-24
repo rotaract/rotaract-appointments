@@ -12,7 +12,7 @@
  */
 
 ?>
-<div class="owner-group
+<div class="owner-group appointment-line
 <?php
 if ( $is_new ) :
 	?>

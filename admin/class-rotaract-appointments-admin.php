@@ -150,6 +150,16 @@ class Rotaract_Appointments_Admin {
 			)
 		);
 
+		register_setting(
+			'rotaract_appointments',
+			'rotaract_appointment_ics',
+			array(
+				'type'              => 'array',
+				'default'           => array(),
+				'sanitize_callback' => array( $this, 'sanitize_rotaract_appointment_ics' ),
+			)
+		);
+
 		add_settings_section(
 			'rotaract_appointment_settings',
 			__( 'Rotaract Events', 'rotaract-appointments' ),
@@ -166,6 +176,18 @@ class Rotaract_Appointments_Admin {
 			array(
 				'label_for' => 'rotaract_appointment_owners',
 				'class'     => 'appointment_owners',
+			)
+		);
+
+		add_settings_field(
+			'rotaract_appointment_ics',
+			__( 'External Calendar (ics)', 'rotaract-appointments' ),
+			array( $this, 'appointment_ics_field' ),
+			'rotaract',
+			'rotaract_appointment_settings',
+			array(
+				'label_for' => 'rotaract_appointment_ics',
+				'class'     => 'appointment_ics',
 			)
 		);
 
@@ -222,6 +244,24 @@ class Rotaract_Appointments_Admin {
 	}
 
 	/**
+	 * Builds select tag containing grouped appointment options.
+	 *
+	 * @return array
+	 */
+	private function get_palette() {
+		return array(
+			'#d41367' => __( 'Cranberry', 'rotaract-appointments' ),
+			'#0050a2' => __( 'Azure', 'rotaract-appointments' ),
+			'#0c3c7c' => __( 'Royal Blue', 'rotaract-appointments' ),
+			'#019fcb' => __( 'Sky Blue', 'rotaract-appointments' ),
+			'#f7a81b' => __( 'Gold', 'rotaract-appointments' ),
+			'#ff7600' => __( 'Orange', 'rotaract-appointments' ),
+			'#872175' => __( 'Violet', 'rotaract-appointments' ),
+			'#018d8d' => __( 'Turquoise', 'rotaract-appointments' ),
+		);
+	}
+
+	/**
 	 * Developers section callback function.
 	 *
 	 * @param array $args  The settings array, defining title, id, callback.
@@ -233,7 +273,7 @@ class Rotaract_Appointments_Admin {
 	}
 
 	/**
-	 * Builds select tag containing grouped appointment options.
+	 * Builds select tag containing grouped appointment owners options.
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
@@ -242,7 +282,6 @@ class Rotaract_Appointments_Admin {
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
 		include $this->get_partial( 'field-appointment-owners.php' );
-
 	}
 
 	/**
@@ -255,19 +294,35 @@ class Rotaract_Appointments_Admin {
 	 */
 	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
 		$owners        = $this->elastic_caller->get_all_owners();
-		$color_palette = array(
-			'#d41367' => __( 'Cranberry', 'rotaract-appointments' ),
-			'#0050a2' => __( 'Azure', 'rotaract-appointments' ),
-			'#0c3c7c' => __( 'Royal Blue', 'rotaract-appointments' ),
-			'#019fcb' => __( 'Sky Blue', 'rotaract-appointments' ),
-			'#f7a81b' => __( 'Gold', 'rotaract-appointments' ),
-			'#ff7600' => __( 'Orange', 'rotaract-appointments' ),
-			'#872175' => __( 'Violet', 'rotaract-appointments' ),
-			'#018d8d' => __( 'Turquoise', 'rotaract-appointments' ),
-		);
+		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-appointment-owner.php' );
+	}
 
+	/**
+	 * Builds select tag containing grouped appointment ics options.
+	 *
+	 * @param array $args  The settings array, defining ...
+	 */
+	public function appointment_ics_field( array $args ) {
+		// Get the value of the setting we've registered with register_setting().
+		$ics_feeds = get_option( 'rotaract_appointment_ics' );
+
+		include $this->get_partial( 'field-ics.php' );
+	}
+
+	/**
+	 * Builds select tag containing grouped appointment options.
+	 *
+	 * @param bool        $is_new True if this intends to be a new owner.
+	 * @param int         $index Index of the parameter.
+	 * @param string|null $owner_name The owner's name.
+	 * @param string|null $owner_color Selected color.
+	 */
+	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) {
+		$color_palette = $this->get_palette();
+
+		include $this->get_partial( 'field-ics-line.php' );
 	}
 
 	/**
@@ -288,6 +343,32 @@ class Rotaract_Appointments_Admin {
 			}
 			$new_input[] = array(
 				'name'  => $name,
+				'color' => $color,
+			);
+		}
+		return array_values( $new_input );
+	}
+
+	/**
+	 * Builds select tag containing grouped appointment options.
+	 *
+	 * @param array|null $input The POST data of the request on saving.
+	 * @return array
+	 */
+	public function sanitize_rotaract_appointment_ics( ?array $input ): array {
+
+		$new_input = array();
+		// Re-indexing the array.
+		foreach ( $input as $feed ) {
+			$name  = sanitize_text_field( $feed['name'] );
+			$url   = sanitize_url( $feed['url'] );
+			$color = sanitize_hex_color( $feed['color'] );
+			if ( empty( $name ) || empty( $url ) || empty( $color ) ) {
+				continue;
+			}
+			$new_input[] = array(
+				'name'  => $name,
+				'url'   => $url,
 				'color' => $color,
 			);
 		}

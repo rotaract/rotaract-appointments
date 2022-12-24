@@ -12,7 +12,7 @@
  */
 
 ?>
-<div class="owner-group
+<div class="owner-group appointment-line
 <?php
 if ( $is_new ) :
 	?>
@@ -50,7 +50,7 @@ if ( $is_new ) :
 		</option>
 		<?php endforeach; ?>
 	</select>
-	<button class="delete-owner" title="<?php esc_attr_e( 'Delete', 'rotaract-appointments' ); ?>">
+	<button class="delete-line" title="<?php esc_attr_e( 'Delete', 'rotaract-appointments' ); ?>">
 		<span class="dashicons dashicons-no"></span>
 	</button>
 </div>

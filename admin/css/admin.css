@@ -2,7 +2,7 @@
 	line-height: 1.5em;
 }
 
-.owner-group {
+.appointment-line {
 	align-items: center;
 	background-color: #ddd;
 	border-color: #bbb;
@@ -16,11 +16,11 @@
 	width: fit-content;
 }
 
-.owner-group > :not(:last-child) {
+.appointment-line > :not(:last-child) {
 	margin-right: 1rem;
 }
 
-.owner-group button.delete-owner {
+.appointment-line button.delete-line {
 	background: none;
 	border: none;
 	color: #f00;
@@ -29,7 +29,7 @@
 	text-decoration: none;
 }
 
-.owner-add {
+.owner-add, .ics-add {
 	padding: 1rem;
 }
 

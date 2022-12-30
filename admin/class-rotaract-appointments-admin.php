@@ -361,7 +361,7 @@ class Rotaract_Appointments_Admin {
 		// Re-indexing the array.
 		foreach ( $input as $feed ) {
 			$name  = sanitize_text_field( $feed['name'] );
-			$url   = sanitize_url( $feed['url'] );
+			$url   = $feed['url'];
 			$color = sanitize_hex_color( $feed['color'] );
 			if ( empty( $name ) || empty( $url ) || empty( $color ) ) {
 				continue;

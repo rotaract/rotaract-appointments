@@ -36,7 +36,7 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from Elasti
 [NOTE]
 --
 * https://wordpress.com[WordPress] instance
-* https://www.php.net[PHP] version 7.4.0 or higher
+* https://www.php.net[PHP] version 8.0 or higher
 * https://getcomposer.org[Composer]
 * https://nodejs.org[Node.js]
 --
@@ -68,7 +68,7 @@ composer translate
 [NOTE]
 --
 * https://wordpress.com[WordPress] instance
-* https://www.php.net[PHP] version 7.4.0 or higher
+* https://www.php.net[PHP] version 8.0 or higher
 --
 
 IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].

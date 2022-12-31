@@ -149,6 +149,57 @@ class Rotaract_Appointments_Public {
 	}
 
 	/**
+	 * Register new routes for data exchange in public frontend.
+	 *
+	 * @since    2.1.1
+	 */
+	public function register_routes() {
+
+		$version = 1;
+		$namespace = $this->rotaract_appointments . '/v' . $version;
+		$base_ics = '/ics/(?P<name>.+)';
+		register_rest_route( $namespace, $base_ics, array(
+			'methods' => 'GET',
+			'callback' => array( $this, 'proxy_ics' ),
+			'args' => array(
+				'name' => array(
+					'required' => true,
+					'validate_callback' => function( $param ) {
+						// Check if the given name is present in feeds.
+						return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
+					}
+				)
+			)
+		) );
+
+	}
+
+	/**
+	 * Return remote ICS feeds based on what was defined in Admin Panel.
+	 *
+	 * @since    2.1.1
+	 */
+	public function proxy_ics( $data ) {
+
+		$feed_name      = urldecode( $data[ 'name' ] );
+		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
+		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ][ 'url' ];
+
+		$feed_data      = wp_remote_get( $feed_url );
+		$feed_data_body = wp_remote_retrieve_body( $feed_data );
+
+		$response = new WP_HTTP_Response( $feed_data_body, 200, array(
+			'Content-Type' => 'text/calendar',
+		) );
+		add_filter( 'rest_pre_serve_request', function () use ( $feed_data_body ) {
+			echo $feed_data_body;
+			return true;
+		}, 0, 2 );
+		return $response;
+
+	}
+
+	/**
 	 * Returns the full include path for a partial.
 	 *
 	 * @param string $filename Name of the file to be included.
@@ -230,7 +281,7 @@ class Rotaract_Appointments_Public {
 			$event_sources[] = array(
 				'id'        => $feed['name'],
 				'title'     => $feed['name'],
-				'url'       => $feed['url'],
+				'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . urlencode( $feed['name'] ),
 				'color'     => $feed['color'],
 				'textColor' => '#fff',
 				'format'    => 'ics',

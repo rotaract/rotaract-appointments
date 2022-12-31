@@ -15,9 +15,15 @@
 <?php foreach ( $shortcodes as $index => $shortcode_atts ) : ?>
 <div id="calendar-owners-<?php echo wp_json_encode( $index ); ?>" style="display: none">
 	<?php foreach ( $owners as $owner ) : ?>
-	<div class="calendar-owner" onclick="toggleOwner(<?php echo wp_json_encode( $index ); ?>, this)" data-owner="<?php echo esc_attr( $owner['name'] ); ?>">
+	<div class="calendar-owner" onclick="toggleEventSource(<?php echo wp_json_encode( $index ); ?>, this)" data-owner="<?php echo esc_attr( $owner['name'] ); ?>">
 		<span class="fc-list-event-dot" style="border-color: <?php echo esc_attr( $owner['color'] ); ?>"></span>
 		<span><?php echo esc_html( $owner['name'] ); ?></span>
+	</div>
+	<?php endforeach; ?>
+	<?php foreach ( $feeds as $feed ) : ?>
+	<div class="calendar-owner" onclick="toggleEventSource(<?php echo wp_json_encode( $index ); ?>, this)" data-owner="<?php echo esc_attr( $feed['name'] ); ?>">
+		<span class="fc-list-event-dot" style="border-color: <?php echo esc_attr( $feed['color'] ); ?>"></span>
+		<span><?php echo esc_html( $feed['name'] ); ?></span>
 	</div>
 	<?php endforeach; ?>
 </div>

@@ -9,7 +9,7 @@
 /* globals appointmentsData */
 /* globals eventSources */
 /* exported calendarInit */
-/* exported toggleOwner */
+/* exported toggleEventSource */
 
 /**
  * Configuration of FullCalendar's options.
@@ -174,7 +174,7 @@ function rotaractDateOptions( allDay = false ) {
  *
  * @param el The visual HTML toggle element.
  */
-function toggleOwner( index, el ) {
+function toggleEventSource( index, el ) {
 	el.classList.toggle( 'off' );
 	const es = calendar[index].getEventSourceById( el.dataset.owner );
 	if (es) {

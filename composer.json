@@ -20,8 +20,8 @@
 		"issues": "https://github.com/rotaract/rotaract-appointments/issues"
 	},
 	"require": {
-		"php": ">=7.4",
-		"elasticsearch/elasticsearch": "^v8.3.3",
+		"php": ">=8.0",
+		"elasticsearch/elasticsearch": "=v8.3.3",
 		"erusev/parsedown": "1.8.0-beta-7"
 	},
 	"require-dev": {
@@ -37,7 +37,7 @@
 	},
 	"config": {
 		"platform": {
-			"php": "7.4"
+			"php": "8.0"
 		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true

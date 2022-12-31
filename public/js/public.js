@@ -130,10 +130,10 @@ function calendarInit( index, short, days, views, initView ) {
  * @return The generated HTML tags.
  */
 function createEventContent( eventInfo ) {
-	const address = eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' );
+	const address = eventInfo.extendedProps.address ? eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' ) : null;
 
 	let html = '<p class="event-info">';
-	html    += eventInfo.extendedProps.owner.join( ', ' );
+	html    += eventInfo.extendedProps.owner ? eventInfo.extendedProps.owner.join( ', ' ) : eventInfo.source.id;
 	html    += '</p>';
 	html    += '<h5 class="event-title">';
 	html    += eventInfo.title;
@@ -192,8 +192,10 @@ function deduplicate( calIndex ) {
 	calendar[calIndex].getEvents().forEach(
 		(e, index, events) =>
 		{
-			if ( e.extendedProps.owner.length > 1 ) {
+			if ( e.extendedProps.hasOwnProperty( 'owner' ) && e.extendedProps.owner.length > 1 ) {
 				e.setProp( 'display', events.some( (f, i) => f.id === e.id && i < index && f.display !== 'none' ) ? 'none' : 'auto' );
+			} else if ( ! e.extendedProps.hasOwnProperty( 'owner' ) ) {
+				e.setProp( 'display', 'none' );
 			}
 		}
 	);

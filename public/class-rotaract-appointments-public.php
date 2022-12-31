@@ -116,8 +116,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/main.min.css', __DIR__ ), array(), $this->fullcalendar_version, 'all' );
-		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array( 'fullcalendar' ), $this->version, 'all' );
+		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
 
 	}
 
@@ -137,7 +136,7 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->tippy_version, true );
 		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->tippy_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'fullcalendar-ical', 'tippy' ), $this->version, true );
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-ical', 'tippy' ), $this->version, true );
 		wp_localize_script(
 			$this->rotaract_appointments,
 			'appointmentsData',

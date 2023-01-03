@@ -12,6 +12,8 @@ endif::[]
 :repo_path: rotaract/rotaract-appointments
 :slug: rotaract-appointments
 
+:year: 2023
+
 // General Badges
 image:{badge_url}/badge/Open_Source-❤-orange[Open Source, link="https://opensource.org"]
 image:{badge_url}/github/package-json/keywords/{repo_path}[GitHub package.json keywords, link="https://github.com/{repo_path}/blob/HEAD/package.json"]
@@ -99,7 +101,7 @@ define( 'ROTARACT_APPOINTMENTS_API_KEY', '<your-elastic-api-key>' );
 
 == ⚖️ Legal Notices
 
-Copyright (c) 2022, Rotaract Deutschland
+Copyright (c) {year}, Rotaract Deutschland
 
 Licensed under European Union Public License 1.2 (EUPL-1.2).
 

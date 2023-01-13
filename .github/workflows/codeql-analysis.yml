@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '29 9 * * 1'
+    - cron: '30 9 * * 1' # Run every Monday at 9:30 am.
 
 jobs:
   analyze:
@@ -33,3 +33,5 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{ matrix.language }}"

@@ -15,7 +15,7 @@ addEventListeners();
  * Initializes LC-select targeting the select field.
  */
 function lcSelectInit() {
-	lc_select(
+	new lc_select(
 		'select.lc-select',
 		{
 			enable_search: true,

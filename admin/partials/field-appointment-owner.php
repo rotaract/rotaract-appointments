@@ -38,7 +38,7 @@ if ( $is_new ) :
 		</optgroup>
 		<?php endforeach; ?>
 	</select>
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="lc-select owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
+	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
 		<option hidden selected value>---</option>
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
 		<option value="<?php echo esc_attr( $hex ); ?>"

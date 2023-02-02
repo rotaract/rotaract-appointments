@@ -17,9 +17,9 @@
 if ( $is_new ) :
 	?>
 	new-feed<?php endif; ?>" style="background-color: <?php echo esc_attr( $feed_color ); ?>25; border-color: <?php echo esc_attr( $feed_color ); ?>;">
-	<input type="text" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][name]" class="feed-name" value="<?php echo esc_attr( $feed_name ); ?>" placeholder="<?php esc_attr_e( 'Name', 'rotaract-appointments' ); ?>" required>
-	<input type="url" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][url]" class="feed-url" value="<?php echo esc_attr( $feed_url ); ?>" placeholder="<?php esc_attr_e( 'URL', 'rotaract-appointments' ); ?>" required>
-	<select name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][color]" class="lc-select feed-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>" required>
+	<input type="text" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][name]" class="feed-name" value="<?php echo esc_attr( $feed_name ); ?>" placeholder="<?php esc_attr_e( 'Name', 'rotaract-appointments' ); ?>">
+	<input type="url" name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][url]" class="feed-url" value="<?php echo esc_attr( $feed_url ); ?>" placeholder="<?php esc_attr_e( 'URL', 'rotaract-appointments' ); ?>">
+	<select name="rotaract_appointment_ics[<?php echo esc_attr( $index ); ?>][color]" class="lc-select feed-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
 		<option hidden selected value>---</option>
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
 		<option value="<?php echo esc_attr( $hex ); ?>"

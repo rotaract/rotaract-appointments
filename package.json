@@ -21,7 +21,7 @@
 	"scripts": {},
 	"dependencies": {
 		"@fullcalendar/icalendar": "^6.1.8",
-		"fullcalendar": "^6.1.5",
+		"fullcalendar": "^6.1.8",
 		"ical.js": "^1.5.0",
 		"lc-select": "^1.1.7",
 		"tippy.js": "^6.3.7"

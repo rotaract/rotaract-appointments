@@ -316,8 +316,9 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param bool        $is_new True if this intends to be a new owner.
 	 * @param int         $index Index of the parameter.
-	 * @param string|null $owner_name The owner's name.
-	 * @param string|null $owner_color Selected color.
+	 * @param string|null $feed_name The feed's name.
+	 * @param string|null $feed_url The feed's url.
+	 * @param string|null $feed_color Selected color.
 	 */
 	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) {
 		$color_palette = $this->get_palette();

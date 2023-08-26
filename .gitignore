@@ -12,3 +12,6 @@
 ### Binary Artefacts
 ## Translation Files
 *.mo
+
+## REST Test
+request.http

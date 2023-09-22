@@ -20,20 +20,16 @@ if ( $is_new ) :
 	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]" class="lc-select owner-name" data-placeholder="<?php esc_attr_e( 'Owner', 'rotaract-appointments' ); ?>">
 		<option hidden selected value>---</option>
 		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
-			<option value="Rotaract Deutschland Komitee"
-				<?php
+			<option value="Rotaract Deutschland Komitee"<?php
 				if ( ! $is_new && 'Rotaract Deutschland Komitee' === $owner_name ) :
-					?>
-					selected<?php endif; ?>>Rotaract Deutschland Komitee</option>
+					?> selected<?php endif; ?>>Rotaract Deutschland Komitee</option>
 		</optgroup>
 		<?php foreach ( $owners as $type_name => $items ) : ?>
 		<optgroup label="<?php echo esc_attr( Rotaract_Appointments_I18n::localize_owner_type_name( $type_name ) ); ?>">
 			<?php foreach ( $items as $item ) : ?>
-			<option value="<?php echo esc_attr( $item ); ?>"
-				<?php
+			<option value="<?php echo esc_attr( $item ); ?>"<?php
 				if ( ! $is_new && $item === $owner_name ) :
-					?>
-				selected<?php endif; ?>><?php echo esc_html( $item ); ?></option>
+					?> selected<?php endif; ?>><?php echo esc_html( $item ); ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>
@@ -41,11 +37,9 @@ if ( $is_new ) :
 	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
 		<option hidden selected value>---</option>
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
-		<option value="<?php echo esc_attr( $hex ); ?>"
-			<?php
+		<option value="<?php echo esc_attr( $hex ); ?>"<?php
 			if ( ! $is_new && $hex === $owner_color ) :
-				?>
-			selected<?php endif; ?>>
+				?> selected<?php endif; ?>>
 			<?php echo esc_attr( $color ); ?>
 		</option>
 		<?php endforeach; ?>

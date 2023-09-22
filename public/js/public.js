@@ -108,7 +108,6 @@ function calendarInit( index, short, days, views, initView ) {
 
 	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) ) ) - 1;
 	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
-	deduplicate( lastCalIndex );
 	calendar[lastCalIndex].render();
 	tippy(
 		'#rotaract-appointments-' + index + ' button.fc-ownerButton-button',
@@ -144,7 +143,7 @@ function createEventContent( eventInfo ) {
 		html += ', ' + address;
 	}
 	html += '</p>';
-	html += eventInfo.extendedProps.description;
+	html += marked.parse( eventInfo.extendedProps.description );
 
 	return html;
 }
@@ -182,21 +181,4 @@ function toggleEventSource( index, el ) {
 	} else {
 		calendar[index].addEventSource( eventSources.find( b => el.dataset.owner === b.id ) );
 	}
-	deduplicate( index );
-}
-
-/**
- * Toggles the display attribute of all events of an certain owner.
- */
-function deduplicate( calIndex ) {
-	calendar[calIndex].getEvents().forEach(
-		(e, index, events) =>
-		{
-			if ( e.extendedProps.hasOwnProperty( 'owner' ) && e.extendedProps.owner.length > 1 ) {
-				e.setProp( 'display', events.some( (f, i) => f.id === e.id && i < index && f.display !== 'none' ) ? 'none' : 'auto' );
-			} else if ( ! e.extendedProps.hasOwnProperty( 'owner' ) ) {
-				e.setProp( 'display', 'none' );
-			}
-		}
-	);
 }

@@ -28,7 +28,13 @@
 </div>
 <div class="modal-bg">
 	<div class="modal">
-		<div id="searchbox"></div>
+		<div id="searchbox">
+			<button type="button" class="button button-secondary" onclick="document.querySelector( '.modal-bg' ).classList.remove( 'show' );">
+				<svg class="ais-SearchBox-resetIcon" viewBox="0 0 20 20" width="10" height="10" aria-hidden="true">
+					<path d="M8.114 10L.944 2.83 0 1.885 1.886 0l.943.943L10 8.113l7.17-7.17.944-.943L20 1.886l-.943.943-7.17 7.17 7.17 7.17.943.944L18.114 20l-.943-.943-7.17-7.17-7.17 7.17-.944.943L0 18.114l.943-.943L8.113 10z"></path>
+				</svg>
+			</button>
+		</div>
 		<div id="hits"></div>
 	</div>
 </div>

@@ -16,6 +16,10 @@ const search = instantsearch({
 search.addWidgets([
 	instantsearch.widgets.searchBox({
 		container: '#searchbox',
+		showReset: false,
+		cssClasses: {
+			submit: 'button button-primary'
+		}
 	}),
 	instantsearch.widgets.hits({
 		container: '#hits',

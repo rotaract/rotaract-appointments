@@ -60,6 +60,30 @@
 	padding: 1rem;
 }
 
+#searchbox > .button {
+	margin-left: 1rem;
+}
+#searchbox, .ais-SearchBox-form {
+	display: flex;
+    align-items: stretch;
+}
+.ais-SearchBox, .ais-SearchBox-form .ais-SearchBox-input {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	flex-grow: 1;
+	margin: 0;
+}
+.ais-SearchBox-form .button {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+.button-primary .ais-SearchBox-submitIcon {
+	fill: #ffffff;
+}
+.button-secondary .ais-SearchBox-resetIcon {
+	fill: #2271b1;
+}
+
 #hits .ais-Hits-list {
 	margin: 1rem 0;
 }

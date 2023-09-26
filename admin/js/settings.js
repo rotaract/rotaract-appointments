@@ -20,13 +20,7 @@ search.addWidgets([
 	instantsearch.widgets.hits({
 		container: '#hits',
 		templates: {
-			item: ( hit ) => `
-				<div>
-					<button type="button" class="list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">
-						${hit.name}
-					</button>
-				</div>
-			`
+			item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">Rotaract Club ${hit.name}</button>`
 		}
 	})
 ])
@@ -80,9 +74,6 @@ function addOwner( name, abbreviation, type ) {
 	const abbreviationInput = newOwner.querySelector( 'input.owner-abbreviation' );
 	const typeInput         = newOwner.querySelector( 'input.owner-type' );
 	const colorSelect       = newOwner.querySelector( 'select.owner-color' );
-
-	newOwner.style.backgroundColor = null;
-	newOwner.style.borderColor     = null;
 
 	nameInput.setAttribute( 'name', nameInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
 	nameInput.setAttribute( 'value', name );

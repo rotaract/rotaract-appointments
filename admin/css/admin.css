@@ -46,6 +46,7 @@
 	left: 0;
 	right: 0;
 	top: 0;
+	overflow: scroll;
 }
 .modal-bg.show {
 	display: block;
@@ -57,4 +58,22 @@
 	margin: 0 auto;
 	max-width: 480px;
 	padding: 1rem;
+}
+
+#hits .ais-Hits-list {
+	margin: 1rem 0;
+}
+#hits .ais-Hits-item {
+	border-top: solid 1px #cccccc;
+	list-style-type: none;
+	margin: 0;
+}
+#hits .ais-Hits-item .button.list-btn {
+	display: inline-block;
+	background: none;
+	border: none;
+	border-radius: 0;
+	padding: 0.25rem 1rem;
+	width: 100%;
+    text-align: start;
 }

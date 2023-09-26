@@ -6,39 +6,32 @@
  * @subpackage Rotaract_Appointments/admin/js
  */
 
-/* globals lcData */
+/* globals meilisearchCredentials */
 
-lcSelectInit();
 addEventListeners();
-
-/**
- * Initializes LC-select targeting the select field.
- */
-function lcSelectInit() {
-	new lc_select(
-		'select.lc-select',
-		{
-			enable_search: true,
-			wrap_width: 'inherit',
-			pre_placeh_opt: true,
-			labels: lcData.labels,
-			on_change: changeColor
+const search = instantsearch({
+	indexName: 'Club',
+	searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
+})
+search.addWidgets([
+	instantsearch.widgets.searchBox({
+		container: '#searchbox',
+	}),
+	instantsearch.widgets.hits({
+		container: '#hits',
+		templates: {
+			item: ( hit ) => `
+				<div>
+					<button type="button" class="list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">
+						${hit.name}
+					</button>
+				</div>
+			`
 		}
-	);
-}
+	})
+])
 
-/**
- * Removes LC-select resulting in plain HTML select field.
- */
-function lcSelectDestroy() {
-	const destroyEvent     = new Event( 'lc-select-destroy' );
-	const lcSelectElements = document.querySelectorAll( 'select.lc-select' );
-	lcSelectElements.forEach(
-		function (lcSelect) {
-			lcSelect.dispatchEvent( destroyEvent );
-		}
-	);
-}
+search.start()
 
 /**
  * Registers click events to add or delete appointment owner.
@@ -54,20 +47,25 @@ function addEventListeners() {
 			delBtn.addEventListener( 'click', delLine );
 		}
 	);
+	// Add Change Color Listeners.
+	const colorSelects = document.querySelectorAll( 'select.owner-color, select.feed-color' );
+	colorSelects.forEach(
+		function( colorSelect ) {
+			colorSelect.addEventListener( 'change', changeColor );
+		}
+	);
 
-	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', addOwner );
+	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', function ( event = null ) {
+		document.querySelector( '.modal-bg' ).classList.toggle( 'show', true )
+	} );
 	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed );
 }
 
 /**
  * Adds new owner whose events to display.
  */
-function addOwner( event = null ) {
-	if ( event ) {
-		event.preventDefault();
-	}
-
-	const owners = document.querySelectorAll( '.owner-group select.owner-name' );
+function addOwner( name, abbreviation, type ) {
+	const owners = document.querySelectorAll( '.owner-group .owner-name' );
 	let newIndex = 0;
 	owners.forEach(
 		function (owner) {
@@ -77,30 +75,27 @@ function addOwner( event = null ) {
 	);
 	newIndex += 1;
 
-	lcSelectDestroy();
-
-	let newOwner       = document.querySelector( '.owner-group' ).cloneNode( true );
-	let newSelectName  = newOwner.querySelector( 'select.owner-name' );
-	let newSelectColor = newOwner.querySelector( 'select.owner-color' );
+	const newOwner   = document.querySelector( '.owner-group.prototype' ).cloneNode( true );
+	const nameInput         = newOwner.querySelector( 'input.owner-name' );
+	const abbreviationInput = newOwner.querySelector( 'input.owner-abbreviation' );
+	const typeInput         = newOwner.querySelector( 'input.owner-type' );
+	const colorSelect       = newOwner.querySelector( 'select.owner-color' );
 
 	newOwner.style.backgroundColor = null;
 	newOwner.style.borderColor     = null;
 
-	newSelectName.setAttribute( 'name', newSelectName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
-	newSelectColor.setAttribute( 'name', newSelectColor.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
+	nameInput.setAttribute( 'name', nameInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	nameInput.setAttribute( 'value', name );
+	abbreviationInput.setAttribute( 'name', abbreviationInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	abbreviationInput.setAttribute( 'value', abbreviation );
+	typeInput.setAttribute( 'name', typeInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	typeInput.setAttribute( 'value', type );
+	colorSelect.setAttribute( 'name', colorSelect.getAttribute( 'name' ).replace( '-1', newIndex ) );
 
-	newSelectName.value  = null;
-	newSelectColor.value = null;
-
-	newOwner.querySelectorAll( 'option' ).forEach(
-		function (option) {
-			option.removeAttribute( 'selected' );
-		}
-	);
-
+	newOwner.classList.remove( 'prototype' );
 	document.getElementById( 'rotaract-appointment-owner' ).append( newOwner );
 
-	lcSelectInit();
+	document.querySelector( '.modal-bg' ).classList.remove( 'show' );
 	addEventListeners();
 }
 
@@ -122,15 +117,12 @@ function addFeed( event = null ) {
 	);
 	newIndex += 1;
 
-	lcSelectDestroy();
-
 	let newFeed        = document.querySelector( '.ics-group' ).cloneNode( true );
 	let newInputName   = newFeed.querySelector( 'input.feed-name' );
 	let newInputUrl    = newFeed.querySelector( 'input.feed-url' );
 	let newSelectColor = newFeed.querySelector( 'select.feed-color' );
 
-	newFeed.style.backgroundColor = null;
-	newFeed.style.borderColor     = null;
+	console.log('Hallo');
 
 	newInputName.setAttribute( 'name', newInputName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 	newInputUrl.setAttribute( 'name', newInputUrl.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
@@ -148,7 +140,6 @@ function addFeed( event = null ) {
 
 	document.getElementById( 'rotaract-appointment-ics' ).append( newFeed );
 
-	lcSelectInit();
 	addEventListeners();
 }
 
@@ -164,13 +155,12 @@ function delLine( event ) {
 }
 
 /**
- * LC-select's on_change callback updating the color.
+ * Select on_change callback updating the color.
  *
- * @param newValue
- * @param targetField
+ * @param event
  */
-function changeColor( newValue, targetField) {
-	const style           = targetField.closest( '.appointment-line' ).style;
-	style.backgroundColor = newValue + '25';
-	style.borderColor     = newValue;
+function changeColor( event ) {
+	const style           = event.target.closest( '.appointment-line' ).style;
+	style.backgroundColor = event.target.value + '25';
+	style.borderColor     = event.target.value;
 }

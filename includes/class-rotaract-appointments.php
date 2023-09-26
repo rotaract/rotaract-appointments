@@ -57,15 +57,6 @@ class Rotaract_Appointments {
 	protected string $version;
 
 	/**
-	 * The Elasticsearch caller.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      Rotaract_Elastic_Caller $elastic_caller    The object that handles search calls to the Elasticsearch instance.
-	 */
-	protected Rotaract_Elastic_Caller $elastic_caller;
-
-	/**
 	 * Define the core functionality of the plugin.
 	 *
 	 * Set the plugin name and the plugin version that can be used throughout the plugin.
@@ -129,14 +120,7 @@ class Rotaract_Appointments {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-rotaract-appointments-public.php';
 
-		/**
-		 * Logic for receiving the event data from elastic API.
-		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-rotaract-elastic-caller.php';
-
 		$this->loader = new Rotaract_Appointments_Loader();
-
-		$this->elastic_caller = new Rotaract_Elastic_Caller();
 	}
 
 	/**
@@ -164,14 +148,11 @@ class Rotaract_Appointments {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Rotaract_Appointments_Admin( $this->get_plugin_name(), $this->get_version(), $this->elastic_caller );
+		$plugin_admin = new Rotaract_Appointments_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
-		if ( ! $this->elastic_caller->isset_client() ) {
-			$this->loader->add_action( 'admin_notices', $plugin_admin, 'elastic_missing_notice' );
-		}
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu' );
 	}
@@ -185,7 +166,7 @@ class Rotaract_Appointments {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Rotaract_Appointments_Public( $this->get_plugin_name(), $this->get_version(), $this->elastic_caller );
+		$plugin_public = new Rotaract_Appointments_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );

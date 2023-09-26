@@ -12,33 +12,27 @@
  */
 
 ?>
-<div class="owner-group appointment-line
-<?php
-if ( $is_new ) :
-	?>
-	new-owner<?php endif; ?>" style="background-color: <?php echo esc_attr( $owner_color ); ?>25; border-color: <?php echo esc_attr( $owner_color ); ?>;">
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]" class="lc-select owner-name" data-placeholder="<?php esc_attr_e( 'Owner', 'rotaract-appointments' ); ?>">
-		<option hidden selected value>---</option>
-		<optgroup label="<?php esc_attr_e( 'Rotaract Deutschland', 'rotaract-appointments' ); ?>">
-			<option value="Rotaract Deutschland Komitee"<?php
-				if ( ! $is_new && 'Rotaract Deutschland Komitee' === $owner_name ) :
-					?> selected<?php endif; ?>>Rotaract Deutschland Komitee</option>
-		</optgroup>
-		<?php foreach ( $owners as $type_name => $items ) : ?>
-		<optgroup label="<?php echo esc_attr( Rotaract_Appointments_I18n::localize_owner_type_name( $type_name ) ); ?>">
-			<?php foreach ( $items as $item ) : ?>
-			<option value="<?php echo esc_attr( $item ); ?>"<?php
-				if ( ! $is_new && $item === $owner_name ) :
-					?> selected<?php endif; ?>><?php echo esc_html( $item ); ?></option>
-			<?php endforeach; ?>
-		</optgroup>
-		<?php endforeach; ?>
-	</select>
-	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]" class="owner-color" data-placeholder="<?php esc_attr_e( 'Color', 'rotaract-appointments' ); ?>">
-		<option hidden selected value>---</option>
+<div class="owner-group appointment-line<?php
+if ( $is_prototype ) :
+	?> prototype<?php
+endif; ?>" style="background-color: <?php echo esc_attr( $owner_color ?: array_key_first( $color_palette ) ); ?>25; border-color: <?php echo esc_attr( $owner_color ?: array_key_first( $color_palette ) ); ?>;">
+	<input type="text"
+		   name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][name]"
+		   class="owner-name"
+		   value="<?php echo esc_attr( $owner_name ); ?>" readonly>
+	<input type="hidden"
+		   name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][abbreviation]"
+		   class="owner-abbreviation"
+		   value="<?php echo esc_attr( $owner_abbreviation ); ?>">
+	<input type="hidden"
+		   name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][type]"
+		   class="owner-type"
+		   value="<?php echo esc_attr( $owner_type ); ?>">
+	<select name="rotaract_appointment_owners[<?php echo esc_attr( $index ); ?>][color]"
+			class="owner-color">
 		<?php foreach ( $color_palette as $hex => $color ) : ?>
 		<option value="<?php echo esc_attr( $hex ); ?>"<?php
-			if ( ! $is_new && $hex === $owner_color ) :
+			if ( $hex === $owner_color ) :
 				?> selected<?php endif; ?>>
 			<?php echo esc_attr( $color ); ?>
 		</option>

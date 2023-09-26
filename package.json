@@ -21,10 +21,11 @@
 	"scripts": {},
 	"dependencies": {
 		"@fullcalendar/icalendar": "^6.1.8",
+		"@meilisearch/instant-meilisearch": "^0.13.5",
 		"fullcalendar": "^6.1.8",
 		"ical.js": "^1.5.0",
+		"instantsearch.js": "^4.57.0",
 		"marked": "^9.0.3",
-		"meilisearch": "^0.34.2",
 		"tippy.js": "^6.3.7"
 	},
 	"devDependencies": {

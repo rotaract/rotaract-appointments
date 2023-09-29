@@ -80,9 +80,6 @@
 .button-primary .ais-SearchBox-submitIcon {
 	fill: #ffffff;
 }
-.button-secondary .ais-SearchBox-resetIcon {
-	fill: #2271b1;
-}
 
 #hits .ais-Hits-list {
 	margin: 1rem 0;

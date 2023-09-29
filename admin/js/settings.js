@@ -9,27 +9,71 @@
 /* globals meilisearchCredentials */
 
 addEventListeners();
-const search = instantsearch({
-	indexName: 'Club',
-	searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
-})
-search.addWidgets([
-	instantsearch.widgets.searchBox({
-		container: '#searchbox',
-		showReset: false,
-		cssClasses: {
-			submit: 'button button-primary'
-		}
-	}),
-	instantsearch.widgets.hits({
-		container: '#hits',
-		templates: {
-			item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">Rotaract Club ${hit.name}</button>`
-		}
-	})
-])
+let search;
 
-search.start()
+function initSearch() {
+    if ( ! search || ! search.started ) {
+        search = instantsearch( {
+            indexName: 'Club',
+            searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
+        } );
+        search.addWidgets( [
+            instantsearch.widgets.configure( {
+                attributesToRetrieve: [ 'name', 'abbreviation' ],
+                hitsPerPage: 10,
+                length: 10,
+                limit: 10
+            } ),
+            instantsearch.widgets.searchBox( {
+                container: '#searchbox',
+                showReset: false,
+                cssClasses: {
+                    submit: 'button button-primary'
+                }
+            } ),
+            instantsearch.widgets.hits( {
+                container: '#hits-clubs',
+                templates: {
+                    item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">Rotaract Club ${hit.name}</button>`
+                }
+            }),
+            instantsearch.widgets
+                .index( { indexName: 'District' } )
+                .addWidgets( [
+                    instantsearch.widgets.configure( {
+                        attributesToRetrieve: [ 'name' ],
+                        hitsPerPage: 10,
+                        length: 10,
+                        limit: 10
+                    } ),
+                    instantsearch.widgets.hits( {
+                        container: '#hits-districts',
+                        templates: {
+                            item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.name}', 'districts')">${hit.name}</button>`
+                        }
+                    })
+                ] ),
+            instantsearch.widgets
+                .index( { indexName: 'Ressort' } )
+                .addWidgets( [
+                    instantsearch.widgets.configure( {
+                        attributesToRetrieve: [ 'name', 'id' ],
+                        hitsPerPage: 10,
+                        length: 10,
+                        limit: 10
+                    } ),
+                    instantsearch.widgets.hits( {
+                        container: '#hits-ressorts',
+                        templates: {
+                            item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.id}', 'ressorts')">${hit.name}</button>`
+                        }
+                    })
+                ] )
+        ] );
+        search.start();
+    }
+}
+
 
 /**
  * Registers click events to add or delete appointment owner.
@@ -54,7 +98,8 @@ function addEventListeners() {
 	);
 
 	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', function ( event = null ) {
-		document.querySelector( '.modal-bg' ).classList.toggle( 'show', true )
+		document.querySelector( '.modal-bg' ).classList.toggle( 'show', true );
+        initSearch();
 	} );
 	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed );
 }

@@ -28,6 +28,7 @@ require plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
 class Rotaract_Appointments_Public {
 
 
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -126,7 +127,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), null, true );
+		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), $this->version, true );
 
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/index.global.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/@fullcalendar/core/locales-all.global.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
@@ -167,7 +168,7 @@ class Rotaract_Appointments_Public {
 						'required'          => true,
 						'validate_callback' => function ( $param ) {
 							// Check if the given name is present in feeds.
-							return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
+							return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
 						},
 					),
 				),
@@ -184,7 +185,7 @@ class Rotaract_Appointments_Public {
 	public function proxy_ics( $data ) {
 
 		$feed_name      = urldecode( $data['name'] );
-		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
+		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
 		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ]['url'];
 
 		$feed_data      = wp_remote_get( $feed_url );

@@ -260,7 +260,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining title, id, callback.
 	 */
-	public function rotaract_appointment_section( array $args ) {
+	public function rotaract_appointment_section( array $args ) { // phpcs:ignore
 
 		include $this->get_partial( 'section-rotaract-appointments.php' );
 	}
@@ -270,12 +270,13 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_field( array $args ) {
+	public function appointment_owners_field( array $args ) { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
 		include $this->get_partial( 'field-appointment-owners.php' );
 	}
+
 
 	/**
 	 * Builds select tag containing grouped appointment options.
@@ -285,7 +286,7 @@ class Rotaract_Appointments_Admin {
 	 * @param string|null $owner_name The owner's name.
 	 * @param string|null $owner_color Selected color.
 	 */
-	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
+	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) { // phpcs:ignore
 		$owners        = $this->elastic_caller->get_all_owners();
 		$color_palette = $this->get_palette();
 
@@ -297,7 +298,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_ics_field( array $args ) {
+	public function appointment_ics_field( array $args ) { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$ics_feeds = get_option( 'rotaract_appointment_ics' );
 
@@ -313,7 +314,7 @@ class Rotaract_Appointments_Admin {
 	 * @param string|null $feed_url The feed's url.
 	 * @param string|null $feed_color Selected color.
 	 */
-	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) {
+	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) { // phpcs:ignore
 		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-ics-line.php' );
@@ -374,7 +375,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_shortcode_manual( array $args ) {
+	public function appointment_owners_shortcode_manual( array $args ) { // phpcs:ignore
 
 		include $this->get_partial( 'field-shortcode-manual.php' );
 	}

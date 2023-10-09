@@ -55,8 +55,8 @@ function addEventListeners() {
 		}
 	);
 
-	document.querySelector( 'button.add-owner' ) ? .addEventListener( 'click', addOwner );
-	document.querySelector( 'button.add-ics' ) ? .addEventListener( 'click', addFeed );
+	document.querySelector( 'button.add-owner' ) ?.addEventListener( 'click', addOwner );
+	document.querySelector( 'button.add-ics' ) ?.addEventListener( 'click', addFeed );
 }
 
 /**

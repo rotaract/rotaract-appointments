@@ -25,14 +25,13 @@
 		"erusev/parsedown": "1.8.0-beta-7"
 	},
 	"require-dev": {
-		"wp-cli/wp-cli-bundle": "^2.6",
-		"wp-coding-standards/wpcs": "^2.3",
-		"phpcompatibility/php-compatibility": "^9.3.5",
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0.0"
+		"wp-cli/wp-cli-bundle": "^2.8",
+		"wp-coding-standards/wpcs": "^3.0",
+		"phpcompatibility/php-compatibility": "^9.3"
 	},
 	"minimum-stability": "stable",
 	"scripts": {
-		"lint": "phpcs --standard=phpcs.xml",
+		"lint": "phpcs . --standard=phpcs.xml",
 		"translate": "wp i18n make-mo languages"
 	},
 	"config": {
@@ -40,6 +39,7 @@
 			"php": "8.0"
 		},
 		"allow-plugins": {
+			"php-http/discovery": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}

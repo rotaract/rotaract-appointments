@@ -71,7 +71,6 @@ class Rotaract_Appointments_Admin {
 		$this->rotaract_appointments = $rotaract_appointments;
 		$this->version               = $version;
 		$this->elastic_caller        = $elastic_caller;
-
 	}
 
 	/**
@@ -83,7 +82,6 @@ class Rotaract_Appointments_Admin {
 
 		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version, 'all' );
 		wp_enqueue_style( 'lc-select-light', plugins_url( 'node_modules/lc-select/themes/light.css', __DIR__ ), array(), $this->lc_select_version, 'all' );
-
 	}
 
 	/**
@@ -109,7 +107,6 @@ class Rotaract_Appointments_Admin {
 				),
 			)
 		);
-
 	}
 
 	/**
@@ -122,7 +119,6 @@ class Rotaract_Appointments_Admin {
 	private function get_partial( string $filename ): string {
 
 		return plugin_dir_path( __FILE__ ) . 'partials/' . $filename;
-
 	}
 
 	/**
@@ -131,7 +127,6 @@ class Rotaract_Appointments_Admin {
 	public function elastic_missing_notice() {
 
 		include $this->get_partial( 'notice-elastic-missing.php' );
-
 	}
 
 	/**
@@ -209,7 +204,7 @@ class Rotaract_Appointments_Admin {
 			add_menu_page(
 				'Rotaract',
 				'Rotaract',
-				'administrator',
+				'manage_options',
 				'rotaract',
 				array( $this, 'rotaract_settings_html' ),
 				plugins_url( 'images/wheel.svg', __DIR__ ),
@@ -240,7 +235,6 @@ class Rotaract_Appointments_Admin {
 		settings_errors( 'rotaract_messages' );
 
 		include $this->get_partial( 'page-rotaract-settings.php' );
-
 	}
 
 	/**
@@ -269,7 +263,6 @@ class Rotaract_Appointments_Admin {
 	public function rotaract_appointment_section( array $args ) {
 
 		include $this->get_partial( 'section-rotaract-appointments.php' );
-
 	}
 
 	/**
@@ -384,7 +377,5 @@ class Rotaract_Appointments_Admin {
 	public function appointment_owners_shortcode_manual( array $args ) {
 
 		include $this->get_partial( 'field-shortcode-manual.php' );
-
 	}
-
 }

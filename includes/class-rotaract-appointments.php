@@ -234,5 +234,4 @@ class Rotaract_Appointments {
 	public function get_version(): string {
 		return $this->version;
 	}
-
 }

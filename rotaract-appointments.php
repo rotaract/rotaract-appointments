@@ -56,6 +56,5 @@ function run_rotaract_appointments() {
 
 	$plugin = new Rotaract_Appointments();
 	$plugin->run();
-
 }
 run_rotaract_appointments();

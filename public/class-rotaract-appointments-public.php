@@ -27,6 +27,8 @@ require plugin_dir_path( __DIR__ ) . 'vendor/autoload.php';
  */
 class Rotaract_Appointments_Public {
 
+
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -106,7 +108,6 @@ class Rotaract_Appointments_Public {
 		$this->parser                = new Parsedown();
 		// Escape user-input within the generated HTML.
 		$this->parser->setSafeMode( true );
-
 	}
 
 	/**
@@ -117,7 +118,6 @@ class Rotaract_Appointments_Public {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -127,7 +127,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), null, true );
+		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), $this->version, true );
 
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/index.global.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/@fullcalendar/core/locales-all.global.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
@@ -145,7 +145,6 @@ class Rotaract_Appointments_Public {
 				'calendarBtn' => __( 'Calendars', 'rotaract-appointments' ),
 			)
 		);
-
 	}
 
 	/**
@@ -155,48 +154,64 @@ class Rotaract_Appointments_Public {
 	 */
 	public function register_routes() {
 
-		$version = 1;
+		$version   = 1;
 		$namespace = $this->rotaract_appointments . '/v' . $version;
-		$base_ics = '/ics/(?P<name>.+)';
-		register_rest_route( $namespace, $base_ics, array(
-			'methods' => 'GET',
-			'callback' => array( $this, 'proxy_ics' ),
-			'args' => array(
-				'name' => array(
-					'required' => true,
-					'validate_callback' => function( $param ) {
-						// Check if the given name is present in feeds.
-						return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
-					}
-				)
+		$base_ics  = '/ics/(?P<name>.+)';
+		register_rest_route(
+			$namespace,
+			$base_ics,
+			array(
+				'methods'  => 'GET',
+				'callback' => array( $this, 'proxy_ics' ),
+				'args'     => array(
+					'name' => array(
+						'required'          => true,
+						'validate_callback' => function ( $param ) {
+							// Check if the given name is present in feeds.
+							return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
+						},
+					),
+				),
 			)
-		) );
-
+		);
 	}
 
 	/**
 	 * Return remote ICS feeds based on what was defined in Admin Panel.
 	 *
+	 * @param array $data Request data.
 	 * @since    2.1.1
 	 */
 	public function proxy_ics( $data ) {
 
-		$feed_name      = urldecode( $data[ 'name' ] );
-		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
-		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ][ 'url' ];
+		$feed_name      = urldecode( $data['name'] );
+		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
+		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ]['url'];
 
 		$feed_data      = wp_remote_get( $feed_url );
 		$feed_data_body = wp_remote_retrieve_body( $feed_data );
 
-		$response = new WP_HTTP_Response( $feed_data_body, 200, array(
-			'Content-Type' => 'text/calendar',
-		) );
-		add_filter( 'rest_pre_serve_request', function () use ( $feed_data_body ) {
-			echo $feed_data_body;
-			return true;
-		}, 0, 2 );
-		return $response;
+		$response = new WP_HTTP_Response(
+			$feed_data_body,
+			200,
+			array(
+				'Content-Type' => 'text/calendar',
+			)
+		);
 
+		add_filter(
+			'rest_pre_serve_request',
+			function () use ( $feed_data_body ) {
+				/*
+				What dose this echo do?
+				echo $feed_data_body;
+				*/
+				return true;
+			},
+			0,
+			2
+		);
+		return $response;
 	}
 
 	/**
@@ -239,7 +254,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function init_calendar() {
 		$owners       = get_option( 'rotaract_appointment_owners' );
-		$feeds        = get_option( 'rotaract_appointment_ics' );
+		$feeds        = get_option( 'rotaract_appointment_ics' ); // boolean?
 		$owner_names  = array_map(
 			function ( $o ) {
 				return $o['name'];
@@ -281,7 +296,7 @@ class Rotaract_Appointments_Public {
 			$event_sources[] = array(
 				'id'        => $feed['name'],
 				'title'     => $feed['name'],
-				'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . urlencode( $feed['name'] ),
+				'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . rawurlencode( $feed['name'] ),
 				'color'     => $feed['color'],
 				'textColor' => '#fff',
 				'format'    => 'ics',
@@ -310,5 +325,4 @@ class Rotaract_Appointments_Public {
 			'owner'       => $appointment['_source']['owner_select_names'],
 		);
 	}
-
 }

@@ -15,7 +15,7 @@ addEventListeners();
  * Initializes LC-select targeting the select field.
  */
 function lcSelectInit() {
-	new lc_select(
+	lc_select(
 		'select.lc-select',
 		{
 			enable_search: true,
@@ -50,20 +50,20 @@ function addEventListeners() {
 	// Add Delete Listeners.
 	const delBtns = document.querySelectorAll( 'button.delete-line' );
 	delBtns.forEach(
-		function( delBtn ) {
+		function (delBtn) {
 			delBtn.addEventListener( 'click', delLine );
 		}
 	);
 
-	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', addOwner );
-	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed );
+	document.querySelector( 'button.add-owner' ) ?.addEventListener( 'click', addOwner ); // phpcs:ignore
+	document.querySelector( 'button.add-ics' ) ?.addEventListener( 'click', addFeed ); // phpcs:ignore
 }
 
 /**
  * Adds new owner whose events to display.
  */
-function addOwner( event = null ) {
-	if ( event ) {
+function addOwner(event = null) {
+	if (event) {
 		event.preventDefault();
 	}
 
@@ -107,8 +107,8 @@ function addOwner( event = null ) {
 /**
  * Adds new ics calendar feeds.
  */
-function addFeed( event = null ) {
-	if ( event ) {
+function addFeed(event = null) {
+	if (event) {
 		event.preventDefault();
 	}
 
@@ -155,9 +155,9 @@ function addFeed( event = null ) {
 /**
  * Removes owner selection.
  */
-function delLine( event ) {
+function delLine(event) {
 	event.preventDefault();
-	if ( document.querySelectorAll( '.appointment-line' ).length < 2 ) {
+	if (document.querySelectorAll( '.appointment-line' ).length < 2) {
 		addOwner();
 	}
 	event.target.closest( '.appointment-line' ).remove();
@@ -169,7 +169,7 @@ function delLine( event ) {
  * @param newValue
  * @param targetField
  */
-function changeColor( newValue, targetField) {
+function changeColor(newValue, targetField) {
 	const style           = targetField.closest( '.appointment-line' ).style;
 	style.backgroundColor = newValue + '25';
 	style.borderColor     = newValue;

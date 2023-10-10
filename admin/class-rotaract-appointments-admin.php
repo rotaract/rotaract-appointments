@@ -71,7 +71,6 @@ class Rotaract_Appointments_Admin {
 		$this->rotaract_appointments = $rotaract_appointments;
 		$this->version               = $version;
 		$this->elastic_caller        = $elastic_caller;
-
 	}
 
 	/**
@@ -83,7 +82,6 @@ class Rotaract_Appointments_Admin {
 
 		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version, 'all' );
 		wp_enqueue_style( 'lc-select-light', plugins_url( 'node_modules/lc-select/themes/light.css', __DIR__ ), array(), $this->lc_select_version, 'all' );
-
 	}
 
 	/**
@@ -109,7 +107,6 @@ class Rotaract_Appointments_Admin {
 				),
 			)
 		);
-
 	}
 
 	/**
@@ -122,7 +119,6 @@ class Rotaract_Appointments_Admin {
 	private function get_partial( string $filename ): string {
 
 		return plugin_dir_path( __FILE__ ) . 'partials/' . $filename;
-
 	}
 
 	/**
@@ -131,7 +127,6 @@ class Rotaract_Appointments_Admin {
 	public function elastic_missing_notice() {
 
 		include $this->get_partial( 'notice-elastic-missing.php' );
-
 	}
 
 	/**
@@ -209,7 +204,7 @@ class Rotaract_Appointments_Admin {
 			add_menu_page(
 				'Rotaract',
 				'Rotaract',
-				'administrator',
+				'manage_options',
 				'rotaract',
 				array( $this, 'rotaract_settings_html' ),
 				plugins_url( 'images/wheel.svg', __DIR__ ),
@@ -240,7 +235,6 @@ class Rotaract_Appointments_Admin {
 		settings_errors( 'rotaract_messages' );
 
 		include $this->get_partial( 'page-rotaract-settings.php' );
-
 	}
 
 	/**
@@ -266,10 +260,9 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining title, id, callback.
 	 */
-	public function rotaract_appointment_section( array $args ) {
+	public function rotaract_appointment_section( array $args ) { // phpcs:ignore
 
 		include $this->get_partial( 'section-rotaract-appointments.php' );
-
 	}
 
 	/**
@@ -277,12 +270,13 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_field( array $args ) {
+	public function appointment_owners_field( array $args ) { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
 		include $this->get_partial( 'field-appointment-owners.php' );
 	}
+
 
 	/**
 	 * Builds select tag containing grouped appointment options.
@@ -292,7 +286,7 @@ class Rotaract_Appointments_Admin {
 	 * @param string|null $owner_name The owner's name.
 	 * @param string|null $owner_color Selected color.
 	 */
-	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) {
+	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) { // phpcs:ignore
 		$owners        = $this->elastic_caller->get_all_owners();
 		$color_palette = $this->get_palette();
 
@@ -304,7 +298,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_ics_field( array $args ) {
+	public function appointment_ics_field( array $args ) { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$ics_feeds = get_option( 'rotaract_appointment_ics' );
 
@@ -316,10 +310,11 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param bool        $is_new True if this intends to be a new owner.
 	 * @param int         $index Index of the parameter.
-	 * @param string|null $owner_name The owner's name.
-	 * @param string|null $owner_color Selected color.
+	 * @param string|null $feed_name The feed's name.
+	 * @param string|null $feed_url The feed's url.
+	 * @param string|null $feed_color Selected color.
 	 */
-	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) {
+	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) { // phpcs:ignore
 		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-ics-line.php' );
@@ -380,10 +375,8 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_shortcode_manual( array $args ) {
+	public function appointment_owners_shortcode_manual( array $args ) { // phpcs:ignore
 
 		include $this->get_partial( 'field-shortcode-manual.php' );
-
 	}
-
 }

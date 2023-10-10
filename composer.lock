@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "088f85e0b974f33098eb99d44cd5cc66",
+    "content-hash": "e8ce29f32149ebc8d0f1206e62c03457",
     "packages": [
         {
             "name": "elastic/transport",
@@ -59,24 +59,24 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-            "version": "v8.3.3",
+            "version": "v8.10.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:elastic/elasticsearch-php.git",
-                "reference": "d069ec27d06c24d29ce780efd92567c8627f7636"
+                "reference": "4237d7e125582cfa7560d97dd8c3baee622875f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/d069ec27d06c24d29ce780efd92567c8627f7636",
-                "reference": "d069ec27d06c24d29ce780efd92567c8627f7636",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/4237d7e125582cfa7560d97dd8c3baee622875f1",
+                "reference": "4237d7e125582cfa7560d97dd8c3baee622875f1",
                 "shasum": ""
             },
             "require": {
-                "elastic/transport": "^8.3",
+                "elastic/transport": "^8.7",
                 "guzzlehttp/guzzle": "^7.0",
                 "php": "^7.4 || ^8.0",
                 "psr/http-client": "^1.0",
-                "psr/http-message": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
                 "psr/log": "^1|^2|^3"
             },
             "require-dev": {
@@ -84,10 +84,12 @@
                 "ext-zip": "*",
                 "mockery/mockery": "^1.5",
                 "nyholm/psr7": "^1.5",
+                "php-http/message-factory": "^1.1",
                 "php-http/mock-client": "^1.5",
                 "phpstan/phpstan": "^1.4",
                 "phpunit/phpunit": "^9.5",
-                "symfony/finder": "~4.0"
+                "symfony/finder": "~4.0",
+                "symfony/http-client": "^5.0|^6.0"
             },
             "type": "library",
             "autoload": {
@@ -106,7 +108,7 @@
                 "elasticsearch",
                 "search"
             ],
-            "time": "2022-07-08T19:59:27+00:00"
+            "time": "2023-09-28T10:38:34+00:00"
         },
         {
             "name": "erusev/parsedown",
@@ -784,16 +786,16 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.1",
+            "version": "2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
-                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/402d35bcb92c70c026d1a6a9883f06b2ead23d71",
+                "reference": "402d35bcb92c70c026d1a6a9883f06b2ead23d71",
                 "shasum": ""
             },
             "require": {
@@ -802,7 +804,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -817,7 +819,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                    "homepage": "https://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for HTTP messages",
@@ -831,9 +833,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/1.1"
+                "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
-            "time": "2023-04-04T09:50:52+00:00"
+            "time": "2023-04-04T09:54:51+00:00"
         },
         {
             "name": "psr/log",
@@ -5674,5 +5676,5 @@
     "platform-overrides": {
         "php": "8.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

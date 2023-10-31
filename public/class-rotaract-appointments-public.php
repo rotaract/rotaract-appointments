@@ -320,7 +320,7 @@ class Rotaract_Appointments_Public {
 			'start'       => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['begins_at'] ) ),
 			'end'         => wp_date( 'Y-m-d\TH:i', strtotime( $appointment['_source']['ends_at'] ) ),
 			'allDay'      => $appointment['_source']['all_day'],
-			'address'     => $appointment['_source']['address'],
+			'address'     => $appointment['_source']['address'] ?? '',
 			'description' => $this->parser->text( $appointment['_source']['description'] ),
 			'owner'       => $appointment['_source']['owner_select_names'],
 		);

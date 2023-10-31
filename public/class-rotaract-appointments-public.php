@@ -254,7 +254,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function init_calendar() {
 		$owners       = get_option( 'rotaract_appointment_owners' );
-		$feeds        = get_option( 'rotaract_appointment_ics' ); // boolean?
+		$feeds        = get_option( 'rotaract_appointment_ics', array() );
 		$owner_names  = array_map(
 			function ( $o ) {
 				return $o['name'];

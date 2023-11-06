@@ -28,7 +28,7 @@
 	<?php endforeach; ?>
 </div>
 <?php endforeach; ?>
-<script type="text/javascript" id="rotaract-appointments">
+<script id="rotaract-appointments">
 const eventSources = <?php echo wp_json_encode( $event_sources ); ?>;
 document.addEventListener("DOMContentLoaded", function() {
 	<?php foreach ( $shortcodes as $index => $shortcode_atts ) : ?>

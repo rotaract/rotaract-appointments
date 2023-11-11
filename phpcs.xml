@@ -14,5 +14,6 @@
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
 	</rule>
 
+	<config name="testVersion" value="8.0-"/>
 	<rule ref="PHPCompatibility" />
 </ruleset>

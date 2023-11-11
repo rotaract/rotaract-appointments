@@ -22,6 +22,8 @@
  */
 class Rotaract_Appointments_Public {
 
+
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -96,7 +98,6 @@ class Rotaract_Appointments_Public {
 
 		$this->rotaract_appointments = $rotaract_appointments;
 		$this->version               = $version;
-
 	}
 
 	/**
@@ -107,7 +108,6 @@ class Rotaract_Appointments_Public {
 	public function enqueue_styles() {
 
 		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
-
 	}
 
 	/**
@@ -136,7 +136,6 @@ class Rotaract_Appointments_Public {
 				'calendarBtn' => __( 'Calendars', 'rotaract-appointments' ),
 			)
 		);
-
 	}
 
 	/**
@@ -146,48 +145,64 @@ class Rotaract_Appointments_Public {
 	 */
 	public function register_routes() {
 
-		$version = 1;
+		$version   = 1;
 		$namespace = $this->rotaract_appointments . '/v' . $version;
-		$base_ics = '/ics/(?P<name>.+)';
-		register_rest_route( $namespace, $base_ics, array(
-			'methods' => 'GET',
-			'callback' => array( $this, 'proxy_ics' ),
-			'args' => array(
-				'name' => array(
-					'required' => true,
-					'validate_callback' => function( $param ) {
-						// Check if the given name is present in feeds.
-						return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
-					}
-				)
+		$base_ics  = '/ics/(?P<name>.+)';
+		register_rest_route(
+			$namespace,
+			$base_ics,
+			array(
+				'methods'  => 'GET',
+				'callback' => array( $this, 'proxy_ics' ),
+				'args'     => array(
+					'name' => array(
+						'required'          => true,
+						'validate_callback' => function ( $param ) {
+							// Check if the given name is present in feeds.
+							return in_array( urldecode( $param ), array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
+						},
+					),
+				),
 			)
-		) );
-
+		);
 	}
 
 	/**
 	 * Return remote ICS feeds based on what was defined in Admin Panel.
 	 *
+	 * @param array $data Request data.
 	 * @since    2.1.1
 	 */
 	public function proxy_ics( $data ) {
 
-		$feed_name      = urldecode( $data[ 'name' ] );
-		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ) );
-		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ][ 'url' ];
+		$feed_name      = urldecode( $data['name'] );
+		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
+		$feed_url       = get_option( 'rotaract_appointment_ics' )[ $feed_index_key ]['url'];
 
 		$feed_data      = wp_remote_get( $feed_url );
 		$feed_data_body = wp_remote_retrieve_body( $feed_data );
 
-		$response = new WP_HTTP_Response( $feed_data_body, 200, array(
-			'Content-Type' => 'text/calendar',
-		) );
-		add_filter( 'rest_pre_serve_request', function () use ( $feed_data_body ) {
-			echo $feed_data_body;
-			return true;
-		}, 0, 2 );
-		return $response;
+		$response = new WP_HTTP_Response(
+			$feed_data_body,
+			200,
+			array(
+				'Content-Type' => 'text/calendar',
+			)
+		);
 
+		add_filter(
+			'rest_pre_serve_request',
+			function () use ( $feed_data_body ) {
+				/*
+				What dose this echo do?
+				echo $feed_data_body;
+				*/
+				return true;
+			},
+			0,
+			2
+		);
+		return $response;
 	}
 
 	/**

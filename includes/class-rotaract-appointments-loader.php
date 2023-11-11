@@ -146,7 +146,5 @@ class Rotaract_Appointments_Loader {
 		foreach ( $this->shortcodes as $hook ) {
 			add_shortcode( $hook['hook'], array( $hook['component'], $hook['callback'] ) );
 		}
-
 	}
-
 }

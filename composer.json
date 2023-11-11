@@ -30,7 +30,7 @@
 	},
 	"minimum-stability": "stable",
 	"scripts": {
-		"lint": "phpcs --standard=phpcs.xml",
+		"lint": "phpcs . --standard=phpcs.xml",
 		"translate": "wp i18n make-mo languages"
 	},
 	"config": {
@@ -38,6 +38,7 @@
 			"php": "8.0"
 		},
 		"allow-plugins": {
+			"php-http/discovery": true,
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	}

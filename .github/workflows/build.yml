@@ -15,10 +15,10 @@ jobs:
       extensions: imagick
       key: rotaract-club-finder #  an be any string, change to clear the extension cache.
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         cache: npm
     - name: Install Node.js dependencies

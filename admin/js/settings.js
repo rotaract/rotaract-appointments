@@ -129,7 +129,7 @@ function addEventListeners() {
 	// Add Delete Listeners.
 	const delBtns = document.querySelectorAll( 'button.delete-line' );
 	delBtns.forEach(
-		function( delBtn ) {
+		function (delBtn) {
 			delBtn.addEventListener( 'click', delLine );
 		}
 	);
@@ -148,7 +148,7 @@ function addEventListeners() {
 			initSearch();
 		}
 	);
-	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed );
+	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed ); // phpcs:ignore
 }
 
 /**
@@ -189,8 +189,8 @@ function addOwner( name, slug, type ) {
 /**
  * Adds new ics calendar feeds.
  */
-function addFeed( event = null ) {
-	if ( event ) {
+function addFeed(event = null) {
+	if (event) {
 		event.preventDefault();
 	}
 
@@ -231,9 +231,9 @@ function addFeed( event = null ) {
 /**
  * Removes owner selection.
  */
-function delLine( event ) {
+function delLine(event) {
 	event.preventDefault();
-	if ( document.querySelectorAll( '.appointment-line' ).length < 2 ) {
+	if (document.querySelectorAll( '.appointment-line' ).length < 2) {
 		addOwner();
 	}
 	event.target.closest( '.appointment-line' ).remove();

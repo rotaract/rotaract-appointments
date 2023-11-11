@@ -169,6 +169,10 @@ msgstr "Distrikte"
 msgid "ressorts"
 msgstr "Ressorts"
 
+#: includes/class-rotaract-appointments-i18n.php:60
+msgid "mdios"
+msgstr "MDIOs"
+
 #~ msgid "Settings for Appointments"
 #~ msgstr "Einstellungen für Event-Plugin"
 

@@ -20,14 +20,13 @@
 		"issues": "https://github.com/rotaract/rotaract-appointments/issues"
 	},
 	"require": {
-		"php": ">=8.0",
-		"elasticsearch/elasticsearch": "=v8.3.3",
-		"erusev/parsedown": "1.8.0-beta-7"
+		"php": ">=8.0"
 	},
 	"require-dev": {
-		"wp-cli/wp-cli-bundle": "^2.8",
-		"wp-coding-standards/wpcs": "^3.0",
-		"phpcompatibility/php-compatibility": "^9.3"
+		"wp-cli/wp-cli-bundle": "^v2.9.0",
+		"wp-coding-standards/wpcs": "^3.0.1",
+		"phpcompatibility/php-compatibility": "^9.3.5",
+		"dealerdirect/phpcodesniffer-composer-installer": "^v1.0.0"
 	},
 	"minimum-stability": "stable",
 	"scripts": {

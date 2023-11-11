@@ -6,39 +6,120 @@
  * @subpackage Rotaract_Appointments/admin/js
  */
 
-/* globals lcData */
+/* globals instantsearch */
+/* globals instantMeiliSearch */
+/* globals meilisearchCredentials */
 
-lcSelectInit();
 addEventListeners();
+let search;
 
-/**
- * Initializes LC-select targeting the select field.
- */
-function lcSelectInit() {
-	lc_select(
-		'select.lc-select',
-		{
-			enable_search: true,
-			wrap_width: 'inherit',
-			pre_placeh_opt: true,
-			labels: lcData.labels,
-			on_change: changeColor
-		}
-	);
+function initSearch() {
+	if ( ! search || ! search.started ) {
+		search = instantsearch(
+			{
+				indexName: 'Club',
+				searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
+			}
+		);
+		search.addWidgets(
+			[
+			instantsearch.widgets.configure(
+				{
+					attributesToRetrieve: [ 'name', 'slug' ],
+					hitsPerPage: 10,
+					length: 10,
+					limit: 10
+				}
+			),
+			instantsearch.widgets.searchBox(
+				{
+					container: '#searchbox',
+					showReset: false,
+					cssClasses: {
+						submit: 'button button-primary'
+					}
+				}
+			),
+			instantsearch.widgets.hits(
+				{
+					container: '#hits-clubs',
+					templates: {
+						item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'clubs')">Rotaract Club ${hit.name}</button>`
+					}
+				}
+			),
+			instantsearch.widgets
+				.index( { indexName: 'District' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-districts',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'districts')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				),
+			instantsearch.widgets
+				.index( { indexName: 'Ressort' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-ressorts',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'ressorts')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				),
+			instantsearch.widgets
+				.index( { indexName: 'Mdio' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-mdios',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'mdios')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				)
+			]
+		);
+		search.start();
+	}
 }
 
-/**
- * Removes LC-select resulting in plain HTML select field.
- */
-function lcSelectDestroy() {
-	const destroyEvent     = new Event( 'lc-select-destroy' );
-	const lcSelectElements = document.querySelectorAll( 'select.lc-select' );
-	lcSelectElements.forEach(
-		function (lcSelect) {
-			lcSelect.dispatchEvent( destroyEvent );
-		}
-	);
-}
 
 /**
  * Registers click events to add or delete appointment owner.
@@ -54,53 +135,56 @@ function addEventListeners() {
 			delBtn.addEventListener( 'click', delLine );
 		}
 	);
+	// Add Change Color Listeners.
+	const colorSelects = document.querySelectorAll( 'select.owner-color, select.feed-color' );
+	colorSelects.forEach(
+		function( colorSelect ) {
+			colorSelect.addEventListener( 'change', changeColor );
+		}
+	);
 
-	document.querySelector( 'button.add-owner' ) ?.addEventListener( 'click', addOwner ); // phpcs:ignore
-	document.querySelector( 'button.add-ics' ) ?.addEventListener( 'click', addFeed ); // phpcs:ignore
+	document.querySelector( 'button.add-owner' )?.addEventListener(
+		'click',
+		function () {
+			document.querySelector( '.modal-bg' ).classList.toggle( 'show', true );
+			initSearch();
+		}
+	);
+	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed ); // phpcs:ignore
 }
 
 /**
  * Adds new owner whose events to display.
  */
-function addOwner(event = null) {
-	if (event) {
-		event.preventDefault();
-	}
-
-	const owners = document.querySelectorAll( '.owner-group select.owner-name' );
+function addOwner( name, slug, type ) {
+	const owners = document.querySelectorAll( '.owner-group .owner-name' );
 	let newIndex = 0;
 	owners.forEach(
 		function (owner) {
-			let i    = parseInt( owner.getAttribute( 'name' ).split( /\[|\]/ )[1] );
+			let i    = parseInt( owner.getAttribute( 'name' ).split( /[\[\]]/ )[1] );
 			newIndex = Math.max( newIndex, i );
 		}
 	);
 	newIndex += 1;
 
-	lcSelectDestroy();
+	const newOwner    = document.querySelector( '.owner-group.prototype' ).cloneNode( true );
+	const nameInput   = newOwner.querySelector( 'input.owner-name' );
+	const slugInput   = newOwner.querySelector( 'input.owner-slug' );
+	const typeInput   = newOwner.querySelector( 'input.owner-type' );
+	const colorSelect = newOwner.querySelector( 'select.owner-color' );
 
-	let newOwner       = document.querySelector( '.owner-group' ).cloneNode( true );
-	let newSelectName  = newOwner.querySelector( 'select.owner-name' );
-	let newSelectColor = newOwner.querySelector( 'select.owner-color' );
+	nameInput.setAttribute( 'name', nameInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	nameInput.setAttribute( 'value', name );
+	slugInput.setAttribute( 'name', slugInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	slugInput.setAttribute( 'value', slug );
+	typeInput.setAttribute( 'name', typeInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	typeInput.setAttribute( 'value', type );
+	colorSelect.setAttribute( 'name', colorSelect.getAttribute( 'name' ).replace( '-1', newIndex ) );
 
-	newOwner.style.backgroundColor = null;
-	newOwner.style.borderColor     = null;
-
-	newSelectName.setAttribute( 'name', newSelectName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
-	newSelectColor.setAttribute( 'name', newSelectColor.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
-
-	newSelectName.value  = null;
-	newSelectColor.value = null;
-
-	newOwner.querySelectorAll( 'option' ).forEach(
-		function (option) {
-			option.removeAttribute( 'selected' );
-		}
-	);
-
+	newOwner.classList.remove( 'prototype' );
 	document.getElementById( 'rotaract-appointment-owner' ).append( newOwner );
 
-	lcSelectInit();
+	document.querySelector( '.modal-bg' ).classList.remove( 'show' );
 	addEventListeners();
 }
 
@@ -116,21 +200,16 @@ function addFeed(event = null) {
 	let newIndex = 0;
 	owners.forEach(
 		function (feed) {
-			let i    = parseInt( feed.getAttribute( 'name' ).split( /\[|\]/ )[1] );
+			let i    = parseInt( feed.getAttribute( 'name' ).split( /[\[\]]/ )[1] );
 			newIndex = Math.max( newIndex, i );
 		}
 	);
 	newIndex += 1;
 
-	lcSelectDestroy();
-
 	let newFeed        = document.querySelector( '.ics-group' ).cloneNode( true );
 	let newInputName   = newFeed.querySelector( 'input.feed-name' );
 	let newInputUrl    = newFeed.querySelector( 'input.feed-url' );
 	let newSelectColor = newFeed.querySelector( 'select.feed-color' );
-
-	newFeed.style.backgroundColor = null;
-	newFeed.style.borderColor     = null;
 
 	newInputName.setAttribute( 'name', newInputName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 	newInputUrl.setAttribute( 'name', newInputUrl.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
@@ -148,7 +227,6 @@ function addFeed(event = null) {
 
 	document.getElementById( 'rotaract-appointment-ics' ).append( newFeed );
 
-	lcSelectInit();
 	addEventListeners();
 }
 
@@ -164,13 +242,12 @@ function delLine(event) {
 }
 
 /**
- * LC-select's on_change callback updating the color.
+ * Select on_change callback updating the color.
  *
- * @param newValue
- * @param targetField
+ * @param event
  */
-function changeColor(newValue, targetField) {
-	const style           = targetField.closest( '.appointment-line' ).style;
-	style.backgroundColor = newValue + '25';
-	style.borderColor     = newValue;
+function changeColor( event ) {
+	const style           = event.target.closest( '.appointment-line' ).style;
+	style.backgroundColor = event.target.value + '25';
+	style.borderColor     = event.target.value;
 }

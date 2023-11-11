@@ -41,36 +41,34 @@ class Rotaract_Appointments_Admin {
 	private string $version;
 
 	/**
-	 * The version of the JavaScript dependency LC-select.
+	 * The version of the JavaScript dependency Instantsearch.
 	 *
-	 * @since    1.0.0
+	 * @since    3.0.0
 	 * @access   private
-	 * @var      string    $lc_select_version    The current version of lc_select.
+	 * @var      string    $instantsearch_version    The current version of Meilisearch.
 	 */
-	private string $lc_select_version = '1.1.7';
+	private string $instantsearch_version = '4.60.0';
 
 	/**
-	 * The Elasticsearch caller.
+	 * The version of the JavaScript dependency Meilisearch.
 	 *
-	 * @since    1.0.0
+	 * @since    3.0.0
 	 * @access   private
-	 * @var      Rotaract_Elastic_Caller $elastic_caller    The object that handles search calls to the Elasticsearch instance.
+	 * @var      string    $instant_meilisearch_version    The current version of Meilisearch.
 	 */
-	private Rotaract_Elastic_Caller $elastic_caller;
+	private string $instant_meilisearch_version = '0.13.6';
 
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param    string                  $rotaract_appointments The name of this plugin.
-	 * @param    string                  $version     The version of this plugin.
-	 * @param    Rotaract_Elastic_Caller $elastic_caller Elasticsearch call handler.
+	 * @param    string $rotaract_appointments The name of this plugin.
+	 * @param    string $version     The version of this plugin.
 	 * @since    1.0.0
 	 */
-	public function __construct( string $rotaract_appointments, string $version, Rotaract_Elastic_Caller $elastic_caller ) {
+	public function __construct( string $rotaract_appointments, string $version ) {
 
 		$this->rotaract_appointments = $rotaract_appointments;
 		$this->version               = $version;
-		$this->elastic_caller        = $elastic_caller;
 	}
 
 	/**
@@ -78,10 +76,9 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles(): void {
 
 		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version, 'all' );
-		wp_enqueue_style( 'lc-select-light', plugins_url( 'node_modules/lc-select/themes/light.css', __DIR__ ), array(), $this->lc_select_version, 'all' );
 	}
 
 	/**
@@ -89,24 +86,13 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts(): void {
 
-		// Including the lc_select script in footer results in broken owner selection in appointments submenu page.
-		wp_enqueue_script( 'lc-select', plugins_url( 'node_modules/lc-select/lc_select.min.js', __DIR__ ), array(), $this->lc_select_version, true );
+		// Including the Meilisearch script in footer results in broken owner selection in appointments submenu page.
+		wp_enqueue_script( 'instantsearch', plugins_url( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', __DIR__ ), array(), $this->instantsearch_version, true );
+		wp_enqueue_script( 'instant-meilisearch', plugins_url( 'node_modules/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js', __DIR__ ), array( 'instantsearch' ), $this->instant_meilisearch_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array( 'lc-select' ), $this->version, true );
-		wp_localize_script(
-			$this->rotaract_appointments,
-			'lcData',
-			array(
-				'labels' => array(
-					esc_attr__( 'Search', 'rotaract-appointments' ),
-					esc_attr__( 'Add', 'rotaract-appointments' ),
-					esc_attr__( 'Select', 'rotaract-appointments' ),
-					esc_attr__( 'Nothing found.', 'rotaract-appointments' ),
-				),
-			)
-		);
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array( 'instantsearch', 'instant-meilisearch' ), $this->version, true );
 	}
 
 	/**
@@ -122,17 +108,17 @@ class Rotaract_Appointments_Admin {
 	}
 
 	/**
-	 * HTML notice that elasticsearch configuration is missing.
+	 * HTML notice that meilisearch configuration is missing.
 	 */
-	public function elastic_missing_notice() {
+	public function meilisearch_missing_notice(): void {
 
-		include $this->get_partial( 'notice-elastic-missing.php' );
+		include $this->get_partial( 'notice-meilisearch-missing.php' );
 	}
 
 	/**
 	 * Adds setting fields for this plugin.
 	 */
-	public function admin_init() {
+	public function admin_init(): void {
 
 		// Register our settings.
 		register_setting(
@@ -198,7 +184,7 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Adds setting menu and submenu page for this plugin.
 	 */
-	public function admin_menu() {
+	public function admin_menu(): void {
 		if ( empty( $GLOBALS['admin_page_hooks']['rotaract'] ) ) {
 
 			add_menu_page(
@@ -216,7 +202,7 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds the HTML for the appointments submenu page.
 	 */
-	public function rotaract_settings_html() {
+	public function rotaract_settings_html(): void {
 		// Check user capabilities.
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -242,7 +228,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @return array
 	 */
-	private function get_palette() {
+	private function get_palette(): array {
 		return array(
 			'#d41367' => __( 'Cranberry', 'rotaract-appointments' ),
 			'#0050a2' => __( 'Azure', 'rotaract-appointments' ),
@@ -260,7 +246,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining title, id, callback.
 	 */
-	public function rotaract_appointment_section( array $args ) { // phpcs:ignore
+	public function rotaract_appointment_section( array $args ): void { // phpcs:ignore
 
 		include $this->get_partial( 'section-rotaract-appointments.php' );
 	}
@@ -270,7 +256,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_field( array $args ) { // phpcs:ignore
+	public function appointment_owners_field( array $args ): void { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 
@@ -281,13 +267,14 @@ class Rotaract_Appointments_Admin {
 	/**
 	 * Builds select tag containing grouped appointment options.
 	 *
-	 * @param bool        $is_new True if this intends to be a new owner.
+	 * @param bool        $is_prototype Flag for identifying create/update.
 	 * @param int         $index Index of the parameter.
 	 * @param string|null $owner_name The owner's name.
+	 * @param string|null $owner_slug The owner's slug.
+	 * @param string|null $owner_type The owner's type.
 	 * @param string|null $owner_color Selected color.
 	 */
-	private function print_appointment_owners_line( bool $is_new, int $index, string $owner_name = null, string $owner_color = null ) { // phpcs:ignore
-		$owners        = $this->elastic_caller->get_all_owners();
+	private function print_appointment_owners_line( bool $is_prototype, int $index = -1, string $owner_name = null, string $owner_slug = null, string $owner_type = null, string $owner_color = null ): void { // phpcs:ignore
 		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-appointment-owner.php' );
@@ -298,7 +285,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_ics_field( array $args ) { // phpcs:ignore
+	public function appointment_ics_field( array $args ): void { // phpcs:ignore
 		// Get the value of the setting we've registered with register_setting().
 		$ics_feeds = get_option( 'rotaract_appointment_ics' );
 
@@ -310,11 +297,11 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param bool        $is_new True if this intends to be a new owner.
 	 * @param int         $index Index of the parameter.
-	 * @param string|null $feed_name The feed's name.
-	 * @param string|null $feed_url The feed's url.
+	 * @param string|null $feed_name The owner's name.
+	 * @param string|null $feed_url The ICS URL.
 	 * @param string|null $feed_color Selected color.
 	 */
-	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ) { // phpcs:ignore
+	private function print_ics_line( bool $is_new, int $index, string $feed_name = null, string $feed_url = null, string $feed_color = null ): void { // phpcs:ignore
 		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-ics-line.php' );
@@ -332,12 +319,16 @@ class Rotaract_Appointments_Admin {
 		// Re-indexing the array.
 		foreach ( $input as $owner ) {
 			$name  = sanitize_text_field( $owner['name'] );
+			$type  = sanitize_text_field( $owner['type'] );
+			$slug  = sanitize_text_field( $owner['slug'] );
 			$color = sanitize_hex_color( $owner['color'] );
-			if ( empty( $name ) || empty( $color ) ) {
+			if ( empty( $name ) || empty( $type ) || empty( $slug ) || empty( $color ) ) {
 				continue;
 			}
 			$new_input[] = array(
 				'name'  => $name,
+				'type'  => $type,
+				'slug'  => $slug,
 				'color' => $color,
 			);
 		}
@@ -375,7 +366,7 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param array $args  The settings array, defining ...
 	 */
-	public function appointment_owners_shortcode_manual( array $args ) { // phpcs:ignore
+	public function appointment_owners_shortcode_manual( array $args ): void { // phpcs:ignore
 
 		include $this->get_partial( 'field-shortcode-manual.php' );
 	}

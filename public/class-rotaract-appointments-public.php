@@ -220,8 +220,8 @@ class Rotaract_Appointments_Public {
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
 	public function init_calendar() {
-		$owners       = get_option( 'rotaract_appointment_owners' );
-		$feeds        = get_option( 'rotaract_appointment_ics' );
+		$owners = get_option( 'rotaract_appointment_owners' );
+		$feeds  = get_option( 'rotaract_appointment_ics' );
 
 		$shortcodes = array();
 		foreach ( $this->shortcode_atts as $shortcode_att ) {
@@ -247,15 +247,17 @@ class Rotaract_Appointments_Public {
 			}
 		}
 
-		foreach ( $feeds as $feed ) {
-			$event_sources[] = array(
-				'id'        => $feed['name'],
-				'title'     => $feed['name'],
-				'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . urlencode( $feed['name'] ),
-				'color'     => $feed['color'],
-				'textColor' => '#fff',
-				'format'    => 'ics',
-			);
+		if ( is_array( $feeds ) ) {
+			foreach ( $feeds as $feed ) {
+				$event_sources[] = array(
+					'id'        => $feed['name'],
+					'title'     => $feed['name'],
+					'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . urlencode( $feed['name'] ),
+					'color'     => $feed['color'],
+					'textColor' => '#fff',
+					'format'    => 'ics',
+				);
+			}
 		}
 
 		include $this->get_partial( 'shortcode.php' );

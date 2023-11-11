@@ -106,7 +106,7 @@ function initSearch() {
 						{
 							container: '#hits-mdios',
 							templates: {
-								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'ressorts')">${hit.name}</button>`
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'mdios')">${hit.name}</button>`
 							}
 						}
 					)

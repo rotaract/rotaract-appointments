@@ -65,7 +65,7 @@
 }
 #searchbox, .ais-SearchBox-form {
 	display: flex;
-    align-items: stretch;
+	align-items: stretch;
 }
 .ais-SearchBox, .ais-SearchBox-form .ais-SearchBox-input {
 	border-bottom-right-radius: 0;
@@ -96,5 +96,5 @@
 	border-radius: 0;
 	padding: 0.25rem 1rem;
 	width: 100%;
-    text-align: start;
+	text-align: start;
 }

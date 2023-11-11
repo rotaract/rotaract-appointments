@@ -50,7 +50,7 @@
 </div>
 <script id="rotaract-appointments">
 const meilisearchCredentials = {
-	url: '<?= ROTARACT_APPOINTMENTS_SEARCH_URL ?>',
-	key: '<?= ROTARACT_APPOINTMENTS_SEARCH_KEY ?>'
+	url: '<?php esc_html( ROTARACT_APPOINTMENTS_SEARCH_URL ); ?>',
+	key: '<?php esc_html( ROTARACT_APPOINTMENTS_SEARCH_KEY ); ?>'
 }
 </script>

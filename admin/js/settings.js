@@ -42,7 +42,7 @@ function initSearch() {
 				{
 					container: '#hits-clubs',
 					templates: {
-						item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'clubs')" > Rotaract Club ${hit.name}</button>`
+						item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'clubs')">Rotaract Club ${hit.name}</button>`
 					}
 				}
 			),

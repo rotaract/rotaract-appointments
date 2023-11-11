@@ -90,8 +90,8 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Initialize the class and set its properties.
 	 *
-	 * @param    string                  $rotaract_appointments    The name of the plugin.
-	 * @param    string                  $version        The version of this plugin.
+	 * @param    string $rotaract_appointments    The name of the plugin.
+	 * @param    string $version        The version of this plugin.
 	 * @since    1.0.0
 	 */
 	public function __construct( string $rotaract_appointments, string $version ) {
@@ -105,7 +105,7 @@ class Rotaract_Appointments_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles(): void {
 
 		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version, 'all' );
 	}
@@ -115,7 +115,7 @@ class Rotaract_Appointments_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts(): void {
 
 		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), $this->icaljs_version, true );
 
@@ -143,7 +143,7 @@ class Rotaract_Appointments_Public {
 	 *
 	 * @since    2.1.1
 	 */
-	public function register_routes() {
+	public function register_routes(): void {
 
 		$version   = 1;
 		$namespace = $this->rotaract_appointments . '/v' . $version;
@@ -173,7 +173,7 @@ class Rotaract_Appointments_Public {
 	 * @param array $data Request data.
 	 * @since    2.1.1
 	 */
-	public function proxy_ics( $data ) {
+	public function proxy_ics( $data ): WP_HTTP_Response {
 
 		$feed_name      = urldecode( $data['name'] );
 		$feed_index_key = array_search( $feed_name, array_column( get_option( 'rotaract_appointment_ics' ), 'name' ), true );
@@ -224,7 +224,7 @@ class Rotaract_Appointments_Public {
 	 * @see appointments_enqueue_scripts
 	 * @see init_calendar
 	 */
-	public function appointments_shortcode( $atts ): string {
+	public function appointments_shortcode( array $atts ): string {
 		$this->shortcode_atts[] = shortcode_atts(
 			array(
 				'views' => 'listQuarter,dayGridMonth',
@@ -243,7 +243,7 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Initializes the calendar by receiving event data, parse it, and display it.
 	 */
-	public function init_calendar() {
+	public function init_calendar(): void {
 		$owners = get_option( 'rotaract_appointment_owners' );
 		$feeds  = get_option( 'rotaract_appointment_ics' );
 
@@ -276,7 +276,7 @@ class Rotaract_Appointments_Public {
 				$event_sources[] = array(
 					'id'        => $feed['name'],
 					'title'     => $feed['name'],
-					'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . urlencode( $feed['name'] ),
+					'url'       => '/wp-json/' . $this->rotaract_appointments . '/v1/ics/' . rawurlencode( $feed['name'] ),
 					'color'     => $feed['color'],
 					'textColor' => '#fff',
 					'format'    => 'ics',
@@ -286,5 +286,4 @@ class Rotaract_Appointments_Public {
 
 		include $this->get_partial( 'shortcode.php' );
 	}
-
 }

@@ -8,9 +8,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== {compare}/v1.4.1\...main[Unreleased]
+== {compare}/v3.0.0\...main[Unreleased]
 
-== {compare}/v1.4.0\...main[Unreleased]
+== {compare}/v2.1.2\...v3.0.0[3.0.0]
+
+=== Changed
+
+* Use meilisearch and aurora API instead of elastic cloud
+* Get event owners from meilisearch on admin page
+* Get events by aurora events.json api
+* Move all requests to client
+* JavaScript package updates
+
+== {compare}/v1.4.1\...v2.1.2[2.1.2]
+
+== {compare}/v1.4.0\...v1.4.1[1.4.1]
 
 === Changed
 

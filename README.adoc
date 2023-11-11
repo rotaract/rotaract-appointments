@@ -25,7 +25,7 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from Elasti
 
 == ⭐ Features
 
-* Display events from Elastic that are allowed to be visible
+* Display events from aurora that are allowed to be visible
 * Multiple event owners / event sources
 * Multiple views: list view, month view
 * Customizable colors per event owner / event source
@@ -88,9 +88,9 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 /**
  * Rotaract Params
  */
-define( 'ROTARACT_APPOINTMENTS_CLOUD_ID', '<your-elastic-cloud-id>' );
-define( 'ROTARACT_APPOINTMENTS_API_ID', '<your-elastic-api-id>' );
-define( 'ROTARACT_APPOINTMENTS_API_KEY', '<your-elastic-api-key>' );
+define( 'ROTARACT_APPOINTMENTS_SEARCH_URL', '<your-meilisearch-host-url>' );
+define( 'ROTARACT_APPOINTMENTS_SEARCH_KEY', '<your-meilisearch-api-key>' );
+define( 'ROTARACT_APPOINTMENTS_AURORA_URL', '<your-aurora-host-url>' );
 ----
 . Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
 . Add at least one owner, select a color and save changes

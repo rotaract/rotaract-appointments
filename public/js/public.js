@@ -31,7 +31,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 	footerToolbar: {
 		start: short ? 'prev,today,next' : 'today',
 		center: '',
-		end: 'ownerButton'
+		end: eventSources.length ? 'ownerButton' : ''
 	},
 	height: 'auto',
 	views: {

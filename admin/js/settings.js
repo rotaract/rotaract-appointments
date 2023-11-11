@@ -6,6 +6,8 @@
  * @subpackage Rotaract_Appointments/admin/js
  */
 
+/* globals instantsearch */
+/* globals instantMeiliSearch */
 /* globals meilisearchCredentials */
 
 addEventListeners();

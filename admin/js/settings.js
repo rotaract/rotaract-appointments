@@ -141,10 +141,13 @@ function addEventListeners() {
 		}
 	);
 
-	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', function ( event = null ) {
-		document.querySelector( '.modal-bg' ).classList.toggle( 'show', true );
-        initSearch();
-	} );
+	document.querySelector( 'button.add-owner' )?.addEventListener(
+		'click',
+		function () {
+			document.querySelector( '.modal-bg' ).classList.toggle( 'show', true );
+			initSearch();
+		}
+	);
 	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed );
 }
 

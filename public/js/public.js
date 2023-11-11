@@ -96,7 +96,11 @@ const calendar = [];
  * It generates and renders the FullCalendar, set the sources of the events and registers tippy popups.
  * It is intended to be called once after DOM as finished loading.
  *
- * @param eventSources The sources of the displayed events.
+ * @param index
+ * @param short
+ * @param days
+ * @param views
+ * @param initView
  */
 function calendarInit( index, short, days, views, initView ) {
 	const calendarEl = document.getElementById( 'rotaract-appointments-' + index );
@@ -126,7 +130,7 @@ function calendarInit( index, short, days, views, initView ) {
  *
  * @param {object} eventInfo The info data object of an event.
  *
- * @return The generated HTML tags.
+ * @return string generated HTML tags.
  */
 function createEventContent( eventInfo ) {
 	const address = eventInfo.extendedProps.address ? eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' ) : null;
@@ -143,7 +147,8 @@ function createEventContent( eventInfo ) {
 		html += ', ' + address;
 	}
 	html += '</p>';
-	html += marked.parse( eventInfo.extendedProps.description );
+	// html += marked.parse( eventInfo.extendedProps.description );
+	html += eventInfo.extendedProps.description;
 
 	return html;
 }
@@ -153,7 +158,7 @@ function createEventContent( eventInfo ) {
  *
  * @param {boolean} [allDay] Whether to return the date and time format for a all day event.
  *
- * @return The format option.
+ * @return {{month: string, year: string, day: string}} format option.
  */
 function rotaractDateOptions( allDay = false ) {
 	let options = {
@@ -171,6 +176,7 @@ function rotaractDateOptions( allDay = false ) {
 /**
  * Toggles the display attribute of all events of an certain owner.
  *
+ * @param index
  * @param el The visual HTML toggle element.
  */
 function toggleEventSource( index, el ) {

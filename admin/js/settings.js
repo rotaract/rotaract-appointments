@@ -12,66 +12,110 @@ addEventListeners();
 let search;
 
 function initSearch() {
-    if ( ! search || ! search.started ) {
-        search = instantsearch( {
-            indexName: 'Club',
-            searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
-        } );
-        search.addWidgets( [
-            instantsearch.widgets.configure( {
-                attributesToRetrieve: [ 'name', 'abbreviation' ],
-                hitsPerPage: 10,
-                length: 10,
-                limit: 10
-            } ),
-            instantsearch.widgets.searchBox( {
-                container: '#searchbox',
-                showReset: false,
-                cssClasses: {
-                    submit: 'button button-primary'
-                }
-            } ),
-            instantsearch.widgets.hits( {
-                container: '#hits-clubs',
-                templates: {
-                    item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.abbreviation}', 'clubs')">Rotaract Club ${hit.name}</button>`
-                }
-            }),
-            instantsearch.widgets
-                .index( { indexName: 'District' } )
-                .addWidgets( [
-                    instantsearch.widgets.configure( {
-                        attributesToRetrieve: [ 'name' ],
-                        hitsPerPage: 10,
-                        length: 10,
-                        limit: 10
-                    } ),
-                    instantsearch.widgets.hits( {
-                        container: '#hits-districts',
-                        templates: {
-                            item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.name}', 'districts')">${hit.name}</button>`
-                        }
-                    })
-                ] ),
-            instantsearch.widgets
-                .index( { indexName: 'Ressort' } )
-                .addWidgets( [
-                    instantsearch.widgets.configure( {
-                        attributesToRetrieve: [ 'name', 'id' ],
-                        hitsPerPage: 10,
-                        length: 10,
-                        limit: 10
-                    } ),
-                    instantsearch.widgets.hits( {
-                        container: '#hits-ressorts',
-                        templates: {
-                            item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.id}', 'ressorts')">${hit.name}</button>`
-                        }
-                    })
-                ] )
-        ] );
-        search.start();
-    }
+	if ( ! search || ! search.started ) {
+		search = instantsearch(
+			{
+				indexName: 'Club',
+				searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
+			}
+		);
+		search.addWidgets(
+			[
+			instantsearch.widgets.configure(
+				{
+					attributesToRetrieve: [ 'name', 'slug' ],
+					hitsPerPage: 10,
+					length: 10,
+					limit: 10
+				}
+			),
+			instantsearch.widgets.searchBox(
+				{
+					container: '#searchbox',
+					showReset: false,
+					cssClasses: {
+						submit: 'button button-primary'
+					}
+				}
+			),
+			instantsearch.widgets.hits(
+				{
+					container: '#hits-clubs',
+					templates: {
+						item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'clubs')" > Rotaract Club ${hit.name}</button>`
+					}
+				}
+			),
+			instantsearch.widgets
+				.index( { indexName: 'District' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-districts',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'districts')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				),
+			instantsearch.widgets
+				.index( { indexName: 'Ressort' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-ressorts',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'ressorts')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				),
+			instantsearch.widgets
+				.index( { indexName: 'Mdio' } )
+				.addWidgets(
+					[
+					instantsearch.widgets.configure(
+						{
+							attributesToRetrieve: [ 'name', 'slug' ],
+							hitsPerPage: 10,
+							length: 10,
+							limit: 10
+						}
+					),
+					instantsearch.widgets.hits(
+						{
+							container: '#hits-mdios',
+							templates: {
+								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'ressorts')">${hit.name}</button>`
+							}
+						}
+					)
+					]
+				)
+			]
+		);
+		search.start();
+	}
 }
 
 
@@ -107,27 +151,27 @@ function addEventListeners() {
 /**
  * Adds new owner whose events to display.
  */
-function addOwner( name, abbreviation, type ) {
+function addOwner( name, slug, type ) {
 	const owners = document.querySelectorAll( '.owner-group .owner-name' );
 	let newIndex = 0;
 	owners.forEach(
 		function (owner) {
-			let i    = parseInt( owner.getAttribute( 'name' ).split( /\[|\]/ )[1] );
+			let i    = parseInt( owner.getAttribute( 'name' ).split( /[\[\]]/ )[1] );
 			newIndex = Math.max( newIndex, i );
 		}
 	);
 	newIndex += 1;
 
-	const newOwner   = document.querySelector( '.owner-group.prototype' ).cloneNode( true );
-	const nameInput         = newOwner.querySelector( 'input.owner-name' );
-	const abbreviationInput = newOwner.querySelector( 'input.owner-abbreviation' );
-	const typeInput         = newOwner.querySelector( 'input.owner-type' );
-	const colorSelect       = newOwner.querySelector( 'select.owner-color' );
+	const newOwner    = document.querySelector( '.owner-group.prototype' ).cloneNode( true );
+	const nameInput   = newOwner.querySelector( 'input.owner-name' );
+	const slugInput   = newOwner.querySelector( 'input.owner-slug' );
+	const typeInput   = newOwner.querySelector( 'input.owner-type' );
+	const colorSelect = newOwner.querySelector( 'select.owner-color' );
 
 	nameInput.setAttribute( 'name', nameInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
 	nameInput.setAttribute( 'value', name );
-	abbreviationInput.setAttribute( 'name', abbreviationInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
-	abbreviationInput.setAttribute( 'value', abbreviation );
+	slugInput.setAttribute( 'name', slugInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
+	slugInput.setAttribute( 'value', slug );
 	typeInput.setAttribute( 'name', typeInput.getAttribute( 'name' ).replace( '-1', newIndex ) );
 	typeInput.setAttribute( 'value', type );
 	colorSelect.setAttribute( 'name', colorSelect.getAttribute( 'name' ).replace( '-1', newIndex ) );
@@ -151,7 +195,7 @@ function addFeed( event = null ) {
 	let newIndex = 0;
 	owners.forEach(
 		function (feed) {
-			let i    = parseInt( feed.getAttribute( 'name' ).split( /\[|\]/ )[1] );
+			let i    = parseInt( feed.getAttribute( 'name' ).split( /[\[\]]/ )[1] );
 			newIndex = Math.max( newIndex, i );
 		}
 	);
@@ -161,8 +205,6 @@ function addFeed( event = null ) {
 	let newInputName   = newFeed.querySelector( 'input.feed-name' );
 	let newInputUrl    = newFeed.querySelector( 'input.feed-url' );
 	let newSelectColor = newFeed.querySelector( 'select.feed-color' );
-
-	console.log('Hallo');
 
 	newInputName.setAttribute( 'name', newInputName.getAttribute( 'name' ).replace( /\d+/, newIndex ) );
 	newInputUrl.setAttribute( 'name', newInputUrl.getAttribute( 'name' ).replace( /\d+/, newIndex ) );

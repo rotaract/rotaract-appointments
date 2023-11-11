@@ -16,7 +16,7 @@
 	<?php
 	$this->print_appointment_owners_line( true );
 	foreach ( $selected_owners as $index => $selected_owner ) {
-		$this->print_appointment_owners_line( false, $index, $selected_owner['name'], $selected_owner['abbreviation'], $selected_owner['type'], $selected_owner['color'] );
+		$this->print_appointment_owners_line( false, $index, $selected_owner['name'], $selected_owner['slug'], $selected_owner['type'], $selected_owner['color'] );
 	}
 	?>
 </div>

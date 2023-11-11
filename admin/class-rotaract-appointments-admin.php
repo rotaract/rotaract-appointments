@@ -270,11 +270,11 @@ class Rotaract_Appointments_Admin {
 	 *
 	 * @param int         $index Index of the parameter.
 	 * @param string|null $owner_name The owner's name.
-	 * @param string|null $owner_abbreviation The owner's abbreviation.
+	 * @param string|null $owner_slug The owner's slug.
 	 * @param string|null $owner_type The owner's type.
 	 * @param string|null $owner_color Selected color.
 	 */
-	private function print_appointment_owners_line( bool $is_prototype, int $index = -1, string $owner_name = null, string $owner_abbreviation = null, string $owner_type = null, string $owner_color = null ) {
+	private function print_appointment_owners_line( bool $is_prototype, int $index = -1, string $owner_name = null, string $owner_slug = null, string $owner_type = null, string $owner_color = null ) {
 		$color_palette = $this->get_palette();
 
 		include $this->get_partial( 'field-appointment-owner.php' );
@@ -320,15 +320,15 @@ class Rotaract_Appointments_Admin {
 		foreach ( $input as $owner ) {
 			$name         = sanitize_text_field( $owner['name'] );
 			$type         = sanitize_text_field( $owner['type'] );
-			$abbreviation = sanitize_text_field( $owner['abbreviation'] );
+			$slug = sanitize_text_field( $owner['slug'] );
 			$color        = sanitize_hex_color( $owner['color'] );
-			if ( empty( $name ) || empty( $type ) || empty( $abbreviation ) || empty( $color ) ) {
+			if ( empty( $name ) || empty( $type ) || empty( $slug ) || empty( $color ) ) {
 				continue;
 			}
 			$new_input[] = array(
 				'name'         => $name,
 				'type'         => $type,
-				'abbreviation' => $abbreviation,
+				'slug' => $slug,
 				'color'        => $color,
 			);
 		}

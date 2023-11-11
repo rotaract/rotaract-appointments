@@ -242,7 +242,7 @@ class Rotaract_Appointments_Public {
 					'title'     => $owner['name'],
 					'color'     => $owner['color'],
 					'textColor' => '#fff',
-					'url'       => ROTARACT_APPOINTMENTS_AURORA_URL . '/' . $owner['type'] . '/' . $owner['abbreviation'] . '/events.json',
+					'url'       => ROTARACT_APPOINTMENTS_AURORA_URL . '/' . $owner['type'] . '/' . $owner['slug'] . '/events.json?mode=feed',
 				);
 			}
 		}

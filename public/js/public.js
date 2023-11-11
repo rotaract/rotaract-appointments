@@ -58,6 +58,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 						appendTo: calEl,
 						content: createEventContent( info.event ),
 						interactive: true,
+						maxWidth: 768,
 						theme: 'rotaract',
 						trigger: 'click',
 						onShow() {

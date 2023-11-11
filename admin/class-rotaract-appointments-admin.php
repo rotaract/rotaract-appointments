@@ -47,7 +47,7 @@ class Rotaract_Appointments_Admin {
 	 * @access   private
 	 * @var      string    $instantsearch_version    The current version of Meilisearch.
 	 */
-	private string $instantsearch_version = '4.57.0';
+	private string $instantsearch_version = '4.60.0';
 
 	/**
 	 * The version of the JavaScript dependency Meilisearch.
@@ -56,7 +56,7 @@ class Rotaract_Appointments_Admin {
 	 * @access   private
 	 * @var      string    $instant_meilisearch_version    The current version of Meilisearch.
 	 */
-	private string $instant_meilisearch_version = '0.13.5';
+	private string $instant_meilisearch_version = '0.13.6';
 
 	/**
 	 * Initialize the class and set its properties.

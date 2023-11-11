@@ -23,10 +23,10 @@
 		"php": ">=8.0"
 	},
 	"require-dev": {
-		"wp-cli/wp-cli-bundle": "^2.6",
-		"wp-coding-standards/wpcs": "^2.3",
+		"wp-cli/wp-cli-bundle": "^v2.9.0",
+		"wp-coding-standards/wpcs": "^3.0.1",
 		"phpcompatibility/php-compatibility": "^9.3.5",
-		"dealerdirect/phpcodesniffer-composer-installer": "^1.0.0"
+		"dealerdirect/phpcodesniffer-composer-installer": "^v1.0.0"
 	},
 	"minimum-stability": "stable",
 	"scripts": {

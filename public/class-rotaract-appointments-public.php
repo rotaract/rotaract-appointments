@@ -47,7 +47,16 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
-	private string $fullcalendar_version = '6.0.1';
+	private string $fullcalendar_version = '6.1.9';
+
+	/**
+	 * The version of ical.js.
+	 *
+	 * @since    3.0.0
+	 * @access   private
+	 * @var      string    $icaljs_version    The current version of ical.js.
+	 */
+	private string $icaljs_version = '1.5.0';
 
 	/**
 	 * The version of tippy.js
@@ -65,7 +74,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $marked_version    The current version of marked.js.
 	 */
-	private string $marked_version = '9.0.3';
+	private string $marked_version = '10.0.0';
 
 	/**
 	 * The shortcode Arguments.
@@ -108,7 +117,7 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), null, true );
+		wp_enqueue_script( 'ical-js', plugins_url( 'node_modules/ical.js/build/ical.min.js', __DIR__ ), array(), $this->icaljs_version, true );
 
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/index.global.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/@fullcalendar/core/locales-all.global.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );

@@ -8,6 +8,7 @@
 
 /* globals appointmentsData */
 /* globals eventSources */
+/* globals marked */
 /* exported calendarInit */
 /* exported toggleEventSource */
 
@@ -147,8 +148,7 @@ function createEventContent( eventInfo ) {
 		html += ', ' + address;
 	}
 	html += '</p>';
-	// html += marked.parse( eventInfo.extendedProps.description );
-	html += eventInfo.extendedProps.description;
+	html += marked.parse( eventInfo.extendedProps.description );
 
 	return html;
 }

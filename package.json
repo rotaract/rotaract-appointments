@@ -20,7 +20,7 @@
 	"slug": "rotaract-appointments",
 	"scripts": {},
 	"dependencies": {
-		"@fullcalendar/icalendar": "^6.1.9",
+		"@fullcalendar/icalendar": "^6.1.10",
 		"@meilisearch/instant-meilisearch": "^0.13.6",
 		"fullcalendar": "^6.1.9",
 		"ical.js": "^1.5.0",

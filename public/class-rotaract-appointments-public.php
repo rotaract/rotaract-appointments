@@ -219,12 +219,12 @@ class Rotaract_Appointments_Public {
 	/**
 	 * Enqueues all style and script files and init calendar.
 	 *
-	 * @param array $atts user defined attributes in shortcode tag.
+	 * @param array|string $atts user defined attributes in shortcode tag.
 	 * @return String containing empty div tag with id "rotaract-appointments"
 	 * @see appointments_enqueue_scripts
 	 * @see init_calendar
 	 */
-	public function appointments_shortcode( array $atts ): string {
+	public function appointments_shortcode( array|string $atts ): string {
 		$this->shortcode_atts[] = shortcode_atts(
 			array(
 				'views' => 'listQuarter,dayGridMonth',

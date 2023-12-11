@@ -63,3 +63,8 @@ jobs:
           ./*
           !tmp
           !.*
+          !phpcs.xml
+          !package.json
+          !package-lock.json
+          !composer.lock
+          !composer.json

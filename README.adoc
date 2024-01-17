@@ -80,7 +80,7 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 
 == 🪛 Configuration
 
-. Set parameter `ROTARACT_APPOINTMENTS_CLOUD_ID`, `ROTARACT_APPOINTMENTS_API_ID` and `ROTARACT_APPOINTMENTS_API_KEY` in your `wp-config.php`
+. Set parameter `ROTARACT_MEILISEARCH_URL`, `ROTARACT_MEILISEARCH_API_KEY` and `ROTARACT_AURORA_URL` in your `wp-config.php`
 +
 .snippet of `wp-config.php`
 [source,php]
@@ -88,9 +88,9 @@ IMPORTANT: The plugin's latest version is already installed at https://hosting.r
 /**
  * Rotaract Params
  */
-define( 'ROTARACT_APPOINTMENTS_SEARCH_URL', '<your-meilisearch-host-url>' );
-define( 'ROTARACT_APPOINTMENTS_SEARCH_KEY', '<your-meilisearch-api-key>' );
-define( 'ROTARACT_APPOINTMENTS_AURORA_URL', '<your-aurora-host-url>' );
+define( 'ROTARACT_MEILISEARCH_URL', 'https://search.rotaract.de' );
+define( 'ROTARACT_MEILISEARCH_API_KEY', '<your-meilisearch-api-key>' );
+define( 'ROTARACT_AURORA_URL', 'https://aurora.rotaract.de' );
 ----
 . Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
 . Add at least one owner, select a color and save changes

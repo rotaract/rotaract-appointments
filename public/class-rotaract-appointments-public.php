@@ -259,14 +259,14 @@ class Rotaract_Appointments_Public {
 
 		$event_sources = array();
 
-		if ( defined( 'ROTARACT_APPOINTMENTS_AURORA_URL' ) ) {
+		if ( defined( 'ROTARACT_AURORA_URL' ) ) {
 			foreach ( $owners as $owner ) {
 				$event_sources[] = array(
 					'id'        => $owner['name'],
 					'title'     => $owner['name'],
 					'color'     => $owner['color'],
 					'textColor' => '#fff',
-					'url'       => ROTARACT_APPOINTMENTS_AURORA_URL . '/' . $owner['type'] . '/' . $owner['slug'] . '/events.json?mode=feed',
+					'url'       => ROTARACT_AURORA_URL . '/' . $owner['type'] . '/' . $owner['slug'] . '/events.json?mode=feed',
 				);
 			}
 		}

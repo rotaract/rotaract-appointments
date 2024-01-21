@@ -17,8 +17,10 @@
  * Plugin URI:        https://github.com/rotaract/rotaract-appointments
  * Description:       WordPress plugin for displaying appointments from mein Rotaract / aurora.
  * Version:           4.0.0
+ * Requires at least: 6.4
+ * Requires PHP:      8.1
  * Author:            Ressort IT-Entwicklung - Rotaract Deutschland
- * Author URI:        https://rotaract.de/ueber-rotaract/rdk/
+ * Author URI:        https://rotaract.de/rotaract-deutschland/
  * License:           EUPL-1.2
  * License URI:       https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12
  * Text Domain:       rotaract-appointments

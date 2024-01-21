@@ -16,6 +16,11 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 * Renamed WordPress config vars to be in line with ClubFinder
 
+=== Internal
+
+* Update FullCalendar to v6.1.10
+* Update Meilisearch integration to v0.14.0
+
 == {compare}/v3.0.0\...v3.0.1[3.0.1]
 
 === Fixed

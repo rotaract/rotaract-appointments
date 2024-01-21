@@ -48,18 +48,23 @@ IMPORTANT: The plugin's latest version is already installed on https://hosting.r
 
 == 🪛 Configuration
 
-. Set parameter `ROTARACT_MEILISEARCH_URL`, `ROTARACT_MEILISEARCH_API_KEY` and `ROTARACT_AURORA_URL` in your `wp-config.php`
+. Set Meilisearch parameters in your `wp-config.php`
 +
 .snippet of `wp-config.php`
 [source,php]
 ----
-/**
- * Rotaract Params
- */
 define( 'ROTARACT_MEILISEARCH_URL', 'https://search.rotaract.de' );
 define( 'ROTARACT_MEILISEARCH_API_KEY', '<your-meilisearch-api-key>' );
+----
+  * The Meilisearch API key is required to have `search` permission on indexes `Club`, `District`, `Mdio`, `Ressort`
+. Set URL of event API
++
+.snippet of `wp-config.php`
+[source,php]
+----
 define( 'ROTARACT_AURORA_URL', 'https://aurora.rotaract.de' );
 ----
+  * The URL of your WorePress site has to be registered in aurora to solve CORS issues
 . Navigate to setting page 'Rotaract' within the https://wordpress.org/support/article/administration-screens/[Administration Screen]
 . Add at least one owner, select a color and save changes
 

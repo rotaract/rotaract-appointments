@@ -1,17 +1,18 @@
 {
 	"name": "rotaract-appointments",
-	"description": "WordPress plugin for displaying appointments from Elastic.",
+	"description": "WordPress plugin display appointments of Rotaract Germany in as calendar",
 	"keywords": [
-		"wordpress",
-		"plugin",
-		"event",
 		"appointment",
-		"rotaract"
+		"calendar",
+		"event",
+		"plugin",
+		"rotaract",
+		"wordpress"
 	],
 	"homepage": "https://github.com/rotaract/rotaract-appointments",
 	"bugs": {
 		"url": "https://github.com/rotaract/rotaract-appointments/issues",
-		"email": "support@rotaract.de"
+		"email": "entwicklung@rotaract.de"
 	},
 	"license": "EUPL-1.2",
 	"author": "Rotaract Germany",

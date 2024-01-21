@@ -6,7 +6,7 @@
 [NOTE]
 --
 * https://wordpress.com[WordPress] instance
-* https://www.php.net[PHP] version 8.0 or higher
+* https://www.php.net[PHP] version 8.1 or higher
 * https://getcomposer.org[Composer]
 * https://nodejs.org[Node.js]
 --

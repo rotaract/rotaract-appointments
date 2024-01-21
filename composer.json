@@ -23,7 +23,7 @@
 		"issues": "https://github.com/rotaract/rotaract-appointments/issues"
 	},
 	"require": {
-		"php": ">=8.0"
+		"php": ">=8.1"
 	},
 	"require-dev": {
 		"wp-cli/wp-cli-bundle": "^v2.9.0",
@@ -38,7 +38,7 @@
 	},
 	"config": {
 		"platform": {
-			"php": "8.0"
+			"php": "8.1"
 		},
 		"allow-plugins": {
 			"php-http/discovery": true,

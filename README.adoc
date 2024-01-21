@@ -32,38 +32,6 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from Elasti
 * Open-Source
 * Internationalization
 
-== 🏗️ Setup
-
-.🧰 Prerequisites
-[NOTE]
---
-* https://wordpress.com[WordPress] instance
-* https://www.php.net[PHP] version 8.0 or higher
-* https://getcomposer.org[Composer]
-* https://nodejs.org[Node.js]
---
-
-In order to either setup the environment for development or install plugin manually follow these steps.
-
-. Install Composer Dependencies (add command option `--no-dev` if you do not need development tools)
-+
-[source]
-----
-composer install
-----
-. Install Node Dependencies (add command option `--production` if you do not need development tools)
-+
-[source]
-----
-npm install
-----
-. Build Translation Files
-+
-[source]
-----
-composer translate
-----
-
 == 🔧 Installation
 
 .Prerequisites

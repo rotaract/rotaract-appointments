@@ -12,8 +12,6 @@ endif::[]
 :repo_path: rotaract/rotaract-appointments
 :slug: rotaract-appointments
 
-:year: 2023
-
 // General Badges
 image:{badge_url}/badge/Open_Source-❤-orange[Open Source, link="https://opensource.org"]
 image:{badge_url}/github/package-json/keywords/{repo_path}[GitHub package.json keywords, link="https://github.com/{repo_path}/blob/HEAD/package.json"]
@@ -25,10 +23,12 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from Elasti
 
 == ⭐ Features
 
-* Display events from aurora that are allowed to be visible
+* Display events of German Rotaract organisations in a calender
+  (events must be marked as public in aurora)
 * Multiple event owners / event sources
 * Multiple views: list view, month view
 * Customizable colors per event owner / event source
+* Support of ICS subscription links
 * Open-Source
 * Internationalization
 
@@ -41,10 +41,10 @@ https://wordpress.org/[WordPress] plugin for displaying appointments from Elasti
 * https://www.php.net[PHP] version 8.0 or higher
 --
 
-IMPORTANT: The plugin's latest version is already installed at https://hosting.rotaract.de[Rotaract Hosting].
+IMPORTANT: The plugin's latest version is already installed on https://hosting.rotaract.de[Rotaract Hosting].
 
-. Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[ZIP file containing latest version]
-. Install and activate plugin in WordPress
+. Download https://github.com/rotaract/rotaract-appointments/releases/latest/download/rotaract-appointments.zip[latest version packaged as ZIP file]
+. https://wordpress.com/support/plugins/install-a-plugin/#install-a-plugin-with-a-zip-file[Install and activate plugin in WordPress]
 
 == 🪛 Configuration
 
@@ -69,7 +69,7 @@ define( 'ROTARACT_AURORA_URL', 'https://aurora.rotaract.de' );
 
 == ⚖️ Legal Notices
 
-Copyright (c) {year}, Rotaract Deutschland
+Copyright (c) 2021-2024, Rotaract Deutschland
 
 Licensed under European Union Public License 1.2 (EUPL-1.2).
 

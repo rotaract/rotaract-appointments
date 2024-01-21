@@ -19,7 +19,7 @@ image:{badge_url}/badge/code_style-WordPress-brightgreen[Code Style, link="https
 // Status Badges
 image:https://github.com/{repo_path}/actions/workflows/build.yml/badge.svg[Build Plugin ZIP, link="https://github.com/{repo_path}/actions/workflows/build.yml"]
 
-https://wordpress.org/[WordPress] plugin for displaying appointments from Elastic using https://github.com/fullcalendar/fullcalendar[FullCalendar].
+https://wordpress.org/[WordPress] plugin to display appointments of Rotaract Germany https://github.com/fullcalendar/fullcalendar[FullCalendar].
 
 == ⭐ Features
 

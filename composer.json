@@ -1,6 +1,6 @@
 {
 	"name": "rotaract/rotaract-appointments",
-	"description": "WordPress plugin display appointments of Rotaract Germany in as calendar",
+	"description": "WordPress plugin to display appointments of Rotaract Germany in as calendar",
 	"type": "project",
 	"keywords": [
 		"appointment",

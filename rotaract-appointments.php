@@ -16,7 +16,7 @@
  * Plugin Name:       Rotaract Appointments
  * Plugin URI:        https://github.com/rotaract/rotaract-appointments
  * Description:       WordPress plugin for displaying appointments from mein Rotaract / aurora.
-Set * Version:           4.0.0
+ * Version:           4.0.0
  * Author:            Ressort IT-Entwicklung - Rotaract Deutschland
  * Author URI:        https://rotaract.de/ueber-rotaract/rdk/
  * License:           EUPL-1.2

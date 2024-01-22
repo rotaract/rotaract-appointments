@@ -31,3 +31,15 @@ npm install
 ----
 composer translate
 ----
+
+== 🎊 Release a new Version
+
+NOTE: Keep in mind the rules of https://semver.org/[Semantic Versioning]!
+
+. Update link:CHANGELOG.adoc[]
+. Bump version in link:rotaract-appointments.php[]
+.. in the plugin comment
+.. the `ROTARACT_APPOINTMENTS_VERSION` constant
+. Create a https://github.com/rotaract/rotaract-appointments/releases/new[new release]
+  * Copy changes from link:CHANGELOG.adoc[] (convert from Asciidoc to Markdown)
+  * Upload ZIP file build in https://github.com/rotaract/rotaract-appointments/actions/workflows/build.yml[GitHub Actions workflow]

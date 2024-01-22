@@ -15,10 +15,11 @@ let search;
 
 function initSearch() {
 	if ( ! search || ! search.started ) {
+		const { searchClient } = instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key );
 		search = instantsearch(
 			{
 				indexName: 'Club',
-				searchClient: instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key )
+				searchClient
 			}
 		);
 		search.addWidgets(

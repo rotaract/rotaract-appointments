@@ -193,10 +193,7 @@ class Rotaract_Appointments_Public {
 		add_filter(
 			'rest_pre_serve_request',
 			function () use ( $feed_data_body ) {
-				/*
-				What dose this echo do?
 				echo $feed_data_body;
-				*/
 				return true;
 			},
 			0,

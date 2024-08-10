@@ -8,7 +8,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== {compare}/v4.1.1\...main[Unreleased]
+== {compare}/v4.1.2\...main[Unreleased]
+
+== {compare}/v4.1.1\...v4.1.2[4.1.2]
+
+=== Fixed
+
+* ICS endpoint always responds with empty body
 
 == {compare}/v4.1.0\...v4.1.1[4.1.1]
 

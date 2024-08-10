@@ -193,7 +193,7 @@ class Rotaract_Appointments_Public {
 		add_filter(
 			'rest_pre_serve_request',
 			function () use ( $feed_data_body ) {
-				echo $feed_data_body;
+				echo $feed_data_body; // phpcs:ignore
 				return true;
 			},
 			0,

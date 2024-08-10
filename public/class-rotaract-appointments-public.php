@@ -58,7 +58,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $icaljs_version    The current version of ical.js.
 	 */
-	private string $icaljs_version = '2.0.1';
+	private string $icaljs_version = '1.5.0';
 
 	/**
 	 * The version of tippy.js

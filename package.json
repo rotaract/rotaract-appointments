@@ -25,7 +25,7 @@
 		"@meilisearch/instant-meilisearch": "^0.25.0",
 		"fullcalendar": "^6.1.15",
 		"ical.js": "^1.5.0",
-		"instantsearch.js": "^4.75.7",
+		"instantsearch.js": "^4.78.0",
 		"marked": "^15.0.7",
 		"tippy.js": "^6.3.7"
 	},

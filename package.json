@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@fullcalendar/icalendar": "^6.1.18",
 		"@meilisearch/instant-meilisearch": "^0.27.0",
-		"fullcalendar": "^6.1.18",
+		"fullcalendar": "^6.1.19",
 		"ical.js": "^1.5.0",
 		"instantsearch.js": "^4.79.2",
 		"marked": "^16.1.2",

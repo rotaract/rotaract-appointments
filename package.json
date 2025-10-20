@@ -26,7 +26,7 @@
 		"fullcalendar": "^6.1.19",
 		"ical.js": "^1.5.0",
 		"instantsearch.js": "^4.80.0",
-		"marked": "^16.4.0",
+		"marked": "^16.4.1",
 		"tippy.js": "^6.3.7"
 	},
 	"devDependencies": {

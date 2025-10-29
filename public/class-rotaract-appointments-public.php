@@ -49,7 +49,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
-	private string $fullcalendar_version = '6.1.15';
+	private string $fullcalendar_version = '6.1.19';
 
 	/**
 	 * The version of ical.js.
@@ -76,7 +76,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $marked_version    The current version of marked.js.
 	 */
-	private string $marked_version = '14.0.0';
+	private string $marked_version = '16.4.1';
 
 	/**
 	 * The shortcode Arguments.

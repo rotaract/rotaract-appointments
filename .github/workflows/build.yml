@@ -68,3 +68,4 @@ jobs:
           !package-lock.json
           !composer.lock
           !composer.json
+          !devenv.*

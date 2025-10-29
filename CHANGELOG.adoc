@@ -8,7 +8,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== {compare}/v4.1.3\...main[Unreleased]
+== {compare}/v4.1.4\...main[Unreleased]
+
+== {compare}/v4.1.3\...v4.1.4[4.1.4]
+
+=== Changed
+
+* Added development environment (devenv) setup.
+
+.JavaScript / Node
+* marked bumped from 14.0.0 → 16.4.1
+* instantsearch.js bumped from 4.73.4 → 4.80.0
+* meilisearch bumped from 0.19.2 → 0.28.0
+* fullcalendar bumped from 6.1.15 → 6.1.19
+* @babel/runtime bumped from 7.25.6 → 7.27.0
+
+.PHP / Composer
+* symfony/process bumped from 6.4.8 → 6.4.14
+* wp-cli/wp-cli-bundle bumped from 2.11.0 → 2.12.0
+* wp-coding-standards/wpcs bumped from 3.1.0 → 3.2.0
+* dealerdirect/phpcodesniffer-composer-installer bumped from 1.0.0 → 1.1.2
+
+.GitHub Actions workflows
+* actions/checkout v4 → v5.
+* actions/setup-node v4 → v6.
+* actions/upload-artifact v4 → v5.
+* github/codeql-action v3 → v4.
 
 == {compare}/v4.1.2\...v4.1.3[4.1.3]
 

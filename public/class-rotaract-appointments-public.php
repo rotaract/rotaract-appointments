@@ -122,7 +122,7 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar', plugins_url( 'node_modules/fullcalendar/index.global.min.js', __DIR__ ), array(), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'node_modules/@fullcalendar/core/locales-all.global.min.js', __DIR__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-ical', plugins_url( 'node_modules/@fullcalendar/icalendar/index.global.min.js', __DIR__ ), array( 'fullcalendar', 'ical-js' ), $this->fullcalendar_version, true );
-		wp_enqueue_script( 'marked', plugins_url( 'node_modules/marked/marked.min.js', __DIR__ ), array( 'fullcalendar' ), $this->marked_version, true );
+		wp_enqueue_script( 'marked', plugins_url( 'node_modules/marked/lib/marked.umd.js', __DIR__ ), array( 'fullcalendar' ), $this->marked_version, true );
 
 		wp_enqueue_script( 'popper', plugins_url( 'node_modules/@popperjs/core/dist/umd/popper.min.js', __DIR__ ), array(), $this->tippy_version, true );
 		wp_enqueue_script( 'tippy', plugins_url( 'node_modules/tippy.js/dist/tippy-bundle.umd.min.js', __DIR__ ), array( 'popper' ), $this->tippy_version, true );

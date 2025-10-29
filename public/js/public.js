@@ -149,7 +149,9 @@ function createEventContent( eventInfo ) {
 		html += ', ' + address;
 	}
 	html += '</p>';
-	html += marked.parse( eventInfo.extendedProps.description );
+	if (eventInfo?.extendedProps?.description) {
+		html += marked.parse(String(eventInfo.extendedProps.description));
+	}
 
 	return html;
 }

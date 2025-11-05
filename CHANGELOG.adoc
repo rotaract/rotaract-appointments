@@ -8,7 +8,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
-== {compare}/v4.1.5\...main[Unreleased]
+== {compare}/v4.1.6\...main[Unreleased]
+
+== {compare}/v4.1.5\...v4.1.6[4.1.6]
+
+=== Changed
+
+* Refined build process to exclude the full *node_modules* directory from the distribution package.
+* Updated enqueue paths in admin and public classes to reference JS dependencies under *js/vendor/*.
+
+=== Added
+
+* Introduced *build/copy-js.sh* script to selectively copy and rename required JS assets during build.
+* Added *build/copylist-public* and *build/copylist-admin* files to explicitly define which dependencies are bundled.
 
 == {compare}/v4.1.4\...v4.1.5[4.1.5]
 

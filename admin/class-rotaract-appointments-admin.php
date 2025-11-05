@@ -101,8 +101,8 @@ class Rotaract_Appointments_Admin {
 
 		if ( $this->meilisearch_valid_params ) {
 			// Including the Meilisearch script in footer results in broken owner selection in appointments submenu page.
-			wp_enqueue_script( 'instantsearch', plugins_url( 'node_modules/instantsearch.js/dist/instantsearch.production.min.js', __DIR__ ), array(), $this->instantsearch_version, true );
-			wp_enqueue_script( 'instant-meilisearch', plugins_url( 'node_modules/@meilisearch/instant-meilisearch/dist/instant-meilisearch.umd.min.js', __DIR__ ), array( 'instantsearch' ), $this->instant_meilisearch_version, true );
+			wp_enqueue_script( 'instantsearch', plugins_url( 'js/vendor/instantsearch-js.js', __FILE__ ), array(), $this->instantsearch_version, true );
+			wp_enqueue_script( 'instant-meilisearch', plugins_url( 'js/vendor/meilisearch-instant-meilisearch.js', __FILE__ ), array( 'instantsearch' ), $this->instant_meilisearch_version, true );
 
 			array_push( $requirements, 'instantsearch', 'instant-meilisearch' );
 		}

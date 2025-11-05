@@ -55,17 +55,24 @@ jobs:
     - name: Cleanup composer development packages and optimize autoloader
       run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
 
+    - name: Copy required JS dependencies
+      run: |
+        build/copy-js.sh build/copylist-public
+        build/copy-js.sh build/copylist-admin
+
     - name: Upload Plugin
       uses: actions/upload-artifact@v5
       with:
         name: rotaract-appointments
         path: |
           ./*
-          !tmp
           !.*
-          !phpcs.xml
-          !package.json
-          !package-lock.json
-          !composer.lock
+          !build
           !composer.json
+          !composer.lock
           !devenv.*
+          !node_modules
+          !package-lock.json
+          !package.json
+          !phpcs.xml
+          !tmp

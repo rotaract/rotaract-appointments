@@ -74,7 +74,7 @@ define( 'ROTARACT_AURORA_URL', 'https://aurora.rotaract.de' );
 
 == ⚖️ Legal Notices
 
-Copyright (c) 2021-2024, Rotaract Deutschland
+Copyright (c) 2021-2025, Rotaract Deutschland
 
 Licensed under European Union Public License 1.2 (EUPL-1.2).
 

@@ -1,0 +1,7 @@
+node_modules/ical.js/build/ical.min.js
+node_modules/fullcalendar/index.global.min.js
+node_modules/@fullcalendar/core/locales-all.global.min.js
+node_modules/@fullcalendar/icalendar/index.global.min.js
+node_modules/marked/lib/marked.umd.js
+node_modules/@popperjs/core/dist/umd/popper.min.js
+node_modules/tippy.js/dist/tippy-bundle.umd.min.js

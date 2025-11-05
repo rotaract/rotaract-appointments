@@ -10,6 +10,19 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 == {compare}/v4.1.6\...main[Unreleased]
 
+=== Added
+
+* Introduced validation for Meilisearch configuration parameters in the admin module.
+
+=== Changed
+
+* Meilisearch-related scripts are now enqueued only if both *ROTARACT_MEILISEARCH_URL* and *ROTARACT_MEILISEARCH_API_KEY* are defined.
+* Appointment owner field in the admin interface is disabled when Meilisearch parameters are missing.
+
+=== Fixed
+
+* Prevented errors and redundant script loading when Meilisearch integration is not configured.
+
 == {compare}/v4.1.5\...v4.1.6[4.1.6]
 
 === Changed

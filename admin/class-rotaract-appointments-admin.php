@@ -59,6 +59,15 @@ class Rotaract_Appointments_Admin {
 	private string $instant_meilisearch_version = '0.19.2';
 
 	/**
+	 * Are the necessary params for Meilisearch set?
+	 *
+	 * @since    3.0.0
+	 * @access   private
+	 * @var      boolean $meilisearch_valid_params    True if params are set.
+	 */
+	private bool $meilisearch_valid_params;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @param    string $rotaract_appointments The name of this plugin.
@@ -67,8 +76,9 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function __construct( string $rotaract_appointments, string $version ) {
 
-		$this->rotaract_appointments = $rotaract_appointments;
-		$this->version               = $version;
+		$this->rotaract_appointments    = $rotaract_appointments;
+		$this->version                  = $version;
+		$this->meilisearch_valid_params = defined( 'ROTARACT_MEILISEARCH_URL' ) && defined( 'ROTARACT_MEILISEARCH_API_KEY' );
 	}
 
 	/**
@@ -87,12 +97,17 @@ class Rotaract_Appointments_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts(): void {
+		$requirements = array();
 
-		// Including the Meilisearch script in footer results in broken owner selection in appointments submenu page.
-		wp_enqueue_script( 'instantsearch', plugins_url( 'js/vendor/instantsearch-js.js', __FILE__ ), array(), $this->instantsearch_version, true );
-		wp_enqueue_script( 'instant-meilisearch', plugins_url( 'js/vendor/meilisearch-instant-meilisearch.js', __FILE__ ), array( 'instantsearch' ), $this->instant_meilisearch_version, true );
+		if ( $this->meilisearch_valid_params ) {
+			// Including the Meilisearch script in footer results in broken owner selection in appointments submenu page.
+			wp_enqueue_script( 'instantsearch', plugins_url( 'js/vendor/instantsearch-js.js', __FILE__ ), array(), $this->instantsearch_version, true );
+			wp_enqueue_script( 'instant-meilisearch', plugins_url( 'js/vendor/meilisearch-instant-meilisearch.js', __FILE__ ), array( 'instantsearch' ), $this->instant_meilisearch_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array( 'instantsearch', 'instant-meilisearch' ), $this->version, true );
+			array_push( $requirements, 'instantsearch', 'instant-meilisearch' );
+		}
+
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), $requirements, $this->version, true );
 	}
 
 	/**
@@ -257,6 +272,10 @@ class Rotaract_Appointments_Admin {
 	 * @param array $args  The settings array, defining ...
 	 */
 	public function appointment_owners_field( array $args ): void { // phpcs:ignore
+		if ( ! $this->meilisearch_valid_params ) {
+			return;
+		}
+
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
 

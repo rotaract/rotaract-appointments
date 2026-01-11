@@ -135,7 +135,7 @@ function calendarInit( index, short, days, views, initView ) {
  * @return string generated HTML tags.
  */
 function createEventContent( eventInfo ) {
-	const address = eventInfo.extendedProps.address ? eventInfo.extendedProps.address.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' ) : null;
+	const location = eventInfo.extendedProps.location ? eventInfo.extendedProps.location.replace( /https?:\/\/[a-z0-9\-.]+\.[a-zZ]{2,3}(\/\S*)?/g, '<a href="$&" target="_blank" rel="noreferrer" title="' + eventInfo.title + '">$&</a>' ) : null;
 
 	let html = '<p class="event-info">';
 	html    += eventInfo.extendedProps.owner ? eventInfo.extendedProps.owner.join( ', ' ) : eventInfo.source.id;
@@ -145,8 +145,8 @@ function createEventContent( eventInfo ) {
 	html    += '</h5>';
 	html    += '<p class="event-info">';
 	html    += eventInfo.start.toLocaleDateString( appointmentsData.locale, rotaractDateOptions( eventInfo.allDay ) );
-	if (address) {
-		html += ', ' + address;
+	if (location) {
+		html += '<br>' + location;
 	}
 	html += '</p>';
 	if (eventInfo?.extendedProps?.description) {

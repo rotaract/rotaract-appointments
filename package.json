@@ -22,6 +22,7 @@
 	"scripts": {},
 	"dependencies": {
 		"@fullcalendar/icalendar": "^6.1.20",
+		"fullcalendar": "^6.1.20",
 		"marked": "^17.0.1",
 		"tippy.js": "^6.3.7"
 	},

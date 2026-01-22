@@ -22,8 +22,6 @@
  */
 class Rotaract_Appointments_Public {
 
-
-
 	/**
 	 * The ID of this plugin.
 	 *
@@ -49,7 +47,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
-	private string $fullcalendar_version = '6.1.19';
+	private string $fullcalendar_version = '6.1.20';
 
 	/**
 	 * The version of ical.js.
@@ -76,7 +74,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $marked_version    The current version of marked.js.
 	 */
-	private string $marked_version = '16.4.1';
+	private string $marked_version = '17.0.1';
 
 	/**
 	 * The shortcode Arguments.

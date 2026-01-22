@@ -21,36 +21,20 @@
 	?>
 </div>
 <div class="owner-add">
+	<select id="rotaract_appointment_owners">
+		<option value="">- <?php esc_html_e( 'Add', 'rotaract-appointments' ); ?> -</option>
+		<?php
+		foreach ($orgs as $type => $typed_orgs) : ?>
+		<optgroup label="<?php esc_attr_e( $type, 'rotaract-appointments' ); ?>">
+			<?php
+			foreach ($typed_orgs as $org) : ?>
+			<option value='["<?= esc_attr( $type ) ?>","<?= esc_attr( $org->slug )?>","<?= esc_attr( $org->name ); ?>"]'><?= esc_attr( $org->name); ?></option>
+			<?php endforeach; ?>
+		</optgroup>
+		<?php endforeach; ?>
+	</select>
 	<button type="button" class="add-owner button" title="<?php esc_attr_e( 'Add', 'rotaract-appointments' ); ?>">
 		<span class="dashicons dashicons-plus"></span>
 		<?php esc_html_e( 'Add', 'rotaract-appointments' ); ?>
 	</button>
 </div>
-<div class="modal-bg">
-	<div class="modal">
-		<div id="searchbox">
-			<button type="button" class="button button-secondary" onclick="document.querySelector( '.modal-bg' ).classList.remove( 'show' );">
-				<span class="dashicons dashicons-no"></span>
-			</button>
-		</div>
-		<div id="hits">
-			<h3><?php esc_html_e( 'clubs', 'rotaract-appointments' ); ?></h3>
-			<div id="hits-clubs"></div>
-			<hr>
-			<h3><?php esc_html_e( 'districts', 'rotaract-appointments' ); ?></h3>
-			<div id="hits-districts"></div>
-			<hr>
-			<h3><?php esc_html_e( 'ressorts', 'rotaract-appointments' ); ?></h3>
-			<div id="hits-ressorts"></div>
-			<hr>
-			<h3><?php esc_html_e( 'mdios', 'rotaract-appointments' ); ?></h3>
-			<div id="hits-mdios"></div>
-		</div>
-	</div>
-</div>
-<script id="rotaract-appointments">
-const meilisearchCredentials = {
-	url: '<?php echo esc_html( ROTARACT_MEILISEARCH_URL ); ?>',
-	key: '<?php echo esc_html( ROTARACT_MEILISEARCH_API_KEY ); ?>'
-}
-</script>

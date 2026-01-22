@@ -6,121 +6,7 @@
  * @subpackage Rotaract_Appointments/admin/js
  */
 
-/* globals instantsearch */
-/* globals instantMeiliSearch */
-/* globals meilisearchCredentials */
-
 addEventListeners();
-let search;
-
-function initSearch() {
-	if ( ! search || ! search.started ) {
-		const { searchClient } = instantMeiliSearch( meilisearchCredentials.url, meilisearchCredentials.key );
-		search = instantsearch(
-			{
-				indexName: 'Club',
-				searchClient
-			}
-		);
-		search.addWidgets(
-			[
-			instantsearch.widgets.configure(
-				{
-					attributesToRetrieve: [ 'name', 'slug' ],
-					hitsPerPage: 10,
-					length: 10,
-					limit: 10
-				}
-			),
-			instantsearch.widgets.searchBox(
-				{
-					container: '#searchbox',
-					showReset: false,
-					cssClasses: {
-						submit: 'button button-primary'
-					}
-				}
-			),
-			instantsearch.widgets.hits(
-				{
-					container: '#hits-clubs',
-					templates: {
-						item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'clubs')">Rotaract Club ${hit.name}</button>`
-					}
-				}
-			),
-			instantsearch.widgets
-				.index( { indexName: 'District' } )
-				.addWidgets(
-					[
-					instantsearch.widgets.configure(
-						{
-							attributesToRetrieve: [ 'name', 'slug' ],
-							hitsPerPage: 10,
-							length: 10,
-							limit: 10
-						}
-					),
-					instantsearch.widgets.hits(
-						{
-							container: '#hits-districts',
-							templates: {
-								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'districts')">${hit.name}</button>`
-							}
-						}
-					)
-					]
-				),
-			instantsearch.widgets
-				.index( { indexName: 'Ressort' } )
-				.addWidgets(
-					[
-					instantsearch.widgets.configure(
-						{
-							attributesToRetrieve: [ 'name', 'slug' ],
-							hitsPerPage: 10,
-							length: 10,
-							limit: 10
-						}
-					),
-					instantsearch.widgets.hits(
-						{
-							container: '#hits-ressorts',
-							templates: {
-								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'ressorts')">${hit.name}</button>`
-							}
-						}
-					)
-					]
-				),
-			instantsearch.widgets
-				.index( { indexName: 'Mdio' } )
-				.addWidgets(
-					[
-					instantsearch.widgets.configure(
-						{
-							attributesToRetrieve: [ 'name', 'slug' ],
-							hitsPerPage: 10,
-							length: 10,
-							limit: 10
-						}
-					),
-					instantsearch.widgets.hits(
-						{
-							container: '#hits-mdios',
-							templates: {
-								item: ( hit ) => `<button type="button" class="button list-btn" onclick="addOwner('${hit.name}', '${hit.slug}', 'mdios')">${hit.name}</button>`
-							}
-						}
-					)
-					]
-				)
-			]
-		);
-		search.start();
-	}
-}
-
 
 /**
  * Registers click events to add or delete appointment owner.
@@ -133,6 +19,7 @@ function addEventListeners() {
 	const delBtns = document.querySelectorAll( 'button.delete-line' );
 	delBtns.forEach(
 		function (delBtn) {
+			delBtn.removeEventListener( 'click', delLine );
 			delBtn.addEventListener( 'click', delLine );
 		}
 	);
@@ -140,18 +27,26 @@ function addEventListeners() {
 	const colorSelects = document.querySelectorAll( 'select.owner-color, select.feed-color' );
 	colorSelects.forEach(
 		function( colorSelect ) {
+			colorSelect.removeEventListener( 'change', changeColor );
 			colorSelect.addEventListener( 'change', changeColor );
 		}
 	);
 
-	document.querySelector( 'button.add-owner' )?.addEventListener(
-		'click',
-		function () {
-			document.querySelector( '.modal-bg' ).classList.toggle( 'show', true );
-			initSearch();
-		}
-	);
+	document.querySelector( 'button.add-owner' )?.removeEventListener( 'click', addOrg ); // phpcs:ignore
+	document.querySelector( 'button.add-owner' )?.addEventListener( 'click', addOrg ); // phpcs:ignore
+	document.querySelector( 'button.add-ics' )?.removeEventListener( 'click', addFeed ); // phpcs:ignore
 	document.querySelector( 'button.add-ics' )?.addEventListener( 'click', addFeed ); // phpcs:ignore
+}
+
+/**
+ * Adds new owner org whose events to display.
+ */
+function addOrg() {
+	const elem = document.getElementById('rotaract_appointment_owners');
+	if ( ! elem ) return;
+	const data = JSON.parse( elem.value || '' );
+	if ( ! data ) return;
+	addOwner(data[2], data[1], data[0]);
 }
 
 /**
@@ -185,7 +80,6 @@ function addOwner( name, slug, type ) {
 	newOwner.classList.remove( 'prototype' );
 	document.getElementById( 'rotaract-appointment-owner' ).append( newOwner );
 
-	document.querySelector( '.modal-bg' ).classList.remove( 'show' );
 	addEventListeners();
 }
 

@@ -41,7 +41,6 @@ msgid "Nothing found."
 msgstr "Kein Treffer."
 
 #: admin/class-rotaract-appointments-admin.php:155
-#: admin/partials/notice-elastic-missing.php:17
 msgid "Rotaract Events"
 msgstr "Rotaract Events"
 
@@ -146,12 +145,6 @@ msgstr "Standardwert"
 #: admin/partials/field-shortcode-manual.php:38
 msgid "Lets say you want to display your events in a sidebar. You can choose a short layout that will fit into a widget. Please notice that you cannot have multiple views then but you can set which one is used."
 msgstr "Angenommen, der Kalender soll in der Seitenleiste angezeigt werden. Du kannst das 'short' Layout verwenden, das perfekt in Widgets passt. Beachte bitte, dass du dann nur eine Ansicht wählen kannst."
-
-#: admin/partials/notice-elastic-missing.php:18
-msgid "Please set Elasticsearch Host in your WordPress configuration!"
-msgstr ""
-"Bitte gib in deiner WordPress-Konfiguration die Host-Adresse von "
-"Elasticsearch an!"
 
 #: admin/partials/section-rotaract-appointments.php:15
 msgid "Customize your calendar events here."

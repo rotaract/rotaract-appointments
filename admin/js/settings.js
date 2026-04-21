@@ -43,9 +43,9 @@ function addEventListeners() {
  */
 function addOrg() {
 	const elem = document.getElementById('rotaract_appointment_owners');
-	if ( ! elem ) return;
+	if ( ! elem ) { return; }
 	const data = JSON.parse( elem.value || '' );
-	if ( ! data ) return;
+	if ( ! data ) { return; }
 	addOwner(data[2], data[1], data[0]);
 }
 

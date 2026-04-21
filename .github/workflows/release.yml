@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    env:
+      php-version: latest
+      extensions: imagick
+      key: rotaract-appointments
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.php-version }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Cache extensions
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php-version }}
+          extensions: ${{ env.extensions }}
+          tools: wp
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Generate MO files for localization
+        run: composer translate
+
+      - name: Cleanup composer development packages and optimize autoloader
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
+
+      - name: Download JS vendor dependencies
+        run: composer build
+
+      - name: Create plugin ZIP
+        run: |
+          zip -r "rotaract-appointments-${GITHUB_REF_NAME}.zip" . \
+            --exclude ".*" \
+            --exclude "build/*" \
+            --exclude "composer.json" \
+            --exclude "composer.lock" \
+            --exclude "devenv.*" \
+            --exclude "phpcs.xml" \
+            --exclude "tmp/*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: rotaract-appointments-*.zip
+          generate_release_notes: true

@@ -13,66 +13,55 @@ jobs:
     env:
       php-version: latest
       extensions: imagick
-      key: rotaract-club-finder #  an be any string, change to clear the extension cache.
+      key: rotaract-appointments
+
     steps:
-    - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v6
-      with:
-        cache: npm
-    - name: Install Node.js dependencies
-      run: npm ci --production
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ env.php-version }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
 
-    - name: Setup cache environment
-      id: extcache
-      uses: shivammathur/cache-extensions@v1
-      with:
-        php-version: ${{ env.php-version }}
-        extensions: ${{ env.extensions }}
-        key: ${{ env.key }}
+      - name: Cache extensions
+        uses: actions/cache@v5
+        with:
+          path: ${{ steps.extcache.outputs.dir }}
+          key: ${{ steps.extcache.outputs.key }}
+          restore-keys: ${{ steps.extcache.outputs.key }}
 
-    - name: Cache extensions
-      uses: actions/cache@v5
-      with:
-        path: ${{ steps.extcache.outputs.dir }}
-        key: ${{ steps.extcache.outputs.key }}
-        restore-keys: ${{ steps.extcache.outputs.key }}
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.php-version }}
+          extensions: ${{ env.extensions }}
+          tools: wp
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ env.php-version }}
-        extensions: ${{ env.extensions }}
-        tools: wp
+      - name: Validate composer.json and composer.lock
+        run: composer validate
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate
+      - name: Generate MO files for localization
+        run: composer translate
 
-    - name: Generate MO files for localization
-      run: composer translate
+      - name: Cleanup composer development packages and optimize autoloader
+        run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
 
-    - name: Cleanup composer development packages and optimize autoloader
-      run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
+      - name: Download JS vendor dependencies
+        run: composer build
 
-    - name: Copy required JS dependencies
-      run: |
-        build/copy-js.sh build/copylist-public
-        build/copy-js.sh build/copylist-admin
-
-    - name: Upload Plugin
-      uses: actions/upload-artifact@v7
-      with:
-        name: rotaract-appointments
-        path: |
-          ./*
-          !.*
-          !build
-          !composer.json
-          !composer.lock
-          !devenv.*
-          !node_modules
-          !package-lock.json
-          !package.json
-          !phpcs.xml
-          !tmp
+      - name: Upload Plugin
+        uses: actions/upload-artifact@v7
+        with:
+          name: rotaract-appointments
+          path: |
+            ./*
+            !.*
+            !build
+            !composer.json
+            !composer.lock
+            !devenv.*
+            !phpcs.xml
+            !tmp

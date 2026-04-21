@@ -49,8 +49,8 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function __construct( string $rotaract_appointments, string $version ) {
 
-		$this->rotaract_appointments    = $rotaract_appointments;
-		$this->version                  = $version;
+		$this->rotaract_appointments = $rotaract_appointments;
+		$this->version               = $version;
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function enqueue_styles(): void {
 
-		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version);
+		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**
@@ -121,7 +121,6 @@ class Rotaract_Appointments_Admin {
 			array( $this, 'rotaract_appointment_section' ),
 			'rotaract'
 		);
-
 
 		// Dismiss if no aurora URL has been set.
 		if ( defined( 'ROTARACT_AURORA_URL' ) ) {
@@ -242,7 +241,7 @@ class Rotaract_Appointments_Admin {
 
 		// Get the value of the setting we've registered with register_setting().
 		$selected_owners = get_option( 'rotaract_appointment_owners' );
-		$orgs = $this->aurora_get_orgs();
+		$orgs            = $this->aurora_get_orgs();
 
 		include $this->get_partial( 'field-appointment-owners.php' );
 	}

@@ -24,11 +24,13 @@
 	<select id="rotaract_appointment_owners">
 		<option value="">- <?php esc_html_e( 'Add', 'rotaract-appointments' ); ?> -</option>
 		<?php
-		foreach ($orgs as $type => $typed_orgs) : ?>
+		foreach ( $orgs as $type => $typed_orgs ) :
+			?>
 		<optgroup label="<?php esc_attr_e( $type, 'rotaract-appointments' ); ?>">
 			<?php
-			foreach ($typed_orgs as $org) : ?>
-			<option value='["<?= esc_attr( $type ) ?>","<?= esc_attr( $org->slug )?>","<?= esc_attr( $org->name ); ?>"]'><?= esc_attr( $org->name); ?></option>
+			foreach ( $typed_orgs as $org ) :
+				?>
+			<option value='["<?php echo esc_attr( $type ); ?>","<?php echo esc_attr( $org->slug ); ?>","<?php echo esc_attr( $org->name ); ?>"]'><?php echo esc_attr( $org->name ); ?></option>
 			<?php endforeach; ?>
 		</optgroup>
 		<?php endforeach; ?>

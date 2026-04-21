@@ -33,7 +33,8 @@
 	},
 	"minimum-stability": "stable",
 	"scripts": {
-		"lint": "phpcs -d memory_limit=512M . --standard=phpcs.xml",
+		"lint": "phpcs . --standard=phpcs.xml",
+		"lint:fix": "phpcbf . --standard=phpcs.xml",
 		"translate": "wp i18n make-mo languages"
 	},
 	"config": {

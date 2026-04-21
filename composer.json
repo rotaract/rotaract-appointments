@@ -33,6 +33,7 @@
 	},
 	"minimum-stability": "stable",
 	"scripts": {
+		"build": "bash build/download-deps.sh",
 		"lint": "phpcs . --standard=phpcs.xml",
 		"lint:fix": "phpcbf . --standard=phpcs.xml",
 		"translate": "wp i18n make-mo languages"

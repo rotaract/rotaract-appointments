@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^build/download-deps\\.sh$"],
+      "matchStrings": ["ICAL_JS_VERSION=\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "ical.js",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^build/download-deps\\.sh$"],
+      "matchStrings": ["FULLCALENDAR_VERSION=\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "fullcalendar",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^build/download-deps\\.sh$"],
+      "matchStrings": ["MARKED_VERSION=\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "marked",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^build/download-deps\\.sh$"],
+      "matchStrings": ["POPPERJS_VERSION=\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "@popperjs/core",
+      "datasourceTemplate": "npm"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": ["^build/download-deps\\.sh$"],
+      "matchStrings": ["TIPPY_VERSION=\"(?<currentValue>[^\"]+)\""],
+      "depNameTemplate": "tippy.js",
+      "datasourceTemplate": "npm"
+    }
+  ]
+}

@@ -21,7 +21,7 @@
 	"slug": "rotaract-appointments",
 	"scripts": {},
 	"dependencies": {
-		"@fullcalendar/icalendar": "^6.1.21",
+		"@fullcalendar/icalendar": "^7.0.2",
 		"fullcalendar": "^6.1.21",
 		"marked": "^18.0.10",
 		"tippy.js": "^6.3.7"

@@ -22,12 +22,12 @@ else
   exit 3
 fi
 
-TARGET_DIR="${TARGET_FOLDER}/js/vendor"
-mkdir -p "$TARGET_DIR"
+echo "Copying files listed in '$COPYLIST' to '${TARGET_FOLDER}/{js,css}/vendor' …"
 
-echo "Copying files listed in '$COPYLIST' to '$TARGET_DIR' …"
-
-while IFS= read -r SRC; do
+# Each line: <source> [<destination filename>]
+# Without an explicit destination the filename is derived from the package name.
+MISSING=0
+while read -r SRC NAME; do
   [[ -z "$SRC" ]] && continue  # skip empty lines
   PART1=$(echo "$SRC" | awk -F'/' '{print $2}')
   PART2=$(echo "$SRC" | awk -F'/' '{print $3}')
@@ -38,13 +38,22 @@ while IFS= read -r SRC; do
     PKG=$(echo "$PART1" | tr '.' '-')
   fi
 
-  EXT="${SRC##*.}"
-  DEST="${TARGET_DIR}/${PKG}.${EXT}"
+  NAME="${NAME:-${PKG}.${SRC##*.}}"
+  if [[ "$NAME" == *.css ]]; then
+    TARGET_DIR="${TARGET_FOLDER}/css/vendor"
+  else
+    TARGET_DIR="${TARGET_FOLDER}/js/vendor"
+  fi
+  mkdir -p "$TARGET_DIR"
+  DEST="${TARGET_DIR}/${NAME}"
 
   if [[ -f "$SRC" ]]; then
     cp "$SRC" "$DEST"
     echo "Copied $SRC → $DEST"
   else
-    echo "Warning: source file not found: $SRC" >&2
+    echo "Error: source file not found: $SRC" >&2
+    MISSING=1
   fi
 done < "$COPYLIST"
+
+exit "$MISSING"

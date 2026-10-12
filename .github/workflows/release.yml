@@ -58,6 +58,7 @@ jobs:
           zip -r "rotaract-appointments-${GITHUB_REF_NAME}.zip" . \
             --exclude ".*" \
             --exclude "build/*" \
+            --exclude "demo/*" \
             --exclude "composer.json" \
             --exclude "composer.lock" \
             --exclude "devenv.*" \

@@ -32,6 +32,18 @@ npm install
 composer translate
 ----
 
+== 🗓️ Preview the Calendar without WordPress
+
+link:demo/serve.mjs[] serves the public calendar with dummy JSON and ICS feeds, loading the assets in the same order as the plugin enqueues them.
+Handy for checking dependency updates (e.g. FullCalendar) before deploying.
+
+[source]
+----
+npm install
+build/copy-js.sh build/copylist-public
+node demo/serve.mjs   # → http://localhost:8080/
+----
+
 == 🎊 Release a new Version
 
 NOTE: Keep in mind the rules of https://semver.org/[Semantic Versioning]!

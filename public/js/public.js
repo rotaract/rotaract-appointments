@@ -18,11 +18,18 @@
 const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
 	initialView: days ? 'listDaysManual' : initView,
-	customButtons: {
+	buttons: {
 		ownerButton: {
-			text: appointmentsData.calendarBtn
+			text: appointmentsData.calendarBtn,
+			class: 'rotaract-owner-button'
 		}
 	},
+	eventClass: 'rotaract-event',
+	listItemEventClass: 'rotaract-list-event',
+	listItemEventTimeClass: 'rotaract-list-event-time',
+	listItemEventTitleClass: 'rotaract-list-event-title',
+	dayHeaderInnerClass: 'rotaract-day-header',
+	dayCellTopInnerClass: 'rotaract-day-number',
 	headerToolbar: {
 		start: short ? '' : 'prev,next',
 		center: short ? '' : 'title',
@@ -62,7 +69,7 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 						theme: 'rotaract',
 						trigger: 'click',
 						onShow() {
-							calEl.style.setProperty( '--fc-event-bg-color', info.event.source.internalEventSource._raw.color );
+							calEl.style.setProperty( '--rotaract-event-color', info.color );
 						}
 					}
 				);
@@ -116,7 +123,7 @@ function calendarInit( index, short, days, views, initView ) {
 	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
 	calendar[lastCalIndex].render();
 	tippy(
-		'#rotaract-appointments-' + index + ' button.fc-ownerButton-button',
+		'#rotaract-appointments-' + index + ' button.rotaract-owner-button',
 		{
 			allowHTML: true,
 			content: document.getElementById( 'calendar-owners-' + index ).innerHTML,

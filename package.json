@@ -25,7 +25,7 @@
 		"fullcalendar": "^7.1.1",
 		"ical.js": "^2.2.1",
 		"marked": "^18.1.0",
-		"temporal-polyfill": "^1.0.5",
+		"temporal-polyfill": "^1.0.6",
 		"tippy.js": "^6.3.7"
 	},
 	"devDependencies": {

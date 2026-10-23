@@ -16,9 +16,9 @@
  * Plugin Name:       Rotaract Appointments
  * Plugin URI:        https://github.com/rotaract/rotaract-appointments
  * Description:       WordPress plugin for displaying appointments from mein Rotaract / aurora.
- * Version:           5.0.1
+ * Version:           6.0.0
  * Requires at least: 6.4
- * Requires PHP:      8.1
+ * Requires PHP:      8.2
  * Author:            Ressort IT-Entwicklung - Rotaract Deutschland
  * Author URI:        https://rotaract.de/rotaract-deutschland/
  * License:           EUPL-1.2
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ROTARACT_APPOINTMENTS_VERSION', '5.0.1' );
+define( 'ROTARACT_APPOINTMENTS_VERSION', '6.0.0' );
 
 /**
  * The core plugin class that is used to define internationalization,

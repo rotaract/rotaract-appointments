@@ -60,7 +60,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function enqueue_styles(): void {
 
-		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'css/admin.css', __FILE__ ), array(), $this->version);
+		wp_enqueue_style( '$this->rotaract_appointments', plugins_url( 'assets/admin.css', __FILE__ ), array(), $this->version);
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Rotaract_Appointments_Admin {
 	 */
 	public function enqueue_scripts(): void {
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/settings.js', __FILE__ ), array(), $this->version, true );
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'assets/settings.js', __FILE__ ), array(), $this->version, true );
 	}
 
 	/**

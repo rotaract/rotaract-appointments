@@ -13,7 +13,7 @@
 
 ?>
 <?php foreach ( $shortcodes as $index => $shortcode_atts ) : ?>
-<div id="calendar-owners-<?php echo wp_json_encode( $index ); ?>" style="display: none">
+<div id="calendar-owners-<?php echo wp_json_encode( $index ); ?>" class="d-none">
 	<?php foreach ( $owners as $owner ) : ?>
 	<div class="calendar-owner" onclick="toggleEventSource(<?php echo wp_json_encode( $index ); ?>, this)" data-owner="<?php echo esc_attr( $owner['name'] ); ?>">
 		<span class="fc-list-event-dot" style="border-color: <?php echo esc_attr( $owner['color'] ); ?>"></span>

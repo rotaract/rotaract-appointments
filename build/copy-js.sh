@@ -22,7 +22,7 @@ else
   exit 3
 fi
 
-TARGET_DIR="${TARGET_FOLDER}/js/vendor"
+TARGET_DIR="${TARGET_FOLDER}/assets/vendor"
 mkdir -p "$TARGET_DIR"
 
 echo "Copying files listed in '$COPYLIST' to '$TARGET_DIR' …"

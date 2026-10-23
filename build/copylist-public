@@ -1,7 +1,9 @@
-node_modules/ical.js/build/ical.min.js
-node_modules/fullcalendar/index.global.min.js
-node_modules/@fullcalendar/core/locales-all.global.min.js
-node_modules/@fullcalendar/icalendar/index.global.min.js
+node_modules/ical.js/dist/ical.es5.min.cjs
+node_modules/fullcalendar/all/global.js
+node_modules/fullcalendar/locales-all/global.js
+node_modules/@fullcalendar/icalendar/global.js
+node_modules/fullcalendar/themes/pulse/global.js
+node_modules/fullcalendar/skeleton.css
+node_modules/fullcalendar/themes/pulse/theme.css
+node_modules/fullcalendar/themes/pulse/palettes/red.css
 node_modules/marked/lib/marked.umd.js
-node_modules/@popperjs/core/dist/umd/popper.min.js
-node_modules/tippy.js/dist/tippy-bundle.umd.min.js

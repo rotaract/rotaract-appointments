@@ -41,4 +41,4 @@ jobs:
         run: npm ci
 
       - name: Run JSHint
-        run: npx jshint **/js/*.js
+        run: npx jshint **/assets/*.js

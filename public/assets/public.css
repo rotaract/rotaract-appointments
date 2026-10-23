@@ -1,0 +1,14 @@
+dialog {
+	box-shadow: 2px 2px 12px #aaa;
+    border: none;
+    border-radius: 6px;
+}
+.show .event-description {
+	display: block;
+}
+.event-description {
+	display: none;
+	overflow: hidden;
+	padding: 11px 14px 22px;
+	transition: height 0.5s;
+}

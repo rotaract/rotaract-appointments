@@ -15,12 +15,15 @@
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
+const rotaractCalendarOptions  = ( index, short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
 	initialView: days ? 'listDaysManual' : initView,
-	customButtons: {
+	buttons: {
 		ownerButton: {
-			text: appointmentsData.calendarBtn
+			text: appointmentsData.calendarBtn,
+			click() {
+				document.getElementById( 'calendar-owners-' + index ).classList.toggle('d-none');
+			}
 		}
 	},
 	headerToolbar: {
@@ -40,32 +43,25 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 				let elem       = document.createElement( 'div' );
 				elem.innerHTML = createEventContent( info.event );
 				elem.classList.add( 'event-description' );
-				info.el.append( elem );
+				info.el.parentElement.append( elem );
 			},
 			eventClick( info ) {
 				if ( ! info.jsEvent.target.href) {
-					info.el.classList.toggle( 'show' );
+					info.el.parentElement.classList.toggle( 'show' );
 				}
 			}
 		},
 		dayGrid: {
 			eventDidMount( info ) {
 				const calEl = info.el.closest( '.rotaract-appointments' );
-				tippy(
-					info.el,
-					{
-						allowHTML: true,
-						appendTo: calEl,
-						content: createEventContent( info.event ),
-						interactive: true,
-						maxWidth: 768,
-						theme: 'rotaract',
-						trigger: 'click',
-						onShow() {
-							calEl.style.setProperty( '--fc-event-bg-color', info.event.source.internalEventSource._raw.color );
-						}
-					}
-				);
+				let dialog = document.createElement( 'dialog' );
+				dialog.id = `event-${info.event._def.defId}`;
+				dialog.setAttribute('closedby', 'any');
+				dialog.innerHTML = createEventContent( info.event );
+				calEl.append(dialog);
+			},
+			eventClick( info ) {
+				document.getElementById(`event-${info.event._def.defId}`).showModal();
 			}
 		},
 		listYear: {
@@ -112,19 +108,9 @@ function calendarInit( index, short, days, views, initView ) {
 		initView = viewList[0];
 	}
 
-	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) ) ) - 1;
+	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( index, short, days, viewList, initView ) ) ) - 1;
 	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
 	calendar[lastCalIndex].render();
-	tippy(
-		'#rotaract-appointments-' + index + ' button.fc-ownerButton-button',
-		{
-			allowHTML: true,
-			content: document.getElementById( 'calendar-owners-' + index ).innerHTML,
-			interactive: true,
-			theme: 'rotaract',
-			trigger: 'click'
-		}
-	);
 }
 
 /**

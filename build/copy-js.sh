@@ -42,7 +42,7 @@ while IFS= read -r SRC; do
   DEST="${TARGET_DIR}/${PKG}.${EXT}"
 
   if [[ -f "$SRC" ]]; then
-    cp "$SRC" "$DEST"
+    cat "$SRC" >> "$DEST"
     echo "Copied $SRC → $DEST"
   else
     echo "Warning: source file not found: $SRC" >&2

@@ -1,7 +1,7 @@
 dialog {
 	box-shadow: 2px 2px 12px #aaa;
-    border: none;
-    border-radius: 6px;
+	border: none;
+	border-radius: 6px;
 }
 .d-none {
 	display: none;

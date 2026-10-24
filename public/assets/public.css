@@ -3,6 +3,10 @@ dialog {
     border: none;
     border-radius: 6px;
 }
+.d-none {
+	display: none;
+}
+.d-block,
 .show .event-description {
 	display: block;
 }
@@ -12,3 +16,67 @@ dialog {
 	padding: 11px 14px 22px;
 	transition: height 0.5s;
 }
+.toolbar-footer {
+	overflow: visible;
+	position: relative;
+}
+.calendar-picker {
+	--radius: 6px;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid rgba(0,8,16,.15);
+	border-radius: var(--radius);
+	padding: var(--radius) 0;
+	box-shadow: 0 4px 14px -2px rgba(0,8,16,.15);
+	color: #333;
+	display: none;
+	flex-direction: column;
+	align-items: stretch;
+	font-size: .85rem;
+	margin-top: 5px;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	width: fit-content;
+}
+.calendar-picker.open {
+	display: flex;
+}
+.calendar-picker button.calendar-owner {
+	background-color: #fff;
+	color: #333;
+	display: flex;
+	align-items: stretch;
+	gap: .75em;
+	padding: .375em .75em;
+	text-align: start;
+	text-wrap: nowrap;
+}
+.calendar-picker button.calendar-owner:hover {
+	background-color: #eeeeee;
+}
+.calendar-picker span.indicator {
+	background-color: var(--bg-color);
+	border-radius: .375em;
+	width: .375em;
+}
+.calendar-picker button.calendar-owner.off {
+	color: #999999;
+}
+.calendar-picker button.calendar-owner.off span.indicator {
+	background-color: #999999 !important;
+}
+
+/* short style */
+
+.rotaract-appointments.rotaract-appointments-short .day-header-inner:last-child {
+	display: none;
+}
+.rotaract-appointments.rotaract-appointments-short .appointment-inner {
+	display: block;
+}
+.rotaract-appointments.rotaract-appointments-short .appointment-inner > div {
+	padding: .375em .75em;
+	width: 100%;
+}
+

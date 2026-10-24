@@ -15,14 +15,19 @@
 /**
  * Configuration of FullCalendar's options.
  */
-const rotaractCalendarOptions  = ( index, short, days, viewList, initView ) => ({
+const rotaractCalendarOptions = ( index, short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
 	initialView: days ? 'listDaysManual' : initView,
 	buttons: {
 		ownerButton: {
+			class: 'pos-relative',
 			text: appointmentsData.calendarBtn,
+			didMount({ el: btnElem }) {
+				const elem = createCalendarPicker(index);
+				btnElem.parentElement.append( elem );
+			},
 			click() {
-				document.getElementById( 'calendar-owners-' + index ).classList.toggle('d-none');
+				document.getElementById( `calendar-picker-${index}` ).classList.toggle('open');
 			}
 		}
 	},
@@ -32,15 +37,18 @@ const rotaractCalendarOptions  = ( index, short, days, viewList, initView ) => (
 		end: short ? '' : viewList.join( ',' )
 	},
 	footerToolbar: {
-		start: short ? 'prev,today,next' : 'today',
+		start: short ? 'prev,next' : 'today',
 		center: '',
-		end: eventSources.length ? 'ownerButton' : ''
+		end: eventSources.length > 1 ? 'ownerButton' : ''
 	},
+	footerToolbarClass: 'toolbar-footer',
 	height: 'auto',
 	views: {
 		list: {
+			listItemEventInnerClass: 'appointment-inner',
+			listDayHeaderInnerClass: 'day-header-inner',
 			eventDidMount( info ) {
-				let elem       = document.createElement( 'div' );
+				let elem = document.createElement( 'div' );
 				elem.innerHTML = createEventContent( info.event );
 				elem.classList.add( 'event-description' );
 				info.el.parentElement.append( elem );
@@ -140,6 +148,21 @@ function createEventContent( eventInfo ) {
 	}
 
 	return html;
+}
+
+function createCalendarPicker( index ) {
+	let el = document.createElement( 'div' );
+	el.id = `calendar-picker-${index}`;
+	el.classList.add( 'calendar-picker' );
+
+	eventSources.forEach(es => {
+		el.innerHTML += `<button type="button" class="calendar-owner" onclick="toggleEventSource(${index}, this)" data-owner="${es.title}">
+							 <span class="indicator" style="--bg-color: ${es.color}"></span>
+							 <span>${es.title}</span>
+						 </button>`;
+	});
+
+	return el;
 }
 
 /**

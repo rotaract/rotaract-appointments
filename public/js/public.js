@@ -105,7 +105,7 @@ const calendar = [];
 /**
  * Initializes FullCalendar.
  *
- * It generates and renders the FullCalendar, set the sources of the events and registers tippy popups.
+ * It generates and renders the FullCalendar and sets the sources of the events.
  * It is intended to be called once after DOM as finished loading.
  *
  * @param index

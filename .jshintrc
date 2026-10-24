@@ -40,7 +40,6 @@
 	"nonew": true,
 	"noreturnawait": true,
 	"predef": [
-		"tippy",
 		"FullCalendar"
 	],
 	"shadow": false,

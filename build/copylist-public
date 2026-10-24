@@ -2,11 +2,9 @@ node_modules/temporal-polyfill/global.js
 node_modules/ical.js/dist/ical.es5.min.cjs ical-js.js
 node_modules/fullcalendar/all/global.js
 node_modules/fullcalendar/locales-all/global.js fullcalendar-locales.js
-node_modules/fullcalendar/themes/classic/global.js fullcalendar-theme.js
+node_modules/fullcalendar/themes/pulse/global.js fullcalendar-theme.js
 node_modules/fullcalendar/skeleton.css
-node_modules/fullcalendar/themes/classic/theme.css fullcalendar-theme.css
-node_modules/fullcalendar/themes/classic/palette.css fullcalendar-palette.css
+node_modules/fullcalendar/themes/pulse/theme.css fullcalendar-theme.css
+node_modules/fullcalendar/themes/pulse/palettes/red.css fullcalendar-palette.css
 node_modules/@fullcalendar/icalendar/global.js
 node_modules/marked/lib/marked.umd.js
-node_modules/@popperjs/core/dist/umd/popper.min.js
-node_modules/tippy.js/dist/tippy-bundle.umd.min.js

@@ -65,7 +65,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $temporal_polyfill_version    The current version of temporal-polyfill.
 	 */
-	private string $temporal_polyfill_version = '1.0.5';
+	private string $temporal_polyfill_version = '1.0.6';
 
 	/**
 	 * The version of marked.js
@@ -125,7 +125,8 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'js/vendor/fullcalendar-locales.js', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-theme', plugins_url( 'js/vendor/fullcalendar-theme.js', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-ical', plugins_url( 'js/vendor/fullcalendar-icalendar.js', __FILE__ ), array( 'fullcalendar', 'ical-js' ), $this->fullcalendar_version, true );
-		wp_enqueue_script( 'marked', plugins_url( 'js/vendor/marked.js', __FILE__ ), array( 'fullcalendar' ), $this->marked_version, true );
+
+		wp_enqueue_script( 'marked', plugins_url( 'js/vendor/marked.js', __FILE__ ), array(), $this->marked_version, true );
 
 		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'fullcalendar-theme', 'fullcalendar-ical', 'marked' ), $this->version, true );
 		wp_localize_script(

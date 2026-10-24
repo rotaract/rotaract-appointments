@@ -18,7 +18,7 @@
  * Description:       WordPress plugin for displaying appointments from mein Rotaract / aurora.
  * Version:           5.0.1
  * Requires at least: 6.4
- * Requires PHP:      8.1
+ * Requires PHP:      8.2
  * Author:            Ressort IT-Entwicklung - Rotaract Deutschland
  * Author URI:        https://rotaract.de/rotaract-deutschland/
  * License:           EUPL-1.2

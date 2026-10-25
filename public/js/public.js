@@ -12,6 +12,8 @@
 /* exported calendarInit */
 /* exported toggleEventSource */
 
+const rotaractCalendarPickers = {};
+
 /**
  * Configuration of FullCalendar's options.
  *
@@ -28,12 +30,34 @@ const rotaractCalendarOptions = ( index, short, days, viewList, initView ) => ({
 		ownerButton: {
 			class: 'pos-relative',
 			text: appointmentsData.calendarBtn,
-			didMount({ el: btnElem }) {
-				const elem = createCalendarPicker(index);
-				btnElem.parentElement.append( elem );
+			didMount({ el: refEl }) {
+				const floatEl = createCalendarPicker(index);
+				rotaractCalendarPickers[index] = { refEl, floatEl, open: false, cleanup: null };
 			},
 			click() {
-				document.getElementById( `calendar-picker-${index}` ).classList.toggle('open');
+				const p = rotaractCalendarPickers[index];
+				if (p.open) {
+					p.floatEl.remove();
+					p.cleanup();
+				} else {
+					document.body.append(p.floatEl);
+					p.cleanup = window.FloatingUIDOM.autoUpdate( p.refEl, p.floatEl, () => {
+						window.FloatingUIDOM.computePosition( p.refEl, p.floatEl, {
+							placement: 'bottom',
+							middleware: [
+								window.FloatingUIDOM.offset(4),
+								window.FloatingUIDOM.flip(),
+								window.FloatingUIDOM.shift({ padding: 4 })
+							]
+						} ).then( ( {x, y} ) => {
+							Object.assign(p.floatEl.style, {
+								left: `${x}px`,
+								top: `${y}px`
+							} );
+						} );
+					} );
+				}
+				p.open = !p.open;
 			}
 		}
 	},

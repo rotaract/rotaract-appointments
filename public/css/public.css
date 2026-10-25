@@ -23,24 +23,19 @@ dialog {
 .calendar-picker {
 	--radius: 6px;
 	background-color: #fff;
-	background-clip: padding-box;
 	border: 1px solid rgba(0,8,16,.15);
 	border-radius: var(--radius);
 	padding: var(--radius) 0;
 	box-shadow: 0 4px 14px -2px rgba(0,8,16,.15);
 	color: #333;
-	display: none;
+	display: flex;
 	flex-direction: column;
 	align-items: stretch;
 	font-size: .85rem;
-	margin-top: 5px;
 	position: absolute;
-	right: 0;
-	top: 100%;
-	width: fit-content;
-}
-.calendar-picker.open {
-	display: flex;
+	left: 0;
+	top: 0;
+	width: max-content;
 }
 .calendar-picker button.calendar-owner {
 	background-color: #fff;

@@ -21,6 +21,8 @@
 	"slug": "rotaract-appointments",
 	"scripts": {},
 	"dependencies": {
+		"@floating-ui/core": "^1.8.0",
+		"@floating-ui/dom": "^1.8.0",
 		"@fullcalendar/icalendar": "^7.1.3",
 		"fullcalendar": "^7.1.3",
 		"ical.js": "^2.2.1",

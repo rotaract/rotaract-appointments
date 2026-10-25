@@ -7,4 +7,6 @@ node_modules/fullcalendar/skeleton.css
 node_modules/fullcalendar/themes/pulse/theme.css fullcalendar-theme.css
 node_modules/fullcalendar/themes/pulse/palettes/red.css fullcalendar-palette.css
 node_modules/@fullcalendar/icalendar/global.js
+node_modules/@floating-ui/core/dist/floating-ui.core.umd.min.js
+node_modules/@floating-ui/dom/dist/floating-ui.dom.umd.min.js
 node_modules/marked/lib/marked.umd.js

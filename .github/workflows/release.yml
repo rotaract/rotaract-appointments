@@ -19,6 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          cache: npm
+
+      - name: Install Node.js dependencies
+        run: npm ci --omit=dev
+
       - name: Setup cache environment
         id: extcache
         uses: shivammathur/cache-extensions@v1
@@ -50,23 +58,28 @@ jobs:
       - name: Cleanup composer development packages and optimize autoloader
         run: composer install --no-dev --no-interaction --no-progress --optimize-autoloader --classmap-authoritative
 
-      - name: Download JS vendor dependencies
-        run: composer build
+      - name: Copy required JS dependencies
+        run: |
+          build/copy-js.sh build/copylist-public
+          build/copy-js.sh build/copylist-admin
 
       - name: Create plugin ZIP
         run: |
-          zip -r "rotaract-appointments-${GITHUB_REF_NAME}.zip" . \
+          zip -r rotaract-appointments.zip . \
             --exclude ".*" \
             --exclude "build/*" \
             --exclude "demo/*" \
             --exclude "composer.json" \
             --exclude "composer.lock" \
             --exclude "devenv.*" \
+            --exclude "node_modules/*" \
+            --exclude "package.json" \
+            --exclude "package-lock.json" \
             --exclude "phpcs.xml" \
             --exclude "tmp/*"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          files: rotaract-appointments-*.zip
+          files: rotaract-appointments.zip
           generate_release_notes: true

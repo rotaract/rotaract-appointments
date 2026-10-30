@@ -47,7 +47,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $fullcalendar_version    The current version of fullcalendar.
 	 */
-	private string $fullcalendar_version = '7.1.1';
+	private string $fullcalendar_version = '7.1.3';
 
 	/**
 	 * The version of ical.js.
@@ -65,16 +65,16 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $temporal_polyfill_version    The current version of temporal-polyfill.
 	 */
-	private string $temporal_polyfill_version = '1.0.5';
+	private string $temporal_polyfill_version = '1.0.6';
 
 	/**
-	 * The version of tippy.js
+	 * The version of Floating UI
 	 *
-	 * @since    1.3.8
+	 * @since    5.1.1
 	 * @access   private
-	 * @var      string    $tippy_version    The current version of tippy.js.
+	 * @var      string    $floating_ui_version    The current version of Floating UI.
 	 */
-	private string $tippy_version = '6.3.7';
+	private string $floating_ui_version = '1.8.0';
 
 	/**
 	 * The version of marked.js
@@ -83,7 +83,7 @@ class Rotaract_Appointments_Public {
 	 * @access   private
 	 * @var      string    $marked_version    The current version of marked.js.
 	 */
-	private string $marked_version = '18.1.0';
+	private string $marked_version = '18.1.1';
 
 	/**
 	 * The shortcode Arguments.
@@ -114,10 +114,10 @@ class Rotaract_Appointments_Public {
 	 */
 	public function enqueue_styles(): void {
 
-		wp_enqueue_style( 'fullcalendar', plugins_url( 'css/vendor/fullcalendar.css', __FILE__ ), array(), $this->fullcalendar_version, 'all' );
-		wp_enqueue_style( 'fullcalendar-theme', plugins_url( 'css/vendor/fullcalendar-theme.css', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version, 'all' );
-		wp_enqueue_style( 'fullcalendar-palette', plugins_url( 'css/vendor/fullcalendar-palette.css', __FILE__ ), array( 'fullcalendar-theme' ), $this->fullcalendar_version, 'all' );
-		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array( 'fullcalendar-palette' ), $this->version, 'all' );
+		wp_enqueue_style( 'fullcalendar', plugins_url( 'css/vendor/fullcalendar.css', __FILE__ ), array(), $this->fullcalendar_version );
+		wp_enqueue_style( 'fullcalendar-theme', plugins_url( 'css/vendor/fullcalendar-theme.css', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version );
+		wp_enqueue_style( 'fullcalendar-palette', plugins_url( 'css/vendor/fullcalendar-palette.css', __FILE__ ), array( 'fullcalendar-theme' ), $this->fullcalendar_version );
+		wp_enqueue_style( $this->rotaract_appointments, plugins_url( 'css/public.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**
@@ -134,12 +134,13 @@ class Rotaract_Appointments_Public {
 		wp_enqueue_script( 'fullcalendar-locales', plugins_url( 'js/vendor/fullcalendar-locales.js', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-theme', plugins_url( 'js/vendor/fullcalendar-theme.js', __FILE__ ), array( 'fullcalendar' ), $this->fullcalendar_version, true );
 		wp_enqueue_script( 'fullcalendar-ical', plugins_url( 'js/vendor/fullcalendar-icalendar.js', __FILE__ ), array( 'fullcalendar', 'ical-js' ), $this->fullcalendar_version, true );
-		wp_enqueue_script( 'marked', plugins_url( 'js/vendor/marked.js', __FILE__ ), array( 'fullcalendar' ), $this->marked_version, true );
 
-		wp_enqueue_script( 'popper', plugins_url( 'js/vendor/popperjs-core.js', __FILE__ ), array(), $this->tippy_version, true );
-		wp_enqueue_script( 'tippy', plugins_url( 'js/vendor/tippy-js.js', __FILE__ ), array( 'popper' ), $this->tippy_version, true );
+		wp_enqueue_script( 'floating-ui-core', plugins_url( 'js/vendor/floating-ui-core.js', __FILE__ ), array(), $this->floating_ui_version, true );
+		wp_enqueue_script( 'floating-ui-dom', plugins_url( 'js/vendor/floating-ui-dom.js', __FILE__ ), array( 'floating-ui-core' ), $this->floating_ui_version, true );
 
-		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'fullcalendar-theme', 'fullcalendar-ical', 'marked', 'tippy' ), $this->version, true );
+		wp_enqueue_script( 'marked', plugins_url( 'js/vendor/marked.js', __FILE__ ), array(), $this->marked_version, true );
+
+		wp_enqueue_script( $this->rotaract_appointments, plugins_url( 'js/public.js', __FILE__ ), array( 'fullcalendar', 'fullcalendar-locales', 'fullcalendar-theme', 'fullcalendar-ical', 'floating-ui-dom', 'marked' ), $this->version, true );
 		wp_localize_script(
 			$this->rotaract_appointments,
 			'appointmentsData',

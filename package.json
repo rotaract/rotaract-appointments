@@ -21,12 +21,13 @@
 	"slug": "rotaract-appointments",
 	"scripts": {},
 	"dependencies": {
-		"@fullcalendar/icalendar": "^7.1.1",
-		"fullcalendar": "^7.1.1",
+		"@floating-ui/core": "^1.8.0",
+		"@floating-ui/dom": "^1.8.0",
+		"@fullcalendar/icalendar": "^7.1.3",
+		"fullcalendar": "^7.1.3",
 		"ical.js": "^2.2.1",
-		"marked": "^18.1.0",
-		"temporal-polyfill": "^1.0.5",
-		"tippy.js": "^6.3.7"
+		"marked": "^18.1.1",
+		"temporal-polyfill": "^1.0.6"
 	},
 	"devDependencies": {
 		"jshint": "^2.13.6"

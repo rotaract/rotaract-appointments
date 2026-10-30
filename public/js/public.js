@@ -12,67 +12,94 @@
 /* exported calendarInit */
 /* exported toggleEventSource */
 
+const rotaractCalendarPickers = {};
+
 /**
  * Configuration of FullCalendar's options.
+ *
+ * @param index
+ * @param short
+ * @param days
+ * @param viewList
+ * @param initView
  */
-const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
+const rotaractCalendarOptions = ( index, short, days, viewList, initView ) => ({
 	locale: appointmentsData.locale,
 	initialView: days ? 'listDaysManual' : initView,
 	buttons: {
 		ownerButton: {
+			class: 'pos-relative',
 			text: appointmentsData.calendarBtn,
-			class: 'rotaract-owner-button'
+			didMount({ el: refEl }) {
+				const floatEl = createCalendarPicker(index);
+				rotaractCalendarPickers[index] = { refEl, floatEl, open: false, cleanup: null };
+			},
+			click() {
+				const p = rotaractCalendarPickers[index];
+				if (p.open) {
+					p.floatEl.remove();
+					p.cleanup();
+				} else {
+					document.body.append(p.floatEl);
+					p.cleanup = window.FloatingUIDOM.autoUpdate( p.refEl, p.floatEl, () => {
+						window.FloatingUIDOM.computePosition( p.refEl, p.floatEl, {
+							placement: 'bottom',
+							middleware: [
+								window.FloatingUIDOM.offset(4),
+								window.FloatingUIDOM.flip(),
+								window.FloatingUIDOM.shift({ padding: 4 })
+							]
+						} ).then( ( {x, y} ) => {
+							Object.assign(p.floatEl.style, {
+								left: `${x}px`,
+								top: `${y}px`
+							} );
+						} );
+					} );
+				}
+				p.open = !p.open;
+			}
 		}
 	},
-	eventClass: 'rotaract-event',
-	listItemEventClass: 'rotaract-list-event',
-	listItemEventTimeClass: 'rotaract-list-event-time',
-	listItemEventTitleClass: 'rotaract-list-event-title',
-	dayHeaderInnerClass: 'rotaract-day-header',
-	dayCellTopInnerClass: 'rotaract-day-number',
 	headerToolbar: {
 		start: short ? '' : 'prev,next',
 		center: short ? '' : 'title',
 		end: short ? '' : viewList.join( ',' )
 	},
 	footerToolbar: {
-		start: short ? 'prev,today,next' : 'today',
+		start: short ? 'prev,next' : 'today',
 		center: '',
-		end: eventSources.length ? 'ownerButton' : ''
+		end: eventSources.length > 1 ? 'ownerButton' : ''
 	},
+	footerToolbarClass: 'toolbar-footer',
 	height: 'auto',
 	views: {
 		list: {
+			listItemEventInnerClass: 'appointment-inner',
+			listDayHeaderInnerClass: 'day-header-inner',
 			eventDidMount( info ) {
-				let elem       = document.createElement( 'div' );
+				let elem = document.createElement( 'div' );
 				elem.innerHTML = createEventContent( info.event );
 				elem.classList.add( 'event-description' );
-				info.el.append( elem );
+				info.el.parentElement.append( elem );
 			},
 			eventClick( info ) {
 				if ( ! info.jsEvent.target.href) {
-					info.el.classList.toggle( 'show' );
+					info.el.parentElement.classList.toggle( 'show' );
 				}
 			}
 		},
 		dayGrid: {
 			eventDidMount( info ) {
 				const calEl = info.el.closest( '.rotaract-appointments' );
-				tippy(
-					info.el,
-					{
-						allowHTML: true,
-						appendTo: calEl,
-						content: createEventContent( info.event ),
-						interactive: true,
-						maxWidth: 768,
-						theme: 'rotaract',
-						trigger: 'click',
-						onShow() {
-							calEl.style.setProperty( '--rotaract-event-color', info.color );
-						}
-					}
-				);
+				let dialog = document.createElement( 'dialog' );
+				dialog.id = `event-${info.event._def.defId}`;
+				dialog.setAttribute('closedby', 'any');
+				dialog.innerHTML = createEventContent( info.event );
+				calEl.append(dialog);
+			},
+			eventClick( info ) {
+				document.getElementById(`event-${info.event._def.defId}`).showModal();
 			}
 		},
 		listYear: {
@@ -100,9 +127,9 @@ const rotaractCalendarOptions  = ( short, days, viewList, initView ) => ({
 const calendar = [];
 
 /**
- * Initializes Tippy.js, FullCalendar.
+ * Initializes FullCalendar.
  *
- * It generates and renders the FullCalendar, set the sources of the events and registers tippy popups.
+ * It generates and renders the FullCalendar and sets the sources of the events.
  * It is intended to be called once after DOM as finished loading.
  *
  * @param index
@@ -119,19 +146,9 @@ function calendarInit( index, short, days, views, initView ) {
 		initView = viewList[0];
 	}
 
-	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( short, days, viewList, initView ) ) ) - 1;
+	const lastCalIndex = calendar.push( new FullCalendar.Calendar( calendarEl, rotaractCalendarOptions( index, short, days, viewList, initView ) ) ) - 1;
 	calendar[lastCalIndex].setOption( 'eventSources', eventSources );
 	calendar[lastCalIndex].render();
-	tippy(
-		'#rotaract-appointments-' + index + ' button.rotaract-owner-button',
-		{
-			allowHTML: true,
-			content: document.getElementById( 'calendar-owners-' + index ).innerHTML,
-			interactive: true,
-			theme: 'rotaract',
-			trigger: 'click'
-		}
-	);
 }
 
 /**
@@ -161,6 +178,28 @@ function createEventContent( eventInfo ) {
 	}
 
 	return html;
+}
+
+/**
+ * Generates the HTML representation of a calendar picker menu.
+ *
+ * @param {int} index The shortcode's index.
+ *
+ * @return HTML div element.
+ */
+function createCalendarPicker( index ) {
+	let el = document.createElement( 'div' );
+	el.id = `calendar-picker-${index}`;
+	el.classList.add( 'calendar-picker' );
+
+	eventSources.forEach(es => {
+		el.innerHTML += `<button type="button" class="calendar-owner" onclick="toggleEventSource(${index}, this)" data-owner="${es.title}">
+							 <span class="indicator" style="--bg-color: ${es.color}"></span>
+							 <span>${es.title}</span>
+						 </button>`;
+	});
+
+	return el;
 }
 
 /**

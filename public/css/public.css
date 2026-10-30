@@ -1,181 +1,76 @@
-.rotaract-appointments {
-	--fc-classic-button: #e7e7e8;
-	--fc-classic-button-border: #e7e7e8;
-	--fc-classic-button-foreground: #333333;
-	--fc-classic-button-strong: #c5c1bb;
-	--fc-classic-button-strong-border: #c5c1bb;
-	--fc-classic-today: #e6e5d8;
+dialog {
+	box-shadow: 2px 2px 12px #aaa;
+	border: none;
+	border-radius: 6px;
 }
-.rotaract-owner-button {
-	font-size: 0.9em;
+.d-none {
+	display: none;
+}
+.d-block,
+.show .event-description {
+	display: block;
 }
 .event-description {
 	display: none;
-	flex: 1 0 100%;
 	overflow: hidden;
 	padding: 11px 14px 22px;
+	transition: height 0.5s;
 }
-.rotaract-appointments .event-info {
-	color: #687d90;
-	font-size: 0.85em;
-	margin-bottom: 1.5rem;
+.toolbar-footer {
+	overflow: visible;
+	position: relative;
 }
-.rotaract-list-event {
-	flex-wrap: wrap;
+.calendar-picker {
+	--radius: 6px;
+	background-color: #fff;
+	border: 1px solid rgba(0,8,16,.15);
+	border-radius: var(--radius);
+	padding: var(--radius) 0;
+	box-shadow: 0 4px 14px -2px rgba(0,8,16,.15);
+	color: #333;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	font-size: .85rem;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: max-content;
 }
-.rotaract-list-event.show .rotaract-list-event-title {
-	display: none;
+.calendar-picker button.calendar-owner {
+	background-color: #fff;
+	color: #333;
+	display: flex;
+	align-items: stretch;
+	gap: .75em;
+	padding: .375em .75em;
+	text-align: start;
+	text-wrap: nowrap;
 }
-.rotaract-list-event.show > .event-description {
-	display: block;
+.calendar-picker button.calendar-owner:hover {
+	background-color: #eeeeee;
 }
-.rotaract-appointments p:last-of-type {
-	margin-bottom: 0.5em;
+.calendar-picker span.indicator {
+	background-color: var(--bg-color);
+	border-radius: .375em;
+	width: .375em;
 }
-.rotaract-event {
-	cursor: pointer;
+.calendar-picker button.calendar-owner.off {
+	color: #999999;
 }
-.rotaract-day-number,
-.rotaract-day-header {
-	color: #687d90;
-}
-.calendar-owner-dot {
-	border: 5px solid;
-	border-radius: 5px;
-	display: inline-block;
-	vertical-align: middle;
+.calendar-picker button.calendar-owner.off span.indicator {
+	background-color: #999999 !important;
 }
 
 /* short style */
 
-.rotaract-appointments-short .rotaract-list-event > * {
-	flex-wrap: wrap;
+.rotaract-appointments.rotaract-appointments-short .day-header-inner:last-child {
+	display: none;
 }
-.rotaract-appointments-short .rotaract-list-event-time {
-	order: 0;
-	width: auto;
+.rotaract-appointments.rotaract-appointments-short .appointment-inner {
+	display: block;
 }
-.rotaract-appointments-short .rotaract-list-event-title {
-	flex: 1 0 100%;
-}
-.rotaract-appointments-short .event-description {
-	padding-left: 0;
-	padding-right: 0;
-}
-
-/*Tippy*/
-.tippy-box[data-theme~=rotaract] {
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid rgba(0,8,16,.15);
-	border-radius: 6px;
-	box-shadow: 0 4px 14px -2px rgba(0,8,16,.15);
-	color: #333;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-backdrop {
-	background-color: #fff;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content {
-	padding: 12px;
-	border-radius: 4px;
-	border-top: 2px solid var(--rotaract-event-color, #d41367);
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner {
-	cursor: pointer;
-	margin: 0 -12px;
-	padding: 6px 12px;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner:hover {
-	background-color: #eeeeee;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner.off {
-	color: #999999;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner.off .calendar-owner-dot {
-	border-color: #999999 !important;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-content .calendar-owner-dot {
-	margin-right: 8px;
-}
-.tippy-box[data-theme~=rotaract]>.tippy-arrow:after,
-.tippy-box[data-theme~=rotaract]>.tippy-svg-arrow:after {
-	content: "";
-	position: absolute;
-	z-index: -1
-}
-.tippy-box[data-theme~=rotaract]>.tippy-arrow:after {
-	border-color: transparent;
-	border-style: solid
-}
-.tippy-box[data-theme~=rotaract][data-placement^=top]>.tippy-arrow:before {
-	border-top-color: #fff
-}
-.tippy-box[data-theme~=rotaract][data-placement^=top]>.tippy-arrow:after {
-	border-top-color: rgba(0,8,16,.2);
-	border-width: 7px 7px 0;
-	top: 17px;
-	left: 1px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=top]>.tippy-svg-arrow>svg {
-	top: 16px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=top]>.tippy-svg-arrow:after {
-	top: 17px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=bottom]>.tippy-arrow:before {
-	border-bottom-color: #fff;
-	bottom: 16px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=bottom]>.tippy-arrow:after {
-	border-bottom-color: rgba(0,8,16,.2);
-	border-width: 0 7px 7px;
-	bottom: 17px;
-	left: 1px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=bottom]>.tippy-svg-arrow>svg {
-	bottom: 16px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=bottom]>.tippy-svg-arrow:after {
-	bottom: 17px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=left]>.tippy-arrow:before {
-	border-left-color: #fff
-}
-.tippy-box[data-theme~=rotaract][data-placement^=left]>.tippy-arrow:after {
-	border-left-color: rgba(0,8,16,.2);
-	border-width: 7px 0 7px 7px;
-	left: 17px;
-	top: 1px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=left]>.tippy-svg-arrow>svg {
-	left: 11px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=left]>.tippy-svg-arrow:after {
-	left: 12px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=right]>.tippy-arrow:before {
-	border-right-color: #fff;
-	right: 16px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=right]>.tippy-arrow:after {
-	border-width: 7px 7px 7px 0;
-	right: 17px;
-	top: 1px;
-	border-right-color: rgba(0,8,16,.2)
-}
-.tippy-box[data-theme~=rotaract][data-placement^=right]>.tippy-svg-arrow>svg {
-	right: 11px
-}
-.tippy-box[data-theme~=rotaract][data-placement^=right]>.tippy-svg-arrow:after {
-	right: 12px
-}
-.tippy-box[data-theme~=rotaract]>.tippy-svg-arrow {
-	fill: #fff
-}
-.tippy-box[data-theme~=rotaract]>.tippy-svg-arrow:after {
-	background-image: url(data: image/svg+xml;
-	base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iNiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMCA2czEuNzk2LS4wMTMgNC42Ny0zLjYxNUM1Ljg1MS45IDYuOTMuMDA2IDggMGMxLjA3LS4wMDYgMi4xNDguODg3IDMuMzQzIDIuMzg1QzE0LjIzMyA2LjAwNSAxNiA2IDE2IDZIMHoiIGZpbGw9InJnYmEoMCwgOCwgMTYsIDAuMikiLz48L3N2Zz4=);
-	background-size: 16px 6px;
-	width: 16px;
-	height: 6px
+.rotaract-appointments.rotaract-appointments-short .appointment-inner > div {
+	padding: .375em .75em;
+	width: 100%;
 }

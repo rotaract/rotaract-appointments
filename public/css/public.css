@@ -73,4 +73,6 @@ dialog {
 .rotaract-appointments.rotaract-appointments-short .appointment-inner > div {
 	padding: .375em .75em;
 	width: 100%;
+	white-space: normal;
+	text-wrap: wrap;
 }

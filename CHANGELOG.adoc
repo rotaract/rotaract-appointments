@@ -10,6 +10,10 @@ The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog], a
 
 == {compare}/v5.1.0\...main[Unreleased]
 
+=== Fixed
+
+* Short style (`style="short"`): times and titles of list events were cut off in narrow containers such as sidebars, because FullCalendar 7 keeps them on a single line. They wrap again.
+
 == {compare}/v5.0.1\...v5.1.0[5.1.0]
 
 === Changed
